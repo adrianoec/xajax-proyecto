@@ -1,0 +1,81 @@
+table {
+	border-collapse: collapse;
+}
+
+input.borde {
+	 border: 1px;
+	 opacity:0.1;
+	 filter:alpha(opacity=10);
+	 
+}
+
+input.borde_text {
+	 border: 1px;
+	 opacity:0.1;
+	 filter:alpha(opacity=10);
+	 text-align: left;
+	 font color: #000000;
+}
+
+input.borde_num {
+	 border: 1px;
+	 opacity:0.1;
+	 filter:alpha(opacity=10);
+	 text-align: right;
+	 font color: #000000;
+}
+
+
+th.color {
+	background-color: #6E6E6E;
+}
+
+th.borde_head {
+	border: 1px solid black;
+	text-align: center;
+	font-style: normal;
+	background-color: #6E6E6E;
+}
+
+table.borde_detalle {
+	padding-top:1000px;
+	border: 0px solid black;
+	font-style: normal;
+}
+
+td.borde_text {
+	border: 1px solid black;
+	text-align: left;
+}
+
+td.borde_num {
+	border: 1px solid black;
+	text-align: left;
+}
+
+th.enlace {
+	border: 0px solid black;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+td.enlace {
+	border: 0px solid black;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+table.borde_detalle:hover{
+	background: #CCC
+}
+
+table.borde_detalle:ntr-child(even) {
+	background: #CCC
+}
+table.borde_detalle:ntr-child(odd) {
+	background: #FFF
+}
+
+
