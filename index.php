@@ -5,8 +5,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
-
         session_start();
+		if($_SESSION["aut_usuario"]=="" or !isset($_SESSION["aut_usuario"])){
+			header("location: login.php");
+		}
         include_once('facturacion_config.php');
         include_once (HOME.'include/xajax_conf.php');
         include_once (HOME.'include/db_conf.php');

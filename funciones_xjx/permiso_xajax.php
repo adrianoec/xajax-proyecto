@@ -18,15 +18,15 @@ function actualizar($opcion, $codigo, $value) {
     //$objResponse->alert(" $opcion, $codigo ,$value ");
     //acceso_menu, acceso_consulta, acceso_guardar, acceso_actualizar, acceso_eliminar
     if ($opcion == 1) {
-        $sqlUpdate = "update  permisos set  acceso_menu = '$value' where  codigo= '$codigo'";
+        $sqlUpdate = "update  permiso set  acceso_menu = '$value' where  codigo= '$codigo'";
     } elseif ($opcion == 2) {
-        $sqlUpdate = "update  permisos set  acceso_consulta = '$value' where  codigo= '$codigo'";
+        $sqlUpdate = "update  permiso set  acceso_consulta = '$value' where  codigo= '$codigo'";
     } elseif ($opcion == 3) {
-        $sqlUpdate = "update  permisos set  acceso_guardar = '$value' where  codigo= '$codigo'";
+        $sqlUpdate = "update  permiso set  acceso_guardar = '$value' where  codigo= '$codigo'";
     } elseif ($opcion == 4) {
-        $sqlUpdate = "update  permisos set  acceso_actualizar = '$value' where  codigo= '$codigo'";
+        $sqlUpdate = "update  permiso set  acceso_actualizar = '$value' where  codigo= '$codigo'";
     } elseif ($opcion == 5) {
-        $sqlUpdate = "update  permisos set  acceso_eliminar = '$value' where  codigo= '$codigo'";
+        $sqlUpdate = "update  permiso set  acceso_eliminar = '$value' where  codigo= '$codigo'";
     }
 
     $rs = $objDB->query($sqlUpdate);
@@ -45,9 +45,10 @@ function consultar($form) {
     $objDB->getConexion();
 
     $sql = "select a.codigo, a.codigo_perfil, '' as perfil, b.pagina, a.acceso_menu, a.acceso_consulta, a.acceso_guardar, a.acceso_actualizar, a.acceso_eliminar 
-from permisos as a inner join pagina as b
+from permiso as a inner join pagina as b
 on a.codigo_pagina = b.codigo 
--- and a.codigo_perfil = 
+and a.activo=1
+and a.codigo_perfil = $query
 ";
 
     $result = $objDB->query($sql);
@@ -124,7 +125,7 @@ function perfiles($selected) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
 
-    $slq = "select * from perfil  where  activo = 1";
+    $sql = "select * from perfil  where  activo = 1";
     return $objFun->comboDatoEnlace($objDB, "cmbPerfil", $sql, "", 0, 0, $selected);
 }
 
