@@ -29,7 +29,9 @@ function ingresar($form) {
 	$objDB -> setParametrosBD(HOST, BASE, USER, PWD);
 	$objDB -> getConexion();
 	$objResponse = new xajaxResponse();
-	$sqlInsert = "select count(*) as cantidad from usuario where correo_electronico='$usuario' and clave='$clave'";
+	$sqlInsert = "select count(*) as cantidad, codigo_usuario "
+                . "from usuario "
+                . "where correo_electronico='$usuario' and clave='$clave' group by codigo_usuario limit 1";
 	$rs = $objDB -> query($sqlInsert);
 	$numrows = $objDB -> getNumRows();
 	$numrows = 1;
@@ -38,7 +40,7 @@ function ingresar($form) {
 	if ($numrows > 0) {
 		$_SESSION["aut_usuario"]=$usuario;
 		$_SESSION["aut_clave"]=$clave;
-		
+		$_SESSION["aut_perfil"]=1;
 		//$objResponse->waitFor("sleep(38)", 10);
 		
 		$objResponse -> redirect("index.php");

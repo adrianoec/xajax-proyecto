@@ -40,7 +40,8 @@ function noasignados($perfil) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
-    $sqlUpdate = "select distinct a.codigo, a.menu from pagina as a where padre =0
+    $sqlUpdate = "select distinct a.codigo, a.menu from pagina as a 
+        -- where padre =0
         except
         select a.codigo, a.menu from pagina as a inner join pagina_perfil as b
         on a.codigo = b.codigo_pagina

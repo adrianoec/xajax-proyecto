@@ -1,59 +1,93 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+//$fileForm = fopen("./formularios/$txtNombreArchivo" . "_form.php", "w+");
+//if (fwrite($fileForm, $tabla)) {
+//    $objResponse->alert("formulario creado...");
+//}
+//fclose($fileForm);
+/**
+ * 
+  select a.codigo, a.pagina, a.menu
+  , a.codigo_padre, b.codigo_perfil, a.descripcion
+  from pagina as a inner join pagina_perfil as b
+  on a.codigo = b.codigo_pagina
+  inner join permiso as c
+  on a.codigo=c.codigo_pagina
+  and b.codigo_perfil=c.codigo_perfil
+  and c.acceso_menu=1
+  and c.activo=1
+  and c.codigo_perfil=1
+  union
  */
+//include_once ('facturacion_config.php');
+//include_once (HOME . 'include/xajax_conf.php');
+//include_once (HOME . 'include/db_conf.php');
+//include_once (HOME . 'include/xajax_conf_process.php');
+//include_once (HOME . 'cabecera.php');
+
+$objDB = new Database();
+$objDB->setParametrosBD(HOST, BASE, USER, PWD);
+$objDB->getConexion();
+$objResponse = new xajaxResponse();
+$sqlInsert = "
+select codigo, pagina, menu
+, codigo_padre, descripcion 
+from pagina where padre =1 and codigo_padre=0 order by orden,codigo_padre";
+$rs = $objDB->query($sqlInsert);
+$numrows = $objDB->getNumRows();
 ?>
 <div style="border: 1px solid blue; ">
-        <ul class="jd_menu">
-            
-            <li class="accessible"><a href="http://jdsharp.us" class="accessible">Administracion</a>
+    <ul class="jd_menu">
+        <?php
+        while ($ln = $objDB->fetch_array($rs)) {
+            $nom = $ln["menu"];
+            $padre = $ln["codigo"];
 
-                <ul>
-                    <li><a href="salir.php" target="_parent">Salir</a></li>
-                    <li><a href="vias_suscripcion_desuscripcion.php" target="_parent">Adm Vias</a></li>
-                    <li><a href="gestorCancelacionesMovistarCol.php" target="_parent">GestorCancelaciones</a></li>
-                    <li><a href="http://jdsharp.us">Go Link &raquo;</a>
+            echo "<li><a href='#' class='accessible'>$nom</a>";
+            echo hijo($objDB, $padre);
+            echo "</li>\n";
+        }
+        ?>
+    </ul>
+</div>
+<?php
 
-                        <ul>
-                            <li><a href="http://wap.golpea.com/adm_servicios" target="_self">MobiTrans</a></li>
-                            <li><a href="http://wap.golpea.com/adm_servicios/adrian" target="_self">MobiTrans-Adrian</a></li>
-                            <li><a href="http://www.google.com" target="_blank">Google</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" class="accessible">Search Engines &raquo;</a>
+function hijo($objDB, $codigo) {
+    $objDB = new Database();
+    $objDB->setParametrosBD(HOST, BASE, USER, PWD);
+    $objDB->getConexion();
 
-                        <ul>
-                            <li><a href="http://www.google.com" target="_blank">Google</a></li>
-                            <li><a href="http://www.yahoo.com" target="_blank">Yahoo!</a></li>
-                            <li><a href="pagina.php" target="_blank">Paginas</a></li>
-                        </ul>
-                    </li>
-                    <li class="accessible"><a href="#">Search Engines &raquo;</a>
+    $sqlUpdate = "select a.codigo, a.pagina, a.menu
+  , a.codigo_padre, b.codigo_perfil, a.descripcion, a.padre
+  from pagina as a inner join pagina_perfil as b
+  on a.codigo = b.codigo_pagina
+  inner join permiso as c
+  on a.codigo=c.codigo_pagina
+  and b.codigo_perfil=c.codigo_perfil
+  and c.acceso_menu=1
+  and c.activo=1
+  and a.codigo_padre=$codigo
+  and c.codigo_perfil=".$_SESSION["aut_perfil"]." order by orden";
+    
+    $rs = $objDB->query($sqlUpdate);
+    $numrows = $objDB->getNumRows();
+    if ($numrows > 0) {
+        $m.="\n<ul>";
+        while ($ln = $objDB->fetch_array($rs)) {
+            $codigo = $ln["codigo"];
+            $espadre = $ln["padre"];
+            $pagina = $ln["pagina"];
+            $menu = $ln["menu"];
+            if ($espadre == 0) {
+                $m.=" \n\t <li><a href='$pagina' target='_self'>$menu</a></li>";
+            } else {
+                $m.= "<li>$menu &raquo;";
+                $m.= hijo($objDB, $codigo);
+                $m.= "\n</li>";
+            }
+        }
+        $m.="\n</ul>";
+    }
 
-                        <ul>
-                            <li><a href="emisor.php" target="_blank">Emisor</a></li>
-                            <li><a href="establecimiento.php" target="_blank">Establecimiento</a></li>
-                            <li><a href="http://www.altavista.com" target="_blank">AltaVista</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="#" class="accessible">Google Products</a>
-                <ul>
-                    <li>Search &raquo;
-                        <ul>
-                            <li><a href="http://base.google.com" target="_blank">Base</a></li>
-                            <li><a href="http://code.google.com" target="_blank">Code</a></li>
-                            <li><a href="http://images.google.com" target="_blank">Images</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="http://www.gmail.com" target="_blank">GMail</a></li>
-                </ul>
-            </li>
-            
-        </ul>
-
-
-    </div>
+    return $m;
+}
+?>
