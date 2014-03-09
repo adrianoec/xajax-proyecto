@@ -13,8 +13,7 @@
         <script type="text/javascript" src="./lib/jquery/jquery-latest.js"></script>
         <script type="text/javascript" src="./lib/jquery/jquery.tablesorter.js"></script>
         <script type="text/javascript" src="./lib/jquery/addons/pager/jquery.tablesorter.pager.js"></script>
-		<script type="text/javascript" src="lib/css_auto-reload.js"></script>
-		
+
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.dimensions.js"></script>
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.positionBy.js"></script>
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.bgiframe.js"></script>

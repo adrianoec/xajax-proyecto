@@ -9,4 +9,5 @@
         include_once (HOME.'cabecera.php');
         include_once (HOME.'menu.php');
         include_once(HOME.'formularios/factura_form.php');
+        include_once(HOME.'pie.php');
     ?>

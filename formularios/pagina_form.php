@@ -1,6 +1,6 @@
-<table>
+<table class ='acordeon' width="100%">
     <tr>
-        <td onclick='muestra_oculta(dvFormulario)'>Formulario</td>
+        <td onclick="muestra_oculta('dvFormulario')" style="cursor: pointer">Formulario</td>
     </tr>
 </table>
 <div id='dvFormulario' >
@@ -100,15 +100,15 @@
         </table>
     </form>
 </div>
-<table>
+<table width="100%" style="cursor: pointer" class="acordeon">
     <tr>
-        <td onclick='muestra_oculta(dvConsulta)' >Consulta</td>
+        <td onclick="muestra_oculta('dvConsulta')"  >Consulta</td>
     </tr>
 </table>
 <div id='dvConsulta' >
 
     <form id='formQuery'>
-        <table>
+        <table align="center">
             <tr>
                 <td>Consultar:</td><td>
                     <input type='text' id='txtConsulta' name='txtConsulta' value='' />

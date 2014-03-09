@@ -1,6 +1,3 @@
-table {
-	border-collapse: collapse;
-}
 
 input.borde {
 	 border: 1px;
@@ -14,7 +11,7 @@ input.borde_text {
 	 opacity:0.1;
 	 filter:alpha(opacity=10);
 	 text-align: left;
-	 font color: #000000;
+	
 }
 
 input.borde_num {
@@ -22,7 +19,7 @@ input.borde_num {
 	 opacity:0.1;
 	 filter:alpha(opacity=10);
 	 text-align: right;
-	 font color: #000000;
+	
 }
 
 
@@ -78,4 +75,10 @@ table.borde_detalle:ntr-child(odd) {
 	background: #FFF
 }
 
+table.acordeon {
+   background-color: #EDF3FF;
+}
 
+table.acordeon:hover {
+   background-color: #e6EEEE;
+}

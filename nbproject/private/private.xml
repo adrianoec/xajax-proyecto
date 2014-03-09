@@ -6,21 +6,20 @@
             <file>file:/D:/htdocs/facturacion/generadorCodigo.php</file>
             <file>file:/D:/htdocs/facturacion/cabecera.php</file>
             <file>file:/D:/htdocs/facturacion/include/validador.class.php</file>
+            <file>file:/D:/htdocs/facturacion/menu.php</file>
             <file>file:/D:/htdocs/facturacion/include/db.php</file>
             <file>file:/D:/htdocs/facturacion/formularios/emisor_form.php</file>
-            <file>file:/D:/htdocs/facturacion/ws/ws_permisos.php</file>
+            <file>file:/D:/htdocs/facturacion/funciones_xjx/pagina_xajax.php</file>
             <file>file:/D:/htdocs/facturacion/emisor.php</file>
+            <file>file:/D:/htdocs/facturacion/menu_resp.php</file>
             <file>file:/D:/htdocs/facturacion/include/funciones.php</file>
             <file>file:/D:/htdocs/facturacion/pagina.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/tipo_emision_form.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/establecimiento_form.php</file>
             <file>file:/D:/htdocs/facturacion/formularios/permiso_form.php</file>
+            <file>file:/D:/htdocs/facturacion/login.php</file>
             <file>file:/D:/htdocs/facturacion/funciones_xjx/paginaperfil_xajax.php</file>
             <file>file:/D:/htdocs/facturacion/paginaperfil.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/_form.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/paginaperfil_form.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/pagina_form.php</file>
             <file>file:/D:/htdocs/facturacion/permiso.php</file>
+            <file>file:/D:/htdocs/facturacion/funciones_xjx/login_xajax.php</file>
         </group>
     </open-files>
 </project-private>

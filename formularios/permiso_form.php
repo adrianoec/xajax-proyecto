@@ -24,9 +24,9 @@
  */
 $perfil = perfiles("");
 ?>
-<table>
+<table width="100%" class="acordeon">
 	<tr>
-		<td onclick='muestra_oculta(dvFormulario)'>Consulta</td>
+            <td onclick="muestra_oculta('dvFormulario sss')" style="cursor: pointer"><br/></td>
 	</tr>
 </table>
 <div id='dvFormulario' >
@@ -49,11 +49,7 @@ $perfil = perfiles("");
 		</table>
 	</form>
 </div>
-<table>
-	<tr>
-		<td onclick='muestra_oculta(dvConsulta)' >Permisos</td>
-	</tr>
-</table>
+
 <div id='dvRespuesta' >
 
 </div>

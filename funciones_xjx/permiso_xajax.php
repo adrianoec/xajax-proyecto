@@ -114,8 +114,9 @@ and a.codigo_perfil = $query
         $tabla.=$tb . " <td $actalizarLnk >$actualizar</td><td $eliminarLnk >$eliminar</td>   </tr>";
     }
     $tabla.="</tbody> </table> </form>";
-    $objResponse->script('function loadTabla(){$("table").tablesorter({ widgets: [\'zebra\']});  }  $(function() {$("table") .tablesorter({ widgets: [\'zebra\']});  });');
+    
     $objResponse->assign("dvRespuesta", "innerHTML", "$tabla");
+    $objResponse->script('loadTabla();');
     return $objResponse;
 }
 
