@@ -1,3 +1,6 @@
+table {
+	border-collapse: collapse;
+}
 
 input.borde {
 	 border: 1px;
@@ -8,10 +11,16 @@ input.borde {
 
 input.borde_text {
 	 border: 1px;
-	 opacity:0.1;
+	 opacity:0.9;
 	 filter:alpha(opacity=10);
 	 text-align: left;
-	
+}
+input.borde_text:hover {
+	 border: 1px;
+	 opacity:0.9;
+	 filter:alpha(opacity=10);
+	 text-align: left;
+        color: #000;
 }
 
 input.borde_num {
@@ -48,6 +57,12 @@ td.borde_text {
 td.borde_num {
 	border: 1px solid black;
 	text-align: left;
+}
+table.borde_detalle.odd {
+	background-color:#A0AEB1;  /* #F0F0F6;*/
+}
+table.borde_detalle.even {
+	background-color:#E6EEEE;
 }
 
 th.enlace {
