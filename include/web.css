@@ -61,6 +61,7 @@ td.borde_num {
 table.borde_detalle.odd {
 	background-color:#A0AEB1;  /* #F0F0F6;*/
 }
+
 table.borde_detalle.even {
 	background-color:#E6EEEE;
 }
@@ -78,6 +79,9 @@ td.enlace {
 	cursor: pointer;
 }
 
+td.campo {
+	background: #A0AEB1;
+}
 
 table.borde_detalle:hover{
 	background: #CCC
