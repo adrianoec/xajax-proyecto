@@ -7,12 +7,12 @@
     <form name='form' id='form' action=''>
         <table border='0' align='center'>
             <tr>
-                <td> DESCRIPCION </td>
+                <td class="campo"> DESCRIPCION </td>
                 <td><div id='dvReqDESCRIPCION'></div></td>
                 <td>				<textarea name='descripcion' id='descripcion' onchange='' cols='30'></textarea></td>
             </tr>
             <tr>
-                <td>  PAGINA PHP </td>
+                <td class="campo">  PAGINA PHP </td>
                 <td>
                     <div id='dvReqPAGINA'>
                         <font color='red'>*</font>
@@ -23,7 +23,7 @@
             </tr>
 
             <tr>
-                <td> NOMBRE EN MENU </td>
+                <td class="campo"> NOMBRE EN MENU </td>
                 <td>
                     <div id='dvReqMENU'>
                         <font color='red'>*</font>
@@ -32,7 +32,7 @@
             </tr>
 
             <tr>
-                <td> ARBOL </td>
+                <td class="campo"> ARBOL </td>
                 <td>
                     <div id='dvReqPADRE'>
                         <font color='red'>*</font>
@@ -49,7 +49,7 @@
             </tr>
             <tr>
 
-                <td> ES PADRE </td>
+                <td class="campo"> ES PADRE </td>
                 <td>
                     <div id='dvReqACTIVO'>
                         <font color='red'>*</font>
@@ -62,7 +62,7 @@
                     </select></td>
             </tr>
             <tr>
-                <td>  ORDEN </td>
+                <td class="campo">  ORDEN </td>
                 <td>
                     <div id='dvReqORDEN'>
                         <font color='red'>*</font>
