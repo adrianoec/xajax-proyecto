@@ -6,47 +6,39 @@
 </table>
 <div id='dvFormulario' >
     <form name='form' id='form' action=''>
-        <table border='0' align='center'>
+        <table  align='center' class="campo">
             <tr> 
-                <td> 
+                <td class="campo"> 
                     CODIGO TIPO IMPUESTO 
                 </td> 
-                <td><div id='dvReqCODIGO_TIPO_IMPUESTO'><font color='red'>*</font></div></td> 
-                <td> 
+                <td class="dato"><div id='dvReqCODIGO_TIPO_IMPUESTO'><font color='red'>*</font></div></td> 
+                <td class="dato"> 
                     <input type='text' name='codigo_tipo_impuesto' id='codigo_tipo_impuesto' value='' onfocus='' size='4'> 
                 </td>
             </tr>
             <tr> 
-                <td> 
+                <td class="campo"> 
                     DESCRIPCION 
                 </td> 
-                <td><div id='dvReqDESCRIPCION'><font color='red'>*</font></div></td> 
-                <td> 
+                <td class="dato"><div id='dvReqDESCRIPCION'><font color='red'>*</font></div></td> 
+                <td class="dato"> 
                     <input type='text' name='descripcion' id='descripcion' value='' onfocus='' size='32'> 
                 </td>
             </tr>
+ 
             <tr> 
-                <td> 
-                    ACTIVO 
-                </td> 
-                <td><div id='dvReqACTIVO'><font color='red'>*</font></div></td> 
-                <td> 
-                    <label> <input type='checkbox' id='activo' name='activo' onchange='' value='ON'> </label> 
-                </td>
-            </tr>
-            <tr> 
-                <td> 
+                <td class="campo"> 
                     CODIGO SRI 
                 </td> 
-                <td><div id='dvReqCODIGO_SRI'><font color='red'>*</font></div></td> 
-                <td> 
+                <td class="dato"><div id='dvReqCODIGO_SRI'><font color='red'>*</font></div></td> 
+                <td class="dato"> 
                     <input type='text' name='codigo_sri' id='codigo_sri' value='' onfocus='' size='32'> 
                 </td>
             </tr>
             <tr> 
             </tr>
             <tr> 
-                <td colspan='3' align='center'>
+                <td colspan='3' align='center' class="dato">
                     <table align='center'> 
                         <tr>
                             <td> 
@@ -77,11 +69,11 @@
 
 <div id='dvConsulta' >
     <form id='formQuery'>
-        <table align="center">
+        <table align="center" class="campo">
             <tr>
-                <td>Consultar:</td>
-                <td><input type='text' id='txtConsulta' name='txtConsulta' value='' /></td>
-                <td><input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" ></td>
+                <td class="campo" >Consultar:</td>
+                <td class="dato" ><input type='text' id='txtConsulta' name='txtConsulta' value='' /></td>
+                <td class="dato" ><input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" ></td>
             </tr>
         </table>
     </form> 

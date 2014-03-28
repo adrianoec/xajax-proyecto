@@ -5,39 +5,39 @@
 </table>
 <div id='dvFormulario' >
     <form name='form' id='form' action=''>
-        <table border='0' align='center'>
+        <table border='' align='center' class="campo" >
             <tr>
                 <td class="campo"> DESCRIPCION </td>
-                <td><div id='dvReqDESCRIPCION'></div></td>
-                <td>				<textarea name='descripcion' id='descripcion' onchange='' cols='30'></textarea></td>
+                <td class="dato"><div id='dvReqDESCRIPCION'></div></td>
+                <td class="dato" >				<textarea name='descripcion' id='descripcion' onchange='' cols='30'></textarea></td>
             </tr>
             <tr>
                 <td class="campo">  PAGINA PHP </td>
-                <td>
+                <td  class="dato">
                     <div id='dvReqPAGINA'>
                         <font color='red'>*</font>
                     </div></td>
-                <td>
+                <td  class="dato">
                     <input type='text' name='pagina' id='pagina' value='' onfocus='' size='40'>
                 </td>
             </tr>
 
             <tr>
                 <td class="campo"> NOMBRE EN MENU </td>
-                <td>
+                <td  class="dato">
                     <div id='dvReqMENU'>
                         <font color='red'>*</font>
                     </div></td>
-                <td><input type='text' name='menu' id='menu' value='' onfocus='' size='40'></td>
+                <td  class="dato"><input type='text' name='menu' id='menu' value='' onfocus='' size='40'></td>
             </tr>
 
             <tr>
                 <td class="campo"> ARBOL </td>
-                <td>
+                <td  class="dato">
                     <div id='dvReqPADRE'>
                         <font color='red'>*</font>
                     </div></td>
-                <td>
+                <td  class="dato">
                     <select name='padre' id='padre' onchange=''>
                         <option value=''>Seleccione...</option>
                         <option value='0'>Nuevo Arbol</option>
@@ -50,11 +50,11 @@
             <tr>
 
                 <td class="campo"> ES PADRE </td>
-                <td>
+                <td  class="dato">
                     <div id='dvReqACTIVO'>
                         <font color='red'>*</font>
                     </div></td>
-                <td>
+                <td  class="dato">
                     <select name='es_padre' id='es_padre' onchange=''>
                         <option value=''>Seleccione...</option>
                         <option value='1'>Si</option>
@@ -63,17 +63,17 @@
             </tr>
             <tr>
                 <td class="campo">  ORDEN </td>
-                <td>
+                <td  class="dato">
                     <div id='dvReqORDEN'>
                         <font color='red'>*</font>
                     </div></td>
-                <td>
+                <td  class="dato">
                     <input type='text' name='orden' id='orden' value='' onfocus='' size='20'>
                     <input type='hidden' name='codigo' id='codigo' value=''>
                 </td>
             </tr>
             <tr>
-                <td colspan='5' align='center'>
+                <td colspan='5' align='center'  class="dato">
                     <table align='center'>
                         <tr>
 
@@ -108,11 +108,12 @@
 <div id='dvConsulta' >
 
     <form id='formQuery'>
-        <table align="center">
+        <table align="center" class="campo">
             <tr>
-                <td>Consultar:</td><td>
+                <td class="campo">Consultar:</td><td>
                     <input type='text' id='txtConsulta' name='txtConsulta' value='' />
-                </td><td>
+                </td>
+                <td class="dato">
                     <input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" >
                 </td>
             </tr>

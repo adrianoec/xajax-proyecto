@@ -1,28 +1,28 @@
 <table><tr><td onclick='muestra_oculta(dvFormulario)'>Formulario</td></tr></table>
 <div id='dvFormulario' >
     <form name='form' id='form' action=''>
-        <table border='0' align='center'>
+        <table  align='center'class="campo">
             <tr> 
-                <td> 
+                <td class="campo"> 
                     CODIGO TIPO EMISION 
                 </td> 
-                <td><div id='dvReqCODIGO_TIPO_EMISION'><font color='red'>*</font></div></td> 
-                <td> 
+                <td class="dato"><div id='dvReqCODIGO_TIPO_EMISION'><font color='red'>*</font></div></td> 
+                <td class="dato"> 
                     <input type='text' name='codigo_tipo_emision' id='codigo_tipo_emision' value='' onfocus='' size='4'> 
                 </td>
 
-                <td> 
+                <td class="campo"> 
                     DESCRIPCION 
                 </td> 
-                <td><div id='dvReqDESCRIPCION'><font color='red'>*</font></div></td> 
-                <td> 
+                <td class="dato"><div id='dvReqDESCRIPCION'><font color='red'>*</font></div></td> 
+                <td class="dato"> 
                     <input type='text' name='descripcion' id='descripcion' value='' onfocus='' size='-1'> 
                 </td>
             </tr>
             <tr> 
             </tr>
             <tr> 
-                <td colspan='5' align='center'>
+                <td colspan='5' align='center' class="dato">
 
                     <table align='center'> 
                         <tr>

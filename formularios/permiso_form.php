@@ -31,17 +31,17 @@ $perfil = perfiles("");
 </table>
 <div id='dvFormulario' >
 	<form name='form' id='form' action=''>
-		<table border='0' align='center'>
+		<table   align='center' class="campo">
 			<tr>
-				<td> Perfil </td>
-				<td>
+				<td class="campo"> Perfil </td>
+				<td class="dato">
 				<div id='dvReqCODIGO_TIPO_AMBIENTE'>
 					<font color='red'>*</font>
 				</div></td>
-				<td><?php echo $perfil
+				<td class="dato"><?php echo $perfil
 				?></td>
 
-				<td>
+				<td class="dato">
 				<input type="button" name="buscar" id="buscar"value="Buscar" onclick="xajax_consultar(xajax.getFormValues('form'))" />
 				</td>
 			</tr>

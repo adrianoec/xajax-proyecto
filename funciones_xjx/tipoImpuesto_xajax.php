@@ -13,9 +13,7 @@ function validarForm($form, $opcion) {
     if (strcasecmp($descripcion, '') == 0 or strcasecmp($descripcion, 'seleccione') == 0) {
         $msg.="\nINGRESE DESCRIPCION...";
     }
-    if (strcasecmp($activo, '') == 0 or strcasecmp($activo, 'seleccione') == 0) {
-        $msg.="\nSELECCIONE ACTIVO...";
-    }
+
     if (strcasecmp($codigo_sri, '') == 0 or strcasecmp($codigo_sri, 'seleccione') == 0) {
         $msg.="\nINGRESE CODIGO SRI...";
     }
@@ -35,16 +33,16 @@ function validarForm($form, $opcion) {
 function ingresar($form) {
     $codigo_tipo_impuesto = strtoupper(trim($form['codigo_tipo_impuesto']));
     $descripcion = strtoupper(trim($form['descripcion']));
-    $activo = strtoupper(trim($form['activo']));
+ 
     $codigo_sri = strtoupper(trim($form['codigo_sri']));
     $objDB = new Database();
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
-    $sqlInsert = "insert into tipo_impuesto (descripcion,activo,codigo_sri) values";
-    $sqlInsert .= "('$descripcion','$activo','$codigo_sri');";
+    $sqlInsert = "insert into tipo_impuesto (descripcion,codigo_sri) values";
+    $sqlInsert .= "('$descripcion','$codigo_sri');";
     $rs = $objDB->query($sqlInsert);
-    $objResponse->alert("Registrado...");
+    $objResponse->alert("Registrado... $sqlInsert");
     return $objResponse;
 }
 
@@ -58,7 +56,6 @@ function actualizar($form) {
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
     $sqlUpdate = "update  tipo_impuesto set  descripcion= '$descripcion'
-    , activo= '$activo'
     , codigo_sri= '$codigo_sri'
      where  codigo_tipo_impuesto= '$codigo_tipo_impuesto'
     ";
@@ -77,7 +74,6 @@ function confirmarEliminarForm($form) {
 function eliminar($form) {
     $codigo_tipo_impuesto = strtoupper(trim($form['codigo_tipo_impuesto']));
     $descripcion = strtoupper(trim($form['descripcion']));
-    $activo = strtoupper(trim($form['activo']));
     $codigo_sri = strtoupper(trim($form['codigo_sri']));
     $objResponse = new xajaxResponse();
     $objDB = new Database();
@@ -85,7 +81,7 @@ function eliminar($form) {
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
 
-    $sqlUpdate = "update  tipo_impuesto set activo=0 where  codigo_tipo_impuesto= '$codigo_tipo_impuesto'
+    $sqlUpdate = "update  tipo_impuesto set  where  codigo_tipo_impuesto= '$codigo_tipo_impuesto'
 ";
     $rs = $objDB->query($sqlUpdate);
     $objResponse->alert("Desactivado...");
@@ -96,7 +92,6 @@ function limpiar($form) {
     $objResponse = new xajaxResponse();
     $objResponse->assign("codigo_tipo_impuesto", "value", "");
     $objResponse->assign("descripcion", "value", "");
-    $objResponse->assign("activo", "value", "");
     $objResponse->assign("codigo_sri", "value", "");
     return $objResponse;
 }
@@ -117,7 +112,7 @@ function seleccionar($id) {
     $codigo_sri = $ln[3];
     $objResponse->assign("codigo_tipo_impuesto", "value", "$codigo_tipo_impuesto");
     $objResponse->assign("descripcion", "value", "$descripcion");
-    $objResponse->assign("activo", "value", "$activo");
+
     $objResponse->assign("codigo_sri", "value", "$codigo_sri");
     return $objResponse;
 }
