@@ -59,7 +59,7 @@ function ingresar($form) {
 
     $rs = $objDB->query($sqlInsert);
 
-    $objResponse->alert("Registrado... ");
+    $objResponse->alert("Registrado...  $sqlInsert ");
     return $objResponse;
 }
 

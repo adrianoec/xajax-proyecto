@@ -102,14 +102,13 @@ function seleccionar($id) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
     $sql = " select *    from tipo_impuesto 
-    where  codigo_tipo_impuesto  = '$id' ";
+    where  codigo  = '$id' ";
     $result = $objDB->query($sql);
     $numCols = $objDB->getNumCols();
     $ln = $objDB->fetch_array($result);
-    $codigo_tipo_impuesto = $ln[0];
-    $descripcion = $ln[1];
-    $activo = $ln[2];
-    $codigo_sri = $ln[3];
+    $codigo_tipo_impuesto = $ln["codigo"];
+    $descripcion = $ln["descripcion"];
+    $codigo_sri = $ln["codigo_sri"];
     $objResponse->assign("codigo_tipo_impuesto", "value", "$codigo_tipo_impuesto");
     $objResponse->assign("descripcion", "value", "$descripcion");
 

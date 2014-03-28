@@ -90,7 +90,7 @@ function mostrarPerfiles() {
     $numrows = $objDB->getNumRows();
     if ($numrows > 0) {
         while ($ln = $objDB->fetch_array($rs)) {
-            $codigo = $ln["id"];
+            $codigo = $ln["codigo"];
             $descripcion = $ln["descripcion"];
             $padres .= "<option value='$codigo'>$descripcion</option>";
         }
