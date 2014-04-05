@@ -66,8 +66,8 @@ function hijo($objDB, $codigo) {
   and c.acceso_menu=1
   and c.activo=1
   and a.codigo_padre=$codigo
-  and c.codigo_perfil=".$_SESSION["aut_perfil"]." order by orden";
-    
+  and c.codigo_perfil=" . $_SESSION["aut_perfil"] . " order by orden";
+
     $rs = $objDB->query($sqlUpdate);
     $numrows = $objDB->getNumRows();
     if ($numrows > 0) {

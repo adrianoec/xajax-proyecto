@@ -2,12 +2,15 @@
 
 function mostrar($perfil) {
     $objResponse = new xajaxResponse();
-    $objResponse->call("xajax_asignados", "$perfil");
-    $objResponse->call("xajax_noasignados", "$perfil");
-    $cmb = "<input type='button' name='btnanadir' id='btnanadir' value='>>' onclick='xajax_anadir(xajax.getFormValues(form))' /> "
-            . "<br/> <br/><br/>"
-            . "<input type='button' name='btnquitar' id='btnquitar' value='<<' onclick='xajax_quitar(xajax.getFormValues(form))'  />  ";
-    $objResponse->assign("dvAcciones", "innerHTML", $cmb);
+
+    if ($_SESSION["pc"]=="1" and $_SESSION["pa"] == "1" and $_SESSION["pg"] == "1" and $_SESSION["pe"] == "1") {
+        $objResponse->call("xajax_asignados", "$perfil");
+        $objResponse->call("xajax_noasignados", "$perfil");
+        $cmb = "<input type='button' name='btnanadir' id='btnanadir' value='>>' onclick='xajax_anadir(xajax.getFormValues(form))' /> "
+                . "<br/> <br/><br/>"
+                . "<input type='button' name='btnquitar' id='btnquitar' value='<<' onclick='xajax_quitar(xajax.getFormValues(form))'  />  ";
+        $objResponse->assign("dvAcciones", "innerHTML", $cmb);
+    }
     return $objResponse;
 }
 
@@ -27,7 +30,7 @@ function asignados($perfil) {
             $m = $ln["menu"];
             $cmb .="<option value='$c' >$m</option>";
         }
-    }else{
+    } else {
         $cmb .="<option value='' >No Existen Paginas</option>";
     }
     $cmb.="</select>";
@@ -54,7 +57,7 @@ function noasignados($perfil) {
             $m = $ln["menu"];
             $cmb .="<option value='$c' >$m</option>";
         }
-    }else{
+    } else {
         $cmb .="<option value='' >No Existen Paginas</option>";
     }
     $cmb.="</select>";
@@ -71,10 +74,13 @@ function anadir($form) {
     $objResponse = new xajaxResponse();
     //$objResponse->alert("formData: " . print_r($form, true));
     foreach ($paginas as $codigo) {
-        $sqlUpdate = "insert into pagina_perfil(codigo_pagina, codigo_perfil)values($codigo,$perfil); ";
-        $rs = $objDB->query($sqlUpdate);
+        $sqlUp = "insert into pagina_perfil(codigo_pagina, codigo_perfil)values($codigo,$perfil); ";
+        $rs = $objDB->query($sqlUp);
         $sqlUpdate = "insert into permiso(codigo_pagina, codigo_perfil)values($codigo,$perfil); ";
         $rs = $objDB->query($sqlUpdate);
+
+
+        $objResponse->alert($sqlUp . " - " . $sqlUpdate);
     }
     $objResponse->call("xajax_asignados", "$perfil");
     $objResponse->call("xajax_noasignados", "$perfil");
@@ -111,7 +117,7 @@ function quitar($form) {
     foreach ($paginas as $codigo) {
         $sqlUpdate = "delete from pagina_perfil where codigo_pagina='$codigo' and  codigo_perfil ='$perfil'; ";
         $rs = $objDB->query($sqlUpdate);
-		$sqlUpdate = "update permiso set activo=0, fecha_salida=now() where codigo_pagina='$codigo' and  codigo_perfil ='$perfil'; ";
+        $sqlUpdate = "update permiso set activo=0, fecha_salida=now() where codigo_pagina='$codigo' and  codigo_perfil ='$perfil'; ";
         $rs = $objDB->query($sqlUpdate);
     }
     $objResponse->call("xajax_asignados", "$perfil");

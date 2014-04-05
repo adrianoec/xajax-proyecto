@@ -1,5 +1,21 @@
-
-<table width="100%" class="acordeon">
+<?php
+if($_SESSION["pm"]=="0"){
+    $pm ="disabled=\"true\"";
+}
+if($_SESSION["pc"]=="0"){
+    $pc ="disabled=\"true\"";
+}
+if($_SESSION["pg"]=="0"){
+    $pg ="disabled=\"true\"";
+}
+if($_SESSION["pa"]=="0"){
+    $pa ="disabled=\"true\"";
+}
+if($_SESSION["pe"]=="0"){
+    $pe ="disabled=\"true\"";
+}
+?>
+<table width="70%" class="acordeon" align="center">
     <tr>
         <td onclick="muestra_oculta('dvFormulario')" style="cursor: pointer">Formulario</td>
     </tr>
@@ -9,7 +25,7 @@
         <table  align='center' class="campo">
             <tr> 
                 <td class="campo"> 
-                    CODIGO TIPO IMPUESTO 
+                    CODIGO TIPO COMPROBANTE 
                 </td> 
                 <td class="dato"><div id='dvReqCODIGO_TIPO_IMPUESTO'><font color='red'>*</font></div></td> 
                 <td class="dato"> 
@@ -42,13 +58,13 @@
                     <table align='center'> 
                         <tr>
                             <td> 
-                                <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar" onclick="xajax_validarForm(xajax.getFormValues('form'), 0)" > 
+                                <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar" onclick="xajax_validarForm(xajax.getFormValues('form'), 0)" <?php echo $pg ?> > 
                             </td>
                             <td> 
-                                <input type="button" name="btnActualizar" id="btnActualizar" value="Actualizar" onclick="xajax_validarForm(xajax.getFormValues('form'), 1)" > 
+                                <input type="button" name="btnActualizar" id="btnActualizar" value="Actualizar" onclick="xajax_validarForm(xajax.getFormValues('form'), 1)" <?php echo $pa ?> > 
                             </td>
                             <td> 
-                                <input type="button" name="btnEliminar" id="btnEliminar" value="Eliminar" onclick="xajax_confirmarEliminarForm(xajax.getFormValues('form'))" > 
+                                <input type="button" name="btnEliminar" id="btnEliminar" value="Eliminar" onclick="xajax_confirmarEliminarForm(xajax.getFormValues('form'))" DISABLED="TRUE"> 
                             </td>
                             <td> 
                                 <input type="button" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="xajax_limpiar(xajax.getFormValues('form'))" > 
@@ -61,9 +77,9 @@
     </form>  
 </div> 
 
-<table width="100%" class="acordeon">
+<table width="70%" class="acordeon" align="center">
     <tr>
-        <td onclick="muestra_oculta('dvConsulta')" style="cursor: pointer">Consulta</td>
+        <td onclick="muestra_oculta('dvConsulta'); " style="cursor: pointer">Consulta</td>
     </tr>
 </table>
 
@@ -71,9 +87,9 @@
     <form id='formQuery'>
         <table align="center" class="campo">
             <tr>
-                <td class="campo" >Consultar:</td>
+                <td class="campo" >BUSCAR:</td>
                 <td class="dato" ><input type='text' id='txtConsulta' name='txtConsulta' value='' /></td>
-                <td class="dato" ><input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" ></td>
+                <td class="dato" ><input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" <?php echo $pc ?> ></td>
             </tr>
         </table>
     </form> 

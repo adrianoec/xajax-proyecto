@@ -28,7 +28,7 @@ function actualizar($opcion, $codigo, $value) {
     } elseif ($opcion == 5) {
         $sqlUpdate = "update  permiso set  acceso_eliminar = '$value' where  codigo= '$codigo'";
     }
-
+echo $sqlUpdate;
     $rs = $objDB->query($sqlUpdate);
     $opciones = "chk_" . $opcion . "_$codigo";
     $objResponse->assign($opciones, "value", $value);
@@ -44,12 +44,13 @@ function consultar($form) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
 
+    
     $sql = "select a.codigo, a.codigo_perfil, '' as perfil, b.pagina, a.acceso_menu, a.acceso_consulta, a.acceso_guardar, a.acceso_actualizar, a.acceso_eliminar 
-from permiso as a inner join pagina as b
-on a.codigo_pagina = b.codigo 
-and a.activo=1
-and a.codigo_perfil = $query
-";
+    from permiso as a inner join pagina as b
+    on a.codigo_pagina = b.codigo 
+    and a.activo=1
+    and a.codigo_perfil = $query
+    ";
 
     $result = $objDB->query($sql);
     $numCols = $objDB->getNumCols();

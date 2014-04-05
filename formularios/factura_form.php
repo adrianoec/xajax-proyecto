@@ -1,5 +1,19 @@
 <?php
-
+if($_SESSION["pm"]=="0"){
+    $pm ="disabled=\"true\"";
+}
+if($_SESSION["pc"]=="0"){
+    $pc ="disabled=\"true\"";
+}
+if($_SESSION["pg"]=="0"){
+    $pg ="disabled=\"true\"";
+}
+if($_SESSION["pa"]=="0"){
+    $pa ="disabled=\"true\"";
+}
+if($_SESSION["pe"]=="0"){
+    $pe ="disabled=\"true\"";
+}
 ?>
 
 <form name="form" id="form" action="" method="get" accept-charset="utf-8">

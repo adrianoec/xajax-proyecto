@@ -22,6 +22,28 @@
  );
  *
  */
+
+
+if($_SESSION["pm"]=="0"){
+    $pm ="disabled=\"true\"";
+}
+if($_SESSION["pc"]=="0"){
+    $pc ="disabled=\"true\"";
+}
+if($_SESSION["pg"]=="0"){
+    $pg ="disabled=\"true\"";
+}
+if($_SESSION["pa"]=="0"){
+    $pa ="disabled=\"true\"";
+}
+if($_SESSION["pe"]=="0"){
+    $pe ="disabled=\"true\"";
+}
+$pp="disabled='true'";
+if ($_SESSION["pc"]=="1" and $_SESSION["pa"] == "1" and $_SESSION["pg"] == "1" and $_SESSION["pe"] == "1") {
+    $pp="";
+}
+
 $perfil = perfiles("");
 ?>
 <table width="100%" class="acordeon">
@@ -42,7 +64,7 @@ $perfil = perfiles("");
 				?></td>
 
 				<td class="dato">
-				<input type="button" name="buscar" id="buscar"value="Buscar" onclick="xajax_consultar(xajax.getFormValues('form'))" />
+				<input type="button" name="buscar" id="buscar"value="Buscar" onclick="xajax_consultar(xajax.getFormValues('form'))" <?php echo $pp ?>/>
 				</td>
 			</tr>
 

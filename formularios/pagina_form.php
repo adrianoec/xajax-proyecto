@@ -1,3 +1,20 @@
+<?php
+if($_SESSION["pm"]=="0"){
+    $pm ="disabled=\"true\"";
+}
+if($_SESSION["pc"]=="0"){
+    $pc ="disabled=\"true\"";
+}
+if($_SESSION["pg"]=="0"){
+    $pg ="disabled=\"true\"";
+}
+if($_SESSION["pa"]=="0"){
+    $pa ="disabled=\"true\"";
+}
+if($_SESSION["pe"]=="0"){
+    $pe ="disabled=\"true\"";
+}
+?>
 <table class ='acordeon' width="100%">
     <tr>
         <td onclick="muestra_oculta('dvFormulario')" style="cursor: pointer">Formulario</td>
@@ -78,15 +95,15 @@
                         <tr>
 
                             <td>
-                                <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar" onclick="xajax_validarForm(xajax.getFormValues('form'), 0)" >
+                                <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar" onclick="xajax_validarForm(xajax.getFormValues('form'), 0)" <?php echo $pg ?> >
                             </td>
 
                             <td>
-                                <input type="button" name="btnActualizar" id="btnActualizar" value="Actualizar" onclick="xajax_validarForm(xajax.getFormValues('form'), 1)" >
+                                <input type="button" name="btnActualizar" id="btnActualizar" value="Actualizar" onclick="xajax_validarForm(xajax.getFormValues('form'), 1)" <?php echo $pa ?> >
                             </td>
 
                             <td>
-                                <input type="button" name="btnEliminar" id="btnEliminar" value="Eliminar" onclick="xajax_confirmarEliminarForm(xajax.getFormValues('form'))" >
+                                <input type="button" name="btnEliminar" id="btnEliminar" value="Eliminar" onclick="xajax_confirmarEliminarForm(xajax.getFormValues('form'))" <?php echo $pe ?> >
                             </td>
 
                             <td>
@@ -114,7 +131,7 @@
                     <input type='text' id='txtConsulta' name='txtConsulta' value='' />
                 </td>
                 <td class="dato">
-                    <input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" >
+                    <input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))"  <?php echo $pc ?>  >
                 </td>
             </tr>
         </table>

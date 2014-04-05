@@ -8,7 +8,7 @@ function validarForm($form, $opcion) {
     $objResponse = new xajaxResponse();
     $msg = "";
     if (strcasecmp($codigo_tipo_impuesto, '') == 0 or strcasecmp($codigo_tipo_impuesto, 'seleccione') == 0) {
-        $msg.="\nINGRESE CODIGO TIPO IMPUESTO...";
+        $msg.="\nINGRESE CODIGO TIPO COMPROBANTE...";
     }
     if (strcasecmp($descripcion, '') == 0 or strcasecmp($descripcion, 'seleccione') == 0) {
         $msg.="\nINGRESE DESCRIPCION...";
@@ -39,7 +39,7 @@ function ingresar($form) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
-    $sqlInsert = "insert into tipo_impuesto (descripcion,codigo_sri) values";
+    $sqlInsert = "insert into tipo_comprobante (descripcion,codigo_sri) values";
     $sqlInsert .= "('$descripcion','$codigo_sri');";
     $rs = $objDB->query($sqlInsert);
     $objResponse->alert("Registrado... $sqlInsert");
@@ -55,7 +55,7 @@ function actualizar($form) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
-    $sqlUpdate = "update  tipo_impuesto set  descripcion= '$descripcion'
+    $sqlUpdate = "update  tipo_comprobante set  descripcion= '$descripcion'
     , codigo_sri= '$codigo_sri'
      where  codigo_tipo_impuesto= '$codigo_tipo_impuesto'
     ";
@@ -81,7 +81,7 @@ function eliminar($form) {
     $objDB->getConexion();
     $objResponse = new xajaxResponse();
 
-    $sqlUpdate = "update  tipo_impuesto set  where  codigo_tipo_impuesto= '$codigo_tipo_impuesto'
+    $sqlUpdate = "update  tipo_comprobante set  where  codigo_tipo_impuesto= '$codigo_tipo_impuesto'
 ";
     $rs = $objDB->query($sqlUpdate);
     $objResponse->alert("Desactivado...");
@@ -101,7 +101,7 @@ function seleccionar($id) {
     $objDB = new Database();
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
-    $sql = " select *    from tipo_impuesto 
+    $sql = " select *    from tipo_comprobante 
     where  codigo  = '$id' ";
     $result = $objDB->query($sql);
     $numCols = $objDB->getNumCols();
@@ -122,13 +122,13 @@ function consultar($form) {
     $objDB = new Database();
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
-    $sql = " select *    from tipo_impuesto 
+    $sql = " select *    from tipo_comprobante 
     where  descripcion  like '%$query%' ";
     $result = $objDB->query($sql);
     $numCols = $objDB->getNumCols();
     $nuevo = "<img src='" . HOME . "imagenes/page_white_text.png'/>";
     $nuevoLnk = " style='cursor:pointer' onclick = 'xajax_nuevo()' ";
-    $tabla = "<table border='0' align ='center' class='tablesorter' cellspacing='1'><thead><tr>";
+    $tabla = "<table border='0' width='70%'> <tr><td><table  border='0' align ='center' class='tablesorter' cellspacing='1'><thead><tr>";
     $arrTi = $objDB->field_name($result);
     foreach ($arrTi as $ln) {
         $campo = $ln;
@@ -148,7 +148,7 @@ function consultar($form) {
         $eliminarLnk = " style='cursor:pointer' onclick = 'xajax_confirmarEliminarForm($id)' ";
         $tabla.=$tb . " <td $actalizarLnk >$actualizar</td><td $eliminarLnk >$eliminar</td>   </tr>";
     }
-    $tabla.="</tbody></table>";
+    $tabla.="</tbody></table></td></tr></table>";
     $objResponse->assign("dvRespuesta", "innerHTML", "$tabla");
     $objResponse->script('loadTabla();');
 

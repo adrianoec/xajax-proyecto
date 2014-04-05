@@ -220,7 +220,24 @@ function generarInterface($form) {
     $txtNombreArchivo = trim($form['txtNombreArchivo']);
 
 
-    $divform = "<table><tr><td onclick='muestra_oculta(dvFormulario)'>Formulario</td></tr></table>\n<div id='dvFormulario' >\n";
+    $divform = "<?php 
+            if(\$_SESSION[\"pm\"]==\"0\"){
+                \$pm =\"disabled='true'\";
+            }
+            if(\$_SESSION[\"pc\"]==\"0\"){
+                \$pc =\"disabled='true'\";
+            }
+            if(\$_SESSION[\"pg\"]==\"0\"){
+                \$pg =\"disabled='true'\";
+            }
+            if(\$_SESSION[\"pa\"]==\"0\"){
+                \$pa =\"disabled='true'\";
+            }
+            if(\$_SESSION[\"pe\"]==\"0\"){
+                \$pe =\"disabled='true'\";
+            }
+            ?>"
+            . "<table  width=\"70%\" class=\"acordeon\" align=\"center\" ><tr><td onclick='muestra_oculta(dvFormulario)'>Formulario</td></tr></table>\n<div id='dvFormulario' >\n";
 
     $tabla = $divform . "<form name='form' id='form' action=''>\n<table border='0' align='center'>\n";
 
@@ -291,12 +308,18 @@ function generarInterface($form) {
 
 
     if ($cmbTipoInterface == 'form') {
-        $obj1 = generarObjHTML("button", "btnGuardar", "", "xajax_validarForm(xajax.getFormValues('form'),0)", "Guardar");
-        $obj2 = generarObjHTML("button", "btnActualizar", "", "xajax_validarForm(xajax.getFormValues('form'),1)", "Actualizar");
-        $obj3 = generarObjHTML("button", "btnEliminar", "", "xajax_confirmarEliminarForm(xajax.getFormValues('form'))", "Eliminar");
-        $obj4 = generarObjHTML("button", "btnCancelar", "", "xajax_limpiar(xajax.getFormValues('form'))", "Cancelar");
+//        $obj1 = generarObjHTML("button", "btnGuardar", "", "xajax_validarForm(xajax.getFormValues('form'),0)", "Guardar");
+//        $obj2 = generarObjHTML("button", "btnActualizar", "", "xajax_validarForm(xajax.getFormValues('form'),1)", "Actualizar");
+//        $obj3 = generarObjHTML("button", "btnEliminar", "", "xajax_confirmarEliminarForm(xajax.getFormValues('form'))", "Eliminar");
+//        $obj4 = generarObjHTML("button", "btnCancelar", "", "xajax_limpiar(xajax.getFormValues('form'))", "Cancelar");
         $cl = $nroColumas * 2;
         $cl = $cl + 1;
+        
+        $obj1 = "<input type=\"button\" name=\"btnGuardar\" id=\"btnGuardar\" value=\"Guardar\" onclick=\"xajax_validarForm(xajax.getFormValues('form'),0)\" <?php echo \$pg; ?> >";
+        $obj2 = "<input type=\"button\" name=\"btnActualizar\" id=\"btnActualizar\" value=\"Actualizar\" onclick=\"xajax_validarForm(xajax.getFormValues('form'),1)\" <?php echo \$pa; ?> >";
+        $obj3 = "<input type=\"button\" name=\"btnEliminar\" id=\"btnEliminar\" value=\"Eliminar\" onclick=\"xajax_confirmarEliminarForm(xajax.getFormValues('form'))\" <?php echo \$pe; ?> >";
+        $obj4 = "<input type=\"button\" name=\"btnCancelar\" id=\"btnCancelar\" value=\"Cancelar\" onclick=\"xajax_limpiar(xajax.getFormValues('form'))\" >";
+        
         $tabla.="\t<tr> \n\t\t<td colspan='$cl' align='center'>\n
             \t\t\t <table align='center'> \n\t\t\t \t\t<tr>\n
             \t\t\t\t\t <td> \n\t\t\t\t\t\t\t $obj1 \n\t\t\t\t\t\t </td>\n
@@ -307,14 +330,18 @@ function generarInterface($form) {
             </tr> \n";
     } else {
         $cl = $nroColumas * 2;
-        $obj1 = generarObjHTML("button", "btnConsultar", "", "xajax_validarConsulta(xajax.getFormValues(form))", "Consultar");
+        //$obj1 = generarObjHTML("button", "btnConsultar", "", "xajax_validarConsulta(xajax.getFormValues(form))", "Consultar");
+        
+         
+          $obj1 = "<input type=\"button\" name=\"btnConsultar\" id=\"btnConsultar\" value=\"Consultar\" onclick=\"xajax_validarConsulta(xajax.getFormValues(form))\" <?php echo \$pc; ?> >";
+        
         $tabla.="<tr> \n\t\t <td colspan='$cl' align='center'> \n\t\t\t $obj1 \n\t\t </td> \n </tr> \n";
     }
 
     $tabla.="</table> \n </form> "
             . " \n </div> ";
 
-    $divconsulta = "<table><tr><td onclick='muestra_oculta(dvConsulta)' >Consulta</td></tr></table><div id='dvConsulta' >\n";
+    $divconsulta = "<table width=\"70%\" class=\"acordeon\" align=\"center\" ><tr><td onclick='muestra_oculta(dvConsulta)' >Consulta</td></tr></table><div id='dvConsulta' >\n";
 
     $obj5 = generarObjHTML("button", "btnConsultar", "", "xajax_consultar(xajax.getFormValues('formQuery'))", "Consultar");
 
@@ -595,7 +622,7 @@ function consultar(\$form) {
     \$nuevo = \"<img src='\".HOME.\"imagenes/page_white_text.png'/>\";
     \$nuevoLnk = \" style='cursor:pointer' onclick = 'xajax_nuevo()' \";
 
-    \$tabla = \"<table border='0' align ='center' class='tablesorter' cellspacing='1'><thead><tr>\";
+    \$tabla = \"<table border='0' width='70%'> <tr><td> <table border='0' align ='center' class='tablesorter' cellspacing='1'><thead><tr>\";
     \$arrTi = \$objDB->field_name(\$result);
     
     
@@ -618,7 +645,7 @@ function consultar(\$form) {
         \$eliminarLnk = \" style='cursor:pointer' onclick = 'xajax_confirmarEliminarForm(\$id)' \";
         \$tabla.=\$tb.\" <td \$actalizarLnk >\$actualizar</td><td \$eliminarLnk >\$eliminar</td>   </tr>\";
     }
-    \$tabla.=\"</tbody></table>\";
+    \$tabla.=\"</tbody></table> </td></tr></table> \";
     \$objResponse->script('function loadTabla(){\$(\"table\").tablesorter({ widgets: [\'zebra\']});  }  $(function() {\$(\"table\") .tablesorter({ widgets: [\'zebra\']});  });');
     \$objResponse->assign(\"dvRespuesta\", \"innerHTML\", \"\$tabla\");
     return \$objResponse;
@@ -659,11 +686,17 @@ function generarPrincipal() {
         include_once('facturacion_config.php');
         include_once (HOME.'include/xajax_conf.php');
         include_once (HOME.'include/db_conf.php');
+        include_once (HOME.'include/obtenerPermiso.php');
+        if(\$_SESSION[\"pm\"]==\"0\" or (\$_SESSION[\"aut_usuario\"]==\"\" or !isset(\$_SESSION[\"aut_usuario\"])) ){
+            header(\"Location: login.php\");
+            exit;
+        }
         include_once(HOME.'funciones_xjx/$txtNombreArchivo"."_xajax.php');
         include_once (HOME.'include/xajax_conf_process.php');
-        include_once (HOME.'cabecera.php');
-        include_once (HOME.'menu.php');
+        include_once (HOME.'include/cabecera.php');
+        include_once (HOME.'include/menu.php');
         include_once(HOME.'formularios/$txtNombreArchivo"."_form.php');
+        include_once(HOME.'include/pie.php');
     ?>";
 
     $txtNombreArchivo = strtolower($txtNombreArchivo);

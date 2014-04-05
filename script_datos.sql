@@ -43,11 +43,12 @@ create table perfil (
 
 insert into perfil(descripcion)values('Administrador');
 
-insert into tipo_impuesto (descripcion,codigo_sri) values ('FACTURA','01');
-insert into tipo_impuesto (descripcion,codigo_sri) values ('NOTA DE CREDITO','04');
-insert into tipo_impuesto (descripcion,codigo_sri) values ('NOTA DE DEBITO','05');
-insert into tipo_impuesto (descripcion,codigo_sri) values ('GUIA DE REMISION','06');
-insert into tipo_impuesto (descripcion,codigo_sri) values ('COMPROBANTE RETENCION','07');
+insert into tipo_comprobante (descripcion,codigo_sri) values ('FACTURA','01');
+insert into tipo_comprobante (descripcion,codigo_sri) values ('NOTA DE CREDITO','04');
+insert into tipo_comprobante (descripcion,codigo_sri) values ('NOTA DE DEBITO','05');
+insert into tipo_comprobante (descripcion,codigo_sri) values ('GUIA DE REMISION','06');
+insert into tipo_comprobante (descripcion,codigo_sri) values ('COMPROBANTE RETENCION','07');
+insert into tipo_comprobante (descripcion,codigo_sri) values ('LOTE','00');
 
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Administracion','Administracion','1','Administracion',0,1,1); 
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Salir','Salir','1','salir.php',1,0,5);
@@ -55,5 +56,40 @@ insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden)
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Paginas','pagina.php','1','Paginas',3,0,0); 
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Asignacion de paginas a perfil','paginaperfil.php','1','Asignar Paginas al Perfil',3,0,1); 
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Permisos','permiso.php','1','Permisos',3,0,2); 
- 
+insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Configuracion','Configuracion','1','Configuracion',1,1,3); 
+insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Catalogos','Catalogos','1','Catalogos',7,1,7); 
+insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Tipos de Impuesto','tipoimpuesto.php','1','Tipo de Impuesto',8,0,8); 
+  insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Tipo de comprobantes','tipocomprobante.php','1','Tipo de Comprobantes',8,0,9); 
+
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(5,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(5,1); 
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(1,1);
+insert into permiso(codigo_pagina, codigo_perfil)values(1,1);
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(4,1); 
+insert into permiso(codigo_pagina, codigo_perfil)values(4,1);
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(2,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(2,1); 
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(3,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(3,1);
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(6,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(6,1);
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(7,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(7,1);
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(8,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(8,1); 
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(9,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(9,1); 
+
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(10,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(10,1);
+
 

@@ -5,14 +5,14 @@
         include_once (HOME.'include/xajax_conf.php');
         include_once (HOME.'include/db_conf.php');
         include_once (HOME.'include/obtenerPermiso.php');
-        if($_SESSION["pm"]=="0" or ($_SESSION["aut_usuario"] == "" or ! isset($_SESSION["aut_usuario"]))){
+        if($_SESSION["pm"]=="0" or  ($_SESSION["aut_usuario"] == "" or ! isset($_SESSION["aut_usuario"])) ){
             header("Location: login.php");
             exit;
         }
-        include_once(HOME.'funciones_xjx/establecimiento_xajax.php');
+        include_once(HOME.'funciones_xjx/tipocomprobante_xajax.php');
         include_once (HOME.'include/xajax_conf_process.php');
         include_once (HOME.'include/cabecera.php');
         include_once (HOME.'include/menu.php');
-        include_once(HOME.'formularios/establecimiento_form.php');
+        include_once(HOME.'formularios/tipocomprobante_form.php');
         include_once(HOME.'include/pie.php');
     ?>
