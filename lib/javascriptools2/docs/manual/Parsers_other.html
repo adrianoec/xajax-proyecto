@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>Parsers</h2>
+<h3>Other parsers</h3>
+<p>Aditionally to the main NumberParser, DateParser and CustomParser, there are other
+parsers included on the Parsers script. They are:</p>
+
+<h4>BooleanParser</h4>
+<p>A parser for boolean values. The constructor arguments / properties are: <ul>
+<li>trueValue: A string used for true values. Defaults to the JST_DEFAULT_TRUE_VALUE constant value</li>
+<li>falseValue: A string used for false values. Defaults to the JST_DEFAULT_FALSE_VALUE constant value</li>
+<li>useBooleanValue: A flag indicating if the parse method will use the
+<a href="../api/JavaScriptUtil_functions.html#booleanValue">booleanValue</a> 
+function to test the string received on the parse method if it's not equals to trueValue</li>
+</ul>Examples:</p>
+<pre>var parser = new BooleanParser("yes", "no");
+parser.parse("yes") -> true
+parser.format(false) -> "no"
+
+var parser2 = new BooleanParser("false", "true", false);
+parser.parse("true") -> false (if useBooleanValue was true, would return true)
+parser.format(false) -> "true"
+</pre>
+
+<h4>MapParser</h4>
+<p>A parser that uses a <a href="JavaScriptUtil_map.html">Map</a>. The format method returns the
+value associated with the given key, while parse returns the first key associated with the given value.
+Examples:</p>
+<pre>var map = new Map();
+map.put(1, "One");
+map.put(2, "Two");
+var parser = new MapParser(map);
+parser.parse("One") -> 1
+parser.format(2) -> "Two"
+</pre>
+
+<h4>StringParser</h4>
+<p>Simply transforms the value to strings on both format and parse methods. Examples:</p>
+<pre>var parser = new StringParser();
+parser.format(1) -> "1";
+parser.parse(1) -> "1";
+</pre>
+
+<h4>EscapeParser</h4>
+<p>A parser that uses the 
+<a href="../api/JavaScriptUtil_functions.html#escapeCharacters">escapeCharacters</a>
+to format and
+<a href="../api/JavaScriptUtil_functions.html#unescapeCharacters">unescapeCharacters</a>
+function to the values. Two contructor arguments are accepted, extraChars and onlyExtra,
+and they are passed to those functions. See their api reference for more details. Examples:</p>
+<pre>var parser = new EscapeParser();
+parser.format("abc\ndef") -> "abc\\ndef"
+parser.parse("123\\t456\\n789") -> "123\t456\n789"
+</pre>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="Parsers_wrapper.html">Using the WrapperParser</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="InputMask_intro.html">Introduction to InputMask</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

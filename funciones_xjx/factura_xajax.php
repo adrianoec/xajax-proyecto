@@ -226,42 +226,49 @@ function addrow($indice) {
     $objResponse = new xajaxResponse();
     $idx = $indice + 2;
     $indice = $indice + 1;
-    $row = "<table class='borde_detalle'>
+    $row = "<table class='borde_detalle' width='1100px'>
 	    <tr id='tr_$indice' class='borde_item'>
-		<td id='td_$indice" . "_1'  width='100px' class='borde_text'>		
-		<input type='text' class='borde_text' name='txtCP_$indice' id='txtCP_$indice' size='11' value='' />
+		<td id='td_$indice" . "_1'  width='10%' class='borde_text'>		
+		<input type='text' class='borde_text' name='txtCP_$indice' id='txtCP_$indice' size='14' value='' maxlength='25' />
 		</td>
-		<td id='td_$indice" . "_2' width='100px'  class='borde_text'>		
-		<input type='text'  class='borde_text'  name='txtCA_$indice' id='txtCA_$indice' size='11' value='' />
+		<td id='td_$indice" . "_2' width='10%'  class='borde_text'>		
+		<input type='text'  class='borde_text'  name='txtCA_$indice' id='txtCA_$indice' size='14' value='' maxlength='25'  />
 		</td>
-		<td id='td_$indice" . "_3' width='80px'  class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtC_$indice' id='txtC_$indice' size='8' value='' onchange=\"xajax_calculos($indice,document.getElementById('txtC_$indice').value,document.getElementById('txtPU_$indice').value, document.getElementById('txtDsct_$indice').value);\" />
+		<td id='td_$indice" . "_3' width='10%'  class='borde_num'>		
+		<input type='text'   class='borde_num'  name='txtC_$indice' id='txtC_$indice' size='14' value='' maxlength='9' onkeyup=\"mask_decimal4(txtC_$indice)\"   onblur=\"xajax_calcularPrecioTotal($indice,document.getElementById('txtC_$indice').value,document.getElementById('txtPU_$indice').value, document.getElementById('txtDsct_$indice').value);\" />
 		</td>
-		<td id='td_$indice" . "_4' width='200px' class='borde_text'>		
-		<input type='text'   class='borde_text'  name='txtD_$indice' id='txtD_$indice' size='28' value='' />
+		<td id='td_$indice" . "_4' width='15%' class='borde_text'>		
+		<input type='text'   class='borde_text'  name='txtD_$indice' id='txtD_$indice' size='27' value='' maxlength='64' />
 		</td>
-		<td id='td_$indice" . "_5' width='200px'  class='borde_text'>		
-		<input type='text'   class='borde_text'  name='txtDA_$indice' id='txtDA_$indice' size='28' value='' />
+		<td id='td_$indice" . "_5' width='15%'  class='borde_text'>		
+		<input type='text'   class='borde_text'  name='txtDA_$indice' id='txtDA_$indice' size='27' value='' maxlength='64' />
 		</td>
-		<td id='td_$indice" . "_6' width='100px'  class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtPU_$indice' id='txtPU_$indice' size='11' value='' onchange=\"xajax_calculos($indice,document.getElementById('txtC_$indice').value,document.getElementById('txtPU_$indice').value, document.getElementById('txtDsct_$indice').value);\" />
+		<td id='td_$indice" . "_6' width='10%'  class='borde_num'>		
+		<input type='text'   class='borde_num'  name='txtPU_$indice' id='txtPU_$indice' size='14' value='0.0000' maxlength='9' onkeyup=\"mask_decimal4(txtPU_$indice)\"  onblur=\"xajax_calcularPrecioTotal($indice,document.getElementById('txtC_$indice').value,document.getElementById('txtPU_$indice').value, document.getElementById('txtDsct_$indice').value);\" />
 		</td>
-		<td id='td_$indice" . "_7' width='100px'  class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtDsct_$indice' id='txtDsct_$indice' size='11' value='' onchange=\"xajax_calculos($indice,document.getElementById('txtC_$indice').value,document.getElementById('txtPU_$indice').value, document.getElementById('txtDsct_$indice').value);\" />
+		<td id='td_$indice" . "_7' width='10%'  class='borde_num'>		
+		<input type='text'   class='borde_num'  name='txtDsct_$indice' id='txtDsct_$indice' size='14' value='0.00' maxlength='9'  onkeyup=\"mask_decimal2(txtDsct_$indice)\"  onblur=\"xajax_calcularPrecioTotal($indice,document.getElementById('txtC_$indice').value,document.getElementById('txtPU_$indice').value, document.getElementById('txtDsct_$indice').value);\" />
 		</td>
-		<td id='td_$indice" . "_8'  width='100px' class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtPT_$indice' id='txtPT_$indice' size='11' value='' />
+		<td id='td_$indice" . "_8'  width='10%' class='borde_num'>		
+		<input type='text'   class='borde_num'  name='txtPT_$indice' id='txtPT_$indice' size='14' value='0.00' maxlength='14' onchange=\"mask_decimal2(txtDsct_$indice)\" />
 		</td>
 		
-		<td class='enlace' id='td_$indice" . "_9'  width='30px' onclick=\"xajax_addrow(document.getElementById('txtIndice').value)\">
+		<td align='center' class='enlace' id='td_$indice" . "_9'  width='5%' onclick=\"xajax_addrow(document.getElementById('txtIndice').value)\">
 			<img src='imagenes/add.png' />
 		</td>
-		<td class='enlace' id='td_$indice" . "_10'  width='30px' onclick='xajax_delrow($indice);'>
+		<td align='center'  class='enlace' id='td_$indice" . "_10'  width='5%' onclick='xajax_delrow($indice);'>
 			<img src='imagenes/cross.png' />
+                        
+                        <input type='hidden'    name='txtIVA_$indice' id='txtIVA_$indice' value='0' />
+                        <input type='hidden'    name='txtPIVA_$indice' id='txtPIVA_$indice' value='0' />
+                        <input type='hidden'    name='txtICE_$indice' id='txtICE_$indice' value='0' />
+                        <input type='hidden'    name='txtPICE_$indice' id='txtPICE_$indice' value='0' />
+                        <input type='hidden'    name='txtCICE_$indice' id='txtCICE_$indice' value='0' />
+                            
 		</td>
 		
 		</tr>
-						</table> <div id='dvDet$idx'></div>";
+		</table> <div id='dvDet$idx'></div>";
 
     $dev = "dvDet$indice";
     $objResponse->append("$dev", "innerHTML", $row);
@@ -273,38 +280,40 @@ function addrow($indice) {
 function delrow($indice) {
 
     global $enlace, $objPaginacion, $objComun;
-
+    $dev = "dvDet$indice";
     $objResponse = new xajaxResponse();
     $objResponse->assign("tr_$indice", "innerHTML", "");
-
+// $objResponse->assign("$dev", "innerHTML", "");
     return $objResponse;
 }
 
-function calculos($idx, $cant, $pu, $dsct) {
-    global $enlace, $objPaginacion, $objComun;
 
+
+function calcularPrecioTotal($idx, $cantidad,$pu,$des){
     $objResponse = new xajaxResponse();
 
     //$objResponse->alert("$idx, $cant, $pu, $dsct");
-    if ($cant == "") {
-        $cant = 0;
+    if ($cantidad == "") {
+        $cantidad = 0;
     }
     if ($pu == "") {
         $pu = 0;
     }
-    if ($dsct == "") {
-        $dsct = 0;
+    if ($des == "") {
+        $des = 0;
     }
 
-    $cal = $cant * $pu - $dsct;
-
+    $cal = ($cantidad * $pu) - $des;
+    if($cal<=0){
+        $cal=0;
+    }
     $objResponse->assign("txtPT_$idx", "value", $cal);
     return $objResponse;
 }
 
 $xajax->register(XAJAX_FUNCTION, "addrow");
 $xajax->register(XAJAX_FUNCTION, "delrow");
-$xajax->register(XAJAX_FUNCTION, "calculos");
+$xajax->register(XAJAX_FUNCTION, "calcularPrecioTotal");
 
 $xajax->register(XAJAX_FUNCTION, "validarForm");
 $xajax->register(XAJAX_FUNCTION, "ingresar");

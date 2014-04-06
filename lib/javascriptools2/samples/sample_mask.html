@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>InputMask Example</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<!-- Include the JavaScripTools files -->
+<script src="../js/JavaScriptUtil.js"></script>
+<script src="../js/Parsers.js"></script>
+<script src="../js/original/InputMask.js"></script>
+<script language="JavaScript">
+<!--
+    function setup() {
+        //Set up the date parsers
+        var dateParser = new DateParser("dd/MM/yyyy HH:mm");
+    
+        //Set up the InputMask    
+        var numericMask = new InputMask(JST_MASK_NUMBERS, "numeric");
+        var decimalMask = new InputMask(JST_MASK_DECIMAL, "decimal");
+        var upperMask = new InputMask(fieldBuilder.upperAll(), "upper");
+        var lowerMask = new InputMask(fieldBuilder.lowerAll(), "lower");
+        var capitalizeMask = new InputMask(fieldBuilder.capitalizeAll(), "capital");
+        var dateMask = new InputMask(JST_MASK_DATE, "date");
+        var dateTimeMask = new InputMask(JST_MASK_DATE_TIME, "dateTime");
+        var dateTimeSecMask = new InputMask(JST_MASK_DATE_TIME_SEC, "dateTimeSec");
+        var phoneMask = new InputMask("(##) ####-####", "phone");
+        var custom1Mask = new InputMask([fieldBuilder.upperLetters(2, 6), fieldBuilder.literal("/"), fieldBuilder.inputNumbers(1, 3)], "custom1");
+        var custom2Mask = new InputMask("AA.UU.LL.CC-##", "custom2");
+        var custom3Mask = new InputMask("AAAA####", "custom3");
+        var custom4Mask = new InputMask("AAAA####-", "custom4");
+    
+        //Set up the NumberMasks
+        var decimalSeparator = ",";
+        var groupSeparator = ".";
+        
+        var numParser1 = new NumberParser(0, decimalSeparator, groupSeparator, true);
+        var numMask1 = new NumberMask(numParser1, "num1");
+
+        var numParser2 = new NumberParser(-1, decimalSeparator, groupSeparator, true);
+        numParser2.negativeParenthesis = true;
+        var numMask2 = new NumberMask(numParser2, "num2");
+        numMask2.leftToRight = true;
+    
+        var numParser3 = new NumberParser(3, decimalSeparator, groupSeparator, true);
+        var numMask3 = new NumberMask(numParser3, "num3", 6);
+        numMask3.allowNegative = false;
+        numMask3.leftToRight = true;
+    
+        var numParser4 = new NumberParser(2, decimalSeparator, groupSeparator, true);
+        numParser4.currencySymbol = "R$"
+        numParser4.useCurrency = true;
+        numParser4.negativeParenthesis = true;
+        numParser4.currencyInside = true;
+        var numMask4 = new NumberMask(numParser4, "num4", 6);
+    
+        //Set up the DateMasks
+        var errorMessage = "Invalid date: ${value}. Expected format: ${mask}";
+    
+        var dateMask1 = new DateMask("dd/MM/yyyy", "date1");
+        dateMask1.validationMessage = errorMessage;
+    
+        var dateMask2 = new DateMask("dd/MM/yyyy HH:mm", "date2");
+        dateMask2.validationMessage = errorMessage;
+    
+        var dateParser3 = new DateParser("dd/MM/yyyy HH:mm", false, new Date());
+        var dateMask3 = new DateMask(dateParser3, "date3");
+        dateMask3.validationMessage = errorMessage;
+    
+        var dateParser4 = new DateParser("HH:mm:ss");
+        var dateMask4 = new DateMask(dateParser4, "date4");
+        dateMask4.validationMessage = errorMessage;
+    
+        //Set up the SizeLimits
+        function updateLimit4(control, size, max, left) {
+            var gauge = getObject("limit4Gauge");
+            var width = Math.round(size * 100 / max) + "%";
+            gauge.style.width = width;
+            gauge.style.backgroundColor = (width == '100%' ? 'red' : 'blue');
+            gauge.innerHTML = width;
+        }
+        new SizeLimit("limit1", 50, "limit1Out");
+        new SizeLimit("limit2", 50, "limit2Out", "${size} / ${max}");
+        new SizeLimit("limit3", 50, "limit3Out", "You typed ${size} characters of a total of ${max}.<br>You have ${left} more characters to type.<br>This field only accepts alphanumeric characters and spaces.");
+        new InputMask(new Input(JST_CHARS_ALPHA + JST_CHARS_WHITESPACE), "limit3");
+        var limit = new SizeLimit("limit4", 50);
+        limit.updateFunction = updateLimit4;
+        limit.update();
+    }
+//-->
+</script>
+<body onload="setup()">
+<form name="theForm" onsubmit="alert(document.currentMaskOnBlur)">
+    <br>
+    <h1>Examples using masks</h1>
+    <br>
+    <fieldset><legend>Using NumberMask</legend>
+    <table>
+        <tr>
+            <td width="75px">Int. Size</td>
+            <td width="75px">Dec. Size</td>
+            <td width="75px">Currency Symbol</td>
+            <td width="75px">Negative</td>
+            <td width="75px">Direction</td>
+            <td>Input</td>
+        </tr>
+        <tr>
+            <td>-1</td>
+            <td>0</td>
+            <td>(none)</td>
+            <td>minus</td>
+            <td>right-to-left</td>
+            <td><input type="text" name="num1" style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td>-1</td>
+            <td>-1</td>
+            <td>(none)</td>
+            <td>parenthesis</td>
+            <td>left-to-right</td>
+            <td><input type="text" name="num2" style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>3</td>
+            <td>(none)</td>
+            <td>not allowed</td>
+            <td>left-to-right</td>
+            <td><input type="text" name="num3" style="text-align:right"></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2</td>
+            <td>R$</td>
+            <td>parenthesis</td>
+            <td>right-to-left</td>
+            <td><input type="text" name="num4" style="text-align:right"></td>
+        </tr>
+    </table>
+    </fieldset>
+    <fieldset><legend>Using DateMask</legend>
+    <table>
+        <tr>
+            <td width="150px">Mask</td>
+            <td>Input</td>
+        </tr>
+        <tr>
+            <td>dd/MM/yyyy</td>
+            <td><input type="text" name="date1" maxlength="19"></td>
+        </tr>
+        <tr>
+            <td>dd/MM/yyyy HH:mm (force all fields)</td>
+            <td><input type="text" name="date2" maxlength="19"></td>
+        </tr>
+        <tr>
+            <td>dd/MM/yyyy HH:mm (allows partial fields)</td>
+            <td><input type="text" name="date3" maxlength="19"></td>
+        </tr>
+        <tr>
+            <td>HH:mm:ss</td>
+            <td><input type="text" name="date4" maxlength="19"></td>
+         </tr>
+    </table>
+    </fieldset>
+    <fieldset><legend>Using InputMask</legend>
+    <table>
+        <tr>
+            <td>Type</td>
+            <td>Input</td>
+            <td>Check if is complete</td>
+        </tr>
+        <tr>
+            <td>Upper Case</td>
+            <td><input type="text" name="upper"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('upper').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Lower Case</td>
+            <td><input type="text" name="lower"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('lower').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Capitalized</td>
+            <td><input type="text" name="capital"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('capital').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Phone: (##) ####-####</td>
+            <td><input type="text" name="phone"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('phone').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Imaginary: 2 to 6 uppercase letters, '/', 1 to 3 numbers</td>
+            <td><input type="text" name="custom1"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('custom1').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Imaginary: AA.UU.LL.CC-##</td>
+            <td><input type="text" name="custom2"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('custom2').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Imaginary: AAAA####</td>
+            <td><input type="text" name="custom3"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('custom3').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Imaginary: AAAA####-</td>
+            <td><input type="text" name="custom4"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('custom4').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Numeric <span class="warning">*</span></td>
+            <td><input type="text" name="numeric"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('numeric').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Decimal <span class="warning">*</span></td>
+            <td><input type="text" name="decimal"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('decimal').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Date <span class="warning">*</span></td>
+            <td><input type="text" name="date"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('date').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Date/Time <span class="warning">*</span></td>
+            <td><input type="text" name="dateTime"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('dateTime').mask.isComplete())"></td>
+        </tr>
+        <tr>
+            <td>Date/Time/Sec <span class="warning">*</span></td>
+            <td><input type="text" name="dateTimeSec"></td>
+            <td><input type="button" value="Is Complete?" onclick="alert(getObject('dateTimeSec').mask.isComplete())"></td>
+        </tr>
+    </table>
+    <span class="warning">*</span> Those kinds of masks are interpreted only as strings by the InputMask, and are not recommended
+    for general usage. For numeric masks, use the NumberMask, and for date masks, the DateMask instead.
+    </fieldset>
+    <fieldset><legend>Using SizeLimit</legend>
+    <table>
+        <tr>
+            <td>TextArea</td>
+            <td>Limit Message</td>
+        </tr>
+        <tr>
+            <td><textarea name="limit1" rows="3" cols="30"></textarea></td>
+            <td id="limit1Out"></td>
+        </tr>
+        <tr>
+            <td><textarea name="limit2" rows="3" cols="30"></textarea></td>
+            <td id="limit2Out"></td>
+        </tr>
+        <tr>
+            <td valign="top"><textarea name="limit3" rows="3" cols="30"></textarea></td>
+            <td id="limit3Out"></td>
+        </tr>
+        <tr>
+            <td><textarea name="limit4" rows="3" cols="30"></textarea></td>
+            <td id="limit4Out"><div style="border:1px solid black; height:10px"><div id="limit4Gauge" style="background-color:blue; color:white; height:10px; font-size:8px; text-align:center">&nbsp;</div></div></td>
+        </tr>
+    </table>
+    </fieldset>
+</form>
+</body>
+
+</html>

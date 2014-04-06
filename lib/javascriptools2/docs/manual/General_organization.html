@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>General</h2>
+<h3>The file disposition on the release archive</h3>
+<p>The download archive has the following structure:<br>
+<pre>
+   /
+   +--- changelog
+   +--- javascriptools-doc.xml
+   +--- css
+   +-+- docs
+     +--- api
+     +--- manual
+   +-+- js
+     +--- original
+   +--- samples
+</pre></p>
+<p>The scripts are located under the js directory, under 2 forms:<ul>
+<li>Directly on the js directory, compressed using 
+<a href="http://javascriptzip.sourceforge.net">JavaScriptZip</a>,
+which removes all comments and unnecessary whitespaces, which reduces the file sizes
+about 50%. These files are recommended for production, because they load faster, but are hard
+for a human to understand them.</li>
+<li>On the js/original directory. Here are the original scripts. If you are debugging
+you might want to use them.</li>
+</ul></p>
+<p>The documentation, located on the docs directory is split into two main documents: This manual and the 
+API documentation, which contains details on all functions and classes, and is build using
+<a href="http://jsxmldoc.sourceforge.net">JavaScriptXmlDoc</a> (the javascriptools-doc.xml file is the source
+to be processed by JavaScriptXmlDoc to generate the documentation).</p>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="General_intro.html">Introduction to the JavaScripTools project</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="General_customizing.html">Customizing the default values</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -60,6 +60,8 @@ insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden)
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Catalogos','Catalogos','1','Catalogos',7,1,7); 
 insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Tipos de Impuesto','tipoimpuesto.php','1','Tipo de Impuesto',8,0,8); 
   insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Tipo de comprobantes','tipocomprobante.php','1','Tipo de Comprobantes',8,0,9); 
+ insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Comprobantes','Comprobantes','1','Comprobantes',0,1,10);
+insert into pagina (descripcion,pagina,activo, menu, codigo_padre, padre, orden) values('Facturas','factura.php','1','Facturas',11,0,11); 
 
 
 insert into pagina_perfil(codigo_pagina, codigo_perfil)values(5,1);  
@@ -92,4 +94,8 @@ insert into permiso(codigo_pagina, codigo_perfil)values(9,1);
 insert into pagina_perfil(codigo_pagina, codigo_perfil)values(10,1);  
 insert into permiso(codigo_pagina, codigo_perfil)values(10,1);
 
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(11,1);  
+insert into permiso(codigo_pagina, codigo_perfil)values(11,1);
 
+insert into pagina_perfil(codigo_pagina, codigo_perfil)values(12,1);  
+ insert into permiso(codigo_pagina, codigo_perfil)values(12,1);

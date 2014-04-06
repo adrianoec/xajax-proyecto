@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>The StringBuffer class</h3>
+<p>In JavaScript (as well as in Java), string objects are immutable. This means that,
+whenever a string operation is performed, a new string is created.</p>
+<p>The problem is that if we have a lot of string concatenations, we will produce many
+string objects that will only consume time (for allocation) and memory (until it is garbage
+collected - removed from memory). If we concatenate "a" + "b", a new string, "ab" is created,
+and both "a" and "b" will exist for some time.</p>
+<p>The 
+<a href="../api/class_StringBuffer.html">StringBuffer</a> 
+class tries to minimize this effort. It is not possible to create on JavaScript an
+optimal StringBuffer because of it's data types (we cannot create a low-lever char[]),
+but the performance is much better than normal string concatenation.</p>
+<p>One of the big changes from JavaScripTools 1.X to 2.X was the use of a StringBuffer to
+build the HTML code for the <a href="JavaScripTable_intro.html">JavaScripTable</a>.
+The result? With lots of rows on Internet Explorer, it took more than 1 minute to build the
+table. On JavaScripTools 2, a few seconds are enough (imagine if we could use those low level
+optimizations :-).</p>
+<p>But, one thing is true - for most cases, specially on a web page, there will be no noticeable
+performance difference between using a StringBuffer or concatenating the strings directly. It's
+up to you to determine if a operation is worth using a StringBuffer or not.</p>
+Here are some examples:
+<pre>var sb = new StringBuffer();
+sb.append("One");
+sb.append("Two");
+sb.append("Three");
+sb.toString() -> "OneTwoThree"
+sb.length() -> 11
+sb.clear();
+sb.append("A").append("B").append("C") -> The append returns the StringBuffer itself, so it can be nested
+</pre><br>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_map.html">The Map class</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="Parsers_intro.html">Introduction to Parsers</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,2094 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE javascriptdoc PUBLIC
+    "-//JavaScriptXmlDoc "
+    "http://jsxmldoc.sourceforge.net/javascriptdoc.dtd">
+
+<!--
+    This is the JavaScripTools (http://javascriptools.sourceforge.net) documentation 
+    in JavaScriptXmlDoc (http://jsxmldoc.sourceforge.net) format.
+-->
+<javascriptdoc title="JavaScripTools Scripts Documentation" name="JavaScripTools">
+    <description>
+        <![CDATA[
+        <p>JavaScripTools is a set o JavaScript components, functions and classes to make the web developer's
+        life easier. Most modern browsers, like Firefox, Internet Explorer, Opera and Konqueror are supported.</p>
+        <p>Features:<ul>
+            <li>Numerous functions that performs common operations on objects, strings, arrays, form fields, events and more</li>
+            <li>Parsers / formatters for many data types, including numbers and dates - i18n (internationalization) may be taken to JavaScript level</li>
+            <li>A dynamic table, supporting paging, sorting and editing, fully customizable using CSS (Cascading Style Sheets)</li>
+            <li>Masks for restricting / formatting user input on form fields</li>
+        </ul></p>
+        <p>Here you will find the documentation for every constant, function and class the contained on the
+        scripts.</p>
+        ]]>
+    </description>
+    
+    <!-- 
+    ****************************************************************************
+    *
+    *  JavaScriptUtil
+    *
+    **************************************************************************** 
+    -->
+    <script name="JavaScriptUtil">
+        <description>
+            <![CDATA[
+            The JavaScriptUtil contains a set of misc constants, functions and classes.<br/>
+            Note: The input field selection and caret operations work only on Internet Explorer for Windows
+            and Gecko-based browsers (FireFox, Mozilla, etc). On other browsers, the functions that return
+            values will return null, and functions that does not return values will do nothing.
+            ]]>
+        </description>
+        <constants>
+            <group name="Character set constants" description="Useful constants when a certain character set is needed">
+                <constant name="JST_CHARS_NUMBERS" description="A String containing all numbers"/>
+                <constant name="JST_CHARS_LOWER" description="A String containing all lowercase letters"/>
+                <constant name="JST_CHARS_UPPER" description="A String containing all uppercase letters"/>
+                <constant name="JST_CHARS_LETTERS" description="A String containing all letters"/>
+                <constant name="JST_CHARS_ALPHA" description="A String containing all letters and numbers"/>
+                <constant name="JST_CHARS_BASIC_LOWER" description="A String containing all lowercase letters without accentuation"/>
+                <constant name="JST_CHARS_BASIC_UPPER" description="A String containing all uppercase letters without accentuation"/>
+                <constant name="JST_CHARS_BASIC_LETTERS" description="A String containing all letters without accentuation"/>
+                <constant name="JST_CHARS_BASIC_ALPHA" description="A String containing all letters without accentuation and numbers"/>
+                <constant name="JST_CHARS_WHITESPACE" description="A String containing all whitespace characters"/>
+            </group>
+            <group name="Millisecond constants" description="Contains constants with the number of milliseconds on other time units">
+                <constant name="MILLIS_IN_SECOND" description="The number of milliseconds on a second"/>
+                <constant name="MILLIS_IN_MINUTE" description="The number of milliseconds on a minute"/>
+                <constant name="MILLIS_IN_HOUR" description="The number of milliseconds on a hour"/>
+                <constant name="MILLIS_IN_DAY" description="The number of milliseconds on a day"/>
+            </group>
+            <group name="Date field constants" description="Enums used on date manipulation functions, to determine a date field">
+                <constant name="JST_FIELD_MILLISECOND" description="Field indicating milliseconds on date functions"/>
+                <constant name="JST_FIELD_SECOND" description="Field indicating seconds on date functions"/>
+                <constant name="JST_FIELD_MINUTE" description="Field indicating minutes on date functions"/>
+                <constant name="JST_FIELD_HOUR" description="Field indicating hours on date functions"/>
+                <constant name="JST_FIELD_DAY" description="Field indicating days on date functions"/>
+                <constant name="JST_FIELD_MONTH" description="Field indicating months on date functions"/>
+                <constant name="JST_FIELD_YEAR" description="Field indicating years on date functions"/>
+            </group>
+        </constants>
+        <functions>
+            <group name="Object manipulation functions">
+                <function name="getObject" description="Returns the reference to a named object" return="The object reference">
+                    <argument name="objectName" type="String or Object" description="The object's name or id. When a reference is passed instead of a String, return the reference itself"/>
+                    <argument name="source" type="Object" description="The reference to the object where to search in" default="self"/>
+                </function>
+                <function name="isEmpty" description="Returns if the object is null, an empty string, undefined or NaN" return="The boolean value">
+                    <argument name="object" type="Object" description="The object"/>
+                </function>
+                <function name="ifEmpty" description="Returns the first object if it is not empty (according to the isEmpty function), or the second object otherwise" return="The first or second object">
+                    <argument name="object" type="Object" description="The object"/>
+                    <argument name="emptyValue" type="Object" description="The object to return if the first one is empty"/>
+                </function>
+                <function name="ifNull" description="Returns the first object if it is not null, or the second object otherwise" return="The first or second object">
+                    <argument name="object" type="Object" description="The object"/>
+                    <argument name="nullValue" type="Object" description="The object to return if the first one is null"/>
+                </function>
+                <function name="booleanValue" description="Determine if the object represents a true value. If is a boolean, return it. Otherwise, check it's first character for the trueChars parameter, ingnoring case. The default are T1YS." return="Does the object represents a true value?">
+                    <argument name="object" type="Object" description="The object"/>
+                    <argument name="trueChars" type="String" description="The characters for the object be considered true" default="T1YS"/>
+                </function>
+                <function name="decode" description="Returns an argument depending on the value of the first argument. Example: decode(param, 1, 'A', 2, 'B', 'C'). When param == 1, returns 'A'.When param == 2, return 'B'. Otherwise, return 'C'" return="The correct argument">
+                    <argument name="object" type="Object" description="The object to test"/>
+                    <argument name="(additional variable arguments)" type="Object" description="The arguments to test or return"/>
+                </function>
+                <function name="select" description="Returns an argument depending on the boolean value of the prior argument. Example: select(a &gt; b, 'A', b &gt; a, 'B', 'Equals'). When a &gt; b, returns 'A'. When b &gt; a, return 'B'. Otherwise, return 'Equals'" return="The correct argument">
+                    <argument name="(variable arguments)" type="Object" description="The arguments to test or return"/>
+                </function>
+                <function name="functionName" description="Returns the name of a function, given a function reference. If the parameter is an object, uses it's constructor function" return="The name">
+                    <argument name="funct" type="Object" description="The function or object reference"/>
+                    <argument name="unnamed" type="String" description="The String returned when the function is unnamed" default="[unnamed]"/>
+                </function>
+                <function name="debug" description="Returns all properties in the object, sorted or not, with the separator between them" return="The String">
+                    <argument name="object" type="Object" description="The object"/>
+                    <argument name="separator" type="String" description="The separator between properties" default="\n"/>
+                    <argument name="sort" type="boolean" description="Will the properties be sorted?" default="true"/>
+                    <argument name="includeObject" type="boolean" description="Will the object.toString() be included?" default="true"/>
+                    <argument name="objectSeparator" type="String" description="The text separating the object.toString() from the properties" default="A line"/>
+                </function>
+                <function name="isUndefined" description="Returns if the object is undefined" return="The boolean value">
+                    <argument name="object" type="Object" description="The object to test"/>
+                </function>
+                <function name="invoke" description="Invokes a given function with the given arguments. It's useful when you have a variable number of arguments and have to invoke a function passing each element as a different argument, not as a single argument as an array" return="The invocation result">
+                    <argument name="functionName" type="String or Function" description="The function name or reference"/>
+                    <argument name="args" type="Object or Object[]" description="The arguments. When null, invokes without parameters. When an object, invokes with a single argument. When an array, invokes with each element as a different argument"/>
+                </function>
+                <function name="invokeAsMethod" description="Invokes a given function with the given arguments as if it were a method of the given object" return="The invocation result">
+                    <argument name="object" type="Object" description="The object that will invoke the method"/>
+                    <argument name="functionName" type="String or Function" description="The function name or reference to be invoked as method"/>
+                    <argument name="args" type="Object or Object[]" description="The arguments. When null, invokes without parameters. When an object, invokes with a single argument. When an array, invokes with each element as a different argument"/>
+                </function>
+            </group>
+            <group name="Form elements manipulation functions">
+                <function name="getValue" description="Returns an object value. The object may be an form input or an HTML element" return="The value. When multiple objects are found, return an array containing all values">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="setValue" description="Sets an object value. If the value and the object are arrays, set each value">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="value" type="Object" description="The new value"/>
+                </function>
+                <function name="checkAll" description="Checks (or unchecks) all checkboxes">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="flag" type="boolean" description="Will the checkboxes be checked (true) or unchecked (false)?"/>
+                </function>
+                <function name="isCaretSupported" description="Returns if caret operations are supported in the given object" return="A boolean value">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="isInputSelectionSupported" description="Returns if input selection operations are supported in the given object" return="A boolean value">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="prepareForCaret" description="Prepares the input object to use caret or selection manipulation functions on Internet Explorer. Should be called only once on each input">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="getInputSelection" description="Returns an input's selected text. For IE, requires prepareForCaret() to be first called on the object" return="The selected text">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="getInputSelectionRange" description="Returns an input's selected range. For IE, requires prepareForCaret() to be first called on the object" return="An array containing the start and end positions">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="setInputSelectionRange" description="Sets the selection range on an input field">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="start" type="Numeric" description="The selection start"/>
+                    <argument name="end" type="Numeric" description="The selection end"/>
+                </function>
+                <function name="getCaret" description="Returns the caret position. When a range is selected, returns the range end. For IE, requires prepareForCaret() to be first called on the object" return="The caret position, or null">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="setCaret" description="Sets the caret to the specified position">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="pos" type="Numeric" description="The caret position"/>
+                </function>
+                <function name="setCaretToEnd" description="Sets the caret to the text end">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="setCaretToStart" description="Sets the caret to the text start">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+                <function name="selectString" description="Selects a given string on the input text">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="string" type="String" description="The string to select"/>
+                </function>
+                <function name="replaceSelection" description="Replaces the selected text for a new one. On IE, only works if the object has focus. For IE, requires prepareForCaret() to be first called on the object">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="string" type="String" description="The new text"/>
+                </function>
+                <function name="clearOptions" description="Removes all options from a select" return="The array of returned Options">
+                    <argument name="select" type="Object or String" description="The select reference, id or name"/>
+                </function>
+                <function name="addOption" description="Adds an option to a select">
+                    <argument name="select" type="Object or String" description="The select reference, id or name"/>
+                    <argument name="options" type="Option or Object" description="The Option. When not an Option instance, uses the textProperty and labelProperty to build a new Option"/>
+                    <argument name="sort" type="boolean" description="Will the options be sorted?" default="false"/>
+                    <argument name="textProperty" type="String" description="The object property, when not an Option, to read the text" default="text"/>
+                    <argument name="valueProperty" type="String" description="The object property, when not an Option, to read the value" default="value"/>
+                    <argument name="selectedProperty" type="String" description="The object property, when not an Option, to read if the option is selected" default="selected"/>
+                </function>
+                <function name="addOptions" description="Adds all options from the array to a select">
+                    <argument name="select" type="Object or String" description="The select reference, id or name"/>
+                    <argument name="options" type="Option[] or Object[]" description="The Options array. When an element is not an Option instance, uses the textProperty and labelProperty to build a new Option"/>
+                    <argument name="sort" type="boolean" description="Will the options be sorted?" default="false"/>
+                    <argument name="textProperty" type="String" description="The object property, when not an Option, to read the text" default="text"/>
+                    <argument name="valueProperty" type="String" description="The object property, when not an Option, to read the value" default="value"/>
+                    <argument name="selectedProperty" type="String" description="The object property, when not an Option, to read if the option is selected" default="selected"/>
+                </function>
+                <function name="setOptions" description="Sets a select's options from an array" return="The original Options array">
+                    <argument name="select" type="Object or String" description="The select reference, id or name"/>
+                    <argument name="options" type="Option[]" description="The Options array"/>
+                    <argument name="addEmpty" type="boolean or String" description="When boolean, add an empty option when true. When a string, add an empty option with the given text" default="false"/>
+                    <argument name="sort" type="boolean" description="Will the options be sorted?" default="false"/>
+                    <argument name="textProperty" type="String" description="The object property, when not an Option, to read the text" default="text"/>
+                    <argument name="valueProperty" type="String" description="The object property, when not an Option, to read the value" default="value"/>
+                    <argument name="selectedProperty" type="String" description="The object property, when not an Option, to read if the option is selected" default="selected"/>
+                </function>
+                <function name="sortOptions" description="Sorts the options on a Select">
+                    <argument name="select" type="Object or String" description="The select reference, id or name"/>
+                    <argument name="sortFunction" type="Function" description="The comparator function" default="compareOptions"/>
+                </function>
+                <function name="compareOptions" description="Function used to compare two options by their text" return="-1, 0 or 1">
+                    <argument name="opt1" type="Object" description="The first Option"/>
+                    <argument name="opt2" type="Object" description="The second Option"/>
+                </function>
+                <function name="transferOptions" description="Transfers options from a select to another. May transfer all or just the selected ones">
+                    <argument name="select" type="Object or String" description="The select reference, id or name"/>
+                    <argument name="dest" type="Object" description="The destination Select"/>
+                    <argument name="all" type="boolean" description="Will transfer all options (true) or only the selected ones (false)?" default="false"/>
+                    <argument name="sort" type="boolean" description="Will the options be sorted?" default="false"/>
+                </function>
+            </group>
+            <group name="Array manipulation functions">
+                <function name="ensureArray" description="Ensurea an array is returned. When the object is null or undefined, returns an empty array. When an array return it. Otherwise, return an array with the argument in" return="The array">
+                    <argument name="object" type="Object" description="The object to test"/>
+                </function>
+                <function name="indexOf" description="Returns the first index of the object within the array" return="The index, or -1 if not found">
+                    <argument name="object" type="Object" description="The object to search"/>
+                    <argument name="array" type="Array" description="The array where to search"/>
+                    <argument name="startingAt" type="Number" description="The initial position" default="0"/>
+                </function>
+                <function name="inArray" description="Returns if the object is in the array" return="The boolean value">
+                    <argument name="object" type="Object" description="The object to search"/>
+                    <argument name="array" type="Array" description="The array where to search"/>
+                </function>
+                <function name="removeFromArray" description="Removes all occurrences of the given objects is in the array">
+                    <argument name="array" type="Array" description="The array"/>
+                    <argument name="object1..objectN" type="Object" description="The objects to remove"/>
+                </function>
+                <function name="arrayConcat" description="Returns an array containing all elements of both arrays" return="The new Array">
+                    <argument name="array1..arrayN" type="Array or Object" description="The arrays or objetcs to concatenate"/>
+                </function>
+                <function name="arrayEquals" description="Returns an the two arrays have exactly the same elements" return="Are the Arrays equals?">
+                    <argument name="array1" type="Array" description="The first array"/>
+                    <argument name="array2" type="Array" description="The second array"/>
+                </function>
+            </group>
+            <group name="Event manipulation functions">
+                <function name="observeEvent" description="Adds an event listener to a given object. The function may safely use this to refer to the object">
+                    <argument name="object" type="Object" description="The object that generates the events"/>
+                    <argument name="eventName" type="String" description="An event name, like: click, focus, blur or keypress"/>
+                    <argument name="handler" type="Function" description="The event handler function. May use this safely to refer to the object (even in Internet Explorer)"/>
+                </function>
+                <function name="typedCode" description="Returns the key code of the given event. If you need the type char, use String.fromCharCode(typedCode(event))" return="The key code">
+                    <argument name="event" type="Event" description="The event"/>
+                </function>
+                <function name="preventDefault" description="Makes the given event to not be completed (example: on keypress, the key is not accepted)" return="false">
+                    <argument name="event" type="Event" description="The event"/>
+                </function>
+                <function name="stopPropagation" description="Makes the event to stop propagating to innermost elements" return="false">
+                    <argument name="event" type="Event" description="The event"/>
+                </function>
+            </group>
+            <group name="String manipulation functions">
+                <function name="replaceAll" description="Replaces all the occurences in the string" return="The new String">
+                    <argument name="find" type="String" description="What to find"/>
+                    <argument name="replace" type="String" description="What to br replaced"/>
+                </function>
+                <function name="repeat" description="Repeats the given string a number of times" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="times" type="Numeric" description="The number of times to repeat"/>
+                </function>
+                <function name="capitalize" description="Capitalizes a String" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="separators" type="String" description="An String containing the word separator characters" default="JST_CHARS_WHITESPACE + '.?!'"/>
+                </function>
+                <function name="ltrim" description="Removes all specified characters on the String's left side" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="chars" type="String" description="The string containing all characters to be removed" default="JST_CHARS_WHITESPACE"/>
+                </function>
+                <function name="rtrim" description="Removes all specified characters on the String's right side" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="chars" type="String" description="The string containing all characters to be removed" default="JST_CHARS_WHITESPACE"/>
+                </function>
+                <function name="trim" description="Removes all specified characters on both sides of the String" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="chars" type="String" description="The string containing all characters to be removed" default="JST_CHARS_WHITESPACE"/>
+                </function>
+                <function name="lpad" description="Make the string have the specified length, completing with the specified character on the left. If the String is greater than the specified size, it is truncated to it, using the leftmost characters" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="size" type="Number" description="The expected size"/>
+                    <argument name="char" type="String" description="The character used to complete the String" default="An space"/>
+                </function>
+                <function name="rpad" description="Make the string have the specified length, completing with the specified character on the right. If the String is greater than the specified size, it is truncated to it, using the leftmost characters" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="size" type="Number" description="The expected size"/>
+                    <argument name="char" type="String" description="The character used to complete the String" default="An space"/>
+                </function>
+                <function name="crop" description="Removes a specified number of characters from a String after a specified position" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="pos" type="Number" description="The initial position"/>
+                    <argument name="size" type="Number" description="The String" default="1"/>
+                </function>
+                <function name="lcrop" description="Removes a specified number of characters from the beggining of a String" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="size" type="Number" description="The String" default="1"/>
+                </function>
+                <function name="rcrop" description="Removes a specified number of characters from the end of a String" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="size" type="Number" description="The String" default="1"/>
+                </function>
+                <function name="insertString" description="Insert a String on another" return="The new String">
+                    <argument name="string" type="String" description="The original String"/>
+                    <argument name="pos" type="Number" description="The insert position"/>
+                    <argument name="value" type="String" description="The String to be inserted"/>
+                </function>
+                <function name="onlySpecified" description="Return if the string has only the specified characters" return="The boolean value">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="specified" type="String" description="The specified characters"/>
+                </function>
+                <function name="onlyNumbers" description="Return if the string has only numbers" return="The boolean">
+                    <argument name="string" type="String" description="The String"/>
+                </function>
+                <function name="onlyLetters" description="Return if the string has only letters" return="The boolean">
+                    <argument name="string" type="String" description="The String"/>
+                </function>
+                <function name="onlyAlpha" description="Return if the string has only letters or numbers" return="The boolean">
+                    <argument name="string" type="String" description="The String"/>
+                </function>
+                <function name="left" description="Return 'n' charactes from the string's left side" return="The substring">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="count" type="Number" description="The number of characters"/>
+                </function>
+                <function name="right" description="Return 'n' charactes from the string's right side" return="The substring">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="count" type="Number" description="The number of characters"/>
+                </function>
+                <function name="mid" description="Return 'n' charactes from the string's specified position" return="The substring">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="pos" type="Number" description="The initial position"/>
+                    <argument name="count" type="Number" description="The number of characters"/>
+                </function>
+                <function name="escapeCharacters" description="Escapes the string's special characters to their escaped form ('\\' to '\\\\', '\n' to '\\n', ...) and the extraChars are escaped via unicode (\uXXXX, where XXXX is the charcode)" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="extraChars" type="String" description="An String with the extra characters to be encoded in the \uXXXX form"/>
+                    <argument name="onlyExtra" type="boolean" description="If true, will only process the extra characters"/>
+                </function>
+                <function name="unescapeCharacters" description="Unescapes the string, changing the special characters to their unescaped form ('\\\\' to '\\', '\\n' to '\n', '\\\\uXXXX' to the ASC(XXXX), ...)" return="The new String">
+                    <argument name="string" type="String" description="The String"/>
+                    <argument name="extraChars" type="String" description="An String with the extra characters to be encoded in the \uXXXX form"/>
+                </function>
+            </group>
+            <group name="Date manipulation functions">
+                <function name="getDateField" description="Returns the value of a given date field" return="The number">
+                    <argument name="date" type="Date" description="The Date"/>
+                    <argument name="field" type="enum" description="The field" default="JST_FIELD_DAY">
+                        <enum const="JST_FIELD_MILLISECOND" description="Milliseconds"/>
+                        <enum const="JST_FIELD_SECOND" description="Seconds"/>
+                        <enum const="JST_FIELD_MINUTE" description="Minutes"/>
+                        <enum const="JST_FIELD_HOUR" description="Hours"/>
+                        <enum const="JST_FIELD_DAY" description="Days"/>
+                        <enum const="JST_FIELD_MONTH" description="Months"/>
+                        <enum const="JST_FIELD_YEAR" description="Years"/>
+                    </argument>
+                </function>            
+                <function name="setDateField" description="Sets the value of a given date field">
+                    <argument name="date" type="Date" description="The Date"/>
+                    <argument name="field" type="enum" description="The field" default="JST_FIELD_DAY">
+                        <enum const="JST_FIELD_MILLISECOND" description="Milliseconds"/>
+                        <enum const="JST_FIELD_SECOND" description="Seconds"/>
+                        <enum const="JST_FIELD_MINUTE" description="Minutes"/>
+                        <enum const="JST_FIELD_HOUR" description="Hours"/>
+                        <enum const="JST_FIELD_DAY" description="Days"/>
+                        <enum const="JST_FIELD_MONTH" description="Months"/>
+                        <enum const="JST_FIELD_YEAR" description="Years"/>
+                    </argument>
+                    <argument name="value" type="Number" description="The new field value"/>
+                </function>            
+                <function name="dateAdd" description="Adds a given amount on a given date field" return="The new Date">
+                    <argument name="date" type="Date" description="The Date"/>
+                    <argument name="amount" type="Number" description="The amount to add" default="1"/>
+                    <argument name="field" type="enum" description="The field" default="JST_FIELD_DAY">
+                        <enum const="JST_FIELD_MILLISECOND" description="Milliseconds"/>
+                        <enum const="JST_FIELD_SECOND" description="Seconds"/>
+                        <enum const="JST_FIELD_MINUTE" description="Minutes"/>
+                        <enum const="JST_FIELD_HOUR" description="Hours"/>
+                        <enum const="JST_FIELD_DAY" description="Days"/>
+                        <enum const="JST_FIELD_MONTH" description="Months"/>
+                        <enum const="JST_FIELD_YEAR" description="Years"/>
+                    </argument>
+                </function>
+                <function name="dateDiff" description="Returns the difference, as in date2 - date1" return="An integer number">
+                    <argument name="date1" type="Date" description="The first Date"/>
+                    <argument name="date2" type="Date" description="The second Date"/>
+                    <argument name="field" type="enum" description="The field" default="JST_FIELD_DAY">
+                        <enum const="JST_FIELD_MILLISECOND" description="Milliseconds"/>
+                        <enum const="JST_FIELD_SECOND" description="Seconds"/>
+                        <enum const="JST_FIELD_MINUTE" description="Minutes"/>
+                        <enum const="JST_FIELD_HOUR" description="Hours"/>
+                        <enum const="JST_FIELD_DAY" description="Days"/>
+                        <enum const="JST_FIELD_MONTH" description="Months"/>
+                        <enum const="JST_FIELD_YEAR" description="Years"/>
+                    </argument>
+                </function>
+                <function name="truncDate" description="Truncates the date, setting all fields lower than the specified one to its minimum value" return="The new Date">
+                    <argument name="date" type="Date" description="The Date"/>
+                    <argument name="field" type="enum" description="The field" default="JST_FIELD_DAY">
+                        <enum const="JST_FIELD_MILLISECOND" description="Milliseconds"/>
+                        <enum const="JST_FIELD_SECOND" description="Seconds"/>
+                        <enum const="JST_FIELD_MINUTE" description="Minutes"/>
+                        <enum const="JST_FIELD_HOUR" description="Hours"/>
+                        <enum const="JST_FIELD_DAY" description="Days"/>
+                        <enum const="JST_FIELD_MONTH" description="Months"/>
+                        <enum const="JST_FIELD_YEAR" description="Years"/>
+                    </argument>
+                </function>
+                <function name="getMaxDay" description="Returns the maximum day of a given month and year" return="The maximum day on that month/year">
+                    <argument name="month" type="Number" description="The month"/>
+                    <argument name="year" type="Number" description="The year"/>
+                </function>
+                <function name="getFullYear" description="Returns the full year, given a 2 digit year. 50 or less returns 2050" return="The 4 digit year">
+                    <argument name="year" type="Number" description="The year"/>
+                </function>
+            </group>
+            <group name="Cookie manipulation functions">
+                <function name="readCookie" description="Reads the specified cookie" return="The value, or null if not found">
+                    <argument name="name" type="String" description="The cookie name"/>
+                    <argument name="document" type="Document" description="The document containing the cookie" default="self.document"/>
+                </function>
+                <function name="writeCookie" description="Writes the specified cookie">
+                    <argument name="name" type="String" description="The cookie name"/>
+                    <argument name="value" type="String" description="The new cookie value"/>
+                    <argument name="document" type="Document" description="The document containing the cookie" default="self.document"/>
+                    <argument name="expires" type="Date or boolean" description="The expiration date, or false indicating it never expires" default="Until the browser is closed"/>
+                    <argument name="path" type="String" description="The cookie path" default="Unspecified"/>
+                    <argument name="domain" type="String" description="The cookie domain" default="Unspecified"/>
+                    <argument name="secure" type="boolean" description="The cookie secure flag" default="false"/>
+                </function>
+                <function name="deleteCookie" description="Removes the specified cookie">
+                    <argument name="name" type="String" description="The cookie name"/>
+                    <argument name="document" type="Document" description="The document containing the cookie" default="self.document"/>
+                </function>
+            </group>
+            <group name="Style manipulation functions">
+                <function name="setOpacity" description="Sets an object opacity, to a value ranging from 0 to 100. This function is currently supported by Internet Explorer (where it only works when the element's position is absolute) and Gecko based browsers only.">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                    <argument name="value" type="Numeric" description="The opacity value. Ranges from 0 to 100" default="100"/>
+                </function>
+                <function name="getOpacity" description="Returns an object opacity. This function is currently supported by Internet Explorer and Gecko based browsers only." return="A value ranging from 0 to 100. When the operation is not supported by the browser, always return 100">
+                    <argument name="object" type="Object or String" description="The object reference, id or name"/>
+                </function>
+            </group>
+        </functions>
+        <classes>
+            <group>
+                <class name="Pair">
+                    <description>
+                        <![CDATA[
+                        This represents a key/value pair.<br/>
+                        ]]>
+                    </description>
+                    <example>
+<![CDATA[
+var namePair = new Pair("name", "John Smith");
+var agePair  = new Pair("age", 35);
+alert("Pairs: " + [namePair, agePair]);
+]]>
+                    </example>
+                    <constructor>
+                        <argument name="key" type="Object" description="The key"/>
+                        <argument name="value" type="Object" description="The value"/>
+                    </constructor>
+                </class>
+                <class name="Map">
+                    <description>
+                        <![CDATA[
+                        This class contains a set of Pairs.<br/>
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var map = new Map();
+map.put("name", "John Smith");
+map.put("sex", "male");
+map.put("age", 35);
+alert(map.getPairs());
+alert("Removed Pair: " + map.remove("sex"));
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="pairs" type="Pair[]" description="The pairs array" default="Empty Array"/>
+                    </constructor>
+                    <properties>
+                        <group>
+                            <property name="afterSet" type="Function" description="A callback function called after an pair is added or updated. The Pair and this Map are passed as arguments"/>
+                            <property name="afterRemove" type="Function" description="A callback function called after an pair is removed. The Pair and this Map are passed as arguments"/>
+                        </group>
+                    </properties>
+                    <methods>
+                        <group>
+                            <method name="putPair" description="Adds the pair to the collection. This method replaces the old putValue() method">
+                                <argument name="pair" type="Pair" description="The Pair to add"/>
+                            </method>
+                            <method name="put" description="Adds the pair to the collection">
+                                <argument name="key" type="Object" description="The key"/>
+                                <argument name="value" type="Object" description="The value"/>
+                            </method>
+                            <method name="size" description="Returns the number of pairs in this Map" return="The Number"/>
+                            <method name="get" description="Returns the value associated with the key" return="The value">
+                                <argument name="key" type="Object" description="The key"/>
+                            </method>
+                            <method name="getKeys" description="Returns an Array containing all keys" return="The Array"/>
+                            <method name="getValues" description="Returns an Array containing all values" return="The Array"/>
+                            <method name="getPairs" description="Returns an Array containing all pairs" return="The Array"/>
+                            <method name="getEntries" description="Synonym to getPairs()" return="The Array"/>
+                            <method name="remove" description="Removes the pair with the given key, returning it" return="The removed Pair">
+                                <argument name="key" type="Object" description="The key"/>
+                            </method>
+                            <method name="clear" description="Removes all pairs, returning them" return="The Array"/>
+                            <method name="toObject" description="Returns an object containg a property for every pair in this map" return="The object"/>
+                        </group>
+                    </methods>
+                </class>
+                <class name="StringMap" extends="Map">
+                    <description>
+                        <![CDATA[
+                        A Map that gets its pairs using a single string.<br/>
+                        The String has a pair separator and a name/value separator.<br/>
+                        Ex: name1=value1&name2=value2&...
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var map = new StringMap("name-John Smith|age-35", "|", "-");
+alert(map.getPairs());
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="string" type="String" description="The String containing the pairs"/>
+                        <argument name="nameSeparator" type="String" description="The String that separates the pairs" default="&amp;"/>
+                        <argument name="valueSeparator" type="String" description="The String that separates the name from value" default="="/>
+                        <argument name="isEncoded" type="boolean" description="Determines if the String is HTML encoded" default="true"/>
+                    </constructor>
+                </class>
+                <class name="QueryStringMap" extends="StringMap">
+                    <description>
+                        <![CDATA[
+                        A StringMap used to get values from the location query string.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var map = new QueryStringMap(top.frames["menuFrame"].location);
+alert(map.getPairs());
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="location" type="Location" description="The location where to read the QueryString" default="self.location"/>
+                    </constructor>
+                </class>
+                <class name="CookieMap" extends="StringMap">
+                    <description>
+                        <![CDATA[
+                        A StringMap used to get/set cookie values.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var map = new CookieMap();
+alert(map.getPairs());
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="document" type="Document" description="The document containing the cookie values" default="self.document"/>
+                    </constructor>
+                </class>        
+                <class name="ObjectMap" extends="Map">
+                    <description>
+                        <![CDATA[
+                        A Map used to get/set an object properties.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var person = {name:"John Smith", age:35, sex:"male"};
+var map = new ObjectMap(person);
+map.remove("age");
+alert(map.getPairs());
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="object" type="Object" description="The object"/>
+                    </constructor>
+                </class>
+                <class name="StringBuffer">
+                    <description>
+                        <![CDATA[
+                        A class used to improve the performance of string concatenations.
+                        When two strings objects are concatenated, a third object must be allocated to contain the new string.
+                        Probably the other two strings will not be used anymore, and stay as garbage on the memory.
+                        The way that garbage is removed depends on the browser, but the fact is that some garbage remains.
+                        When many concatenations are executed, the performance may be greatly improved by the StringBuffer.<br/>
+                        It is internally implemented with an array. Each call to append() generates a new element on the array.
+                        When the toString() method is called, the array is joined into a single string.<br/>
+                        Because the standard toString() method is used to build the string, when the buffer itself is transformed to
+                        a string (like on a alert(buffer), or str = "abc " + buffer), the internal string is used instead of somethig like [Object].
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var buffer = new StringBuffer();
+buffer.append("This ");
+buffer.append("is ");
+//Nested callings - the append method returns the buffer itself
+buffer.append("a ").append("test");
+alert(buffer); //Message: "This is a test"
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="initialCapacity" type="Numeric" description="The initial capacity for append operations without needing to resize the internal array (not bytes)" default="10"/>
+                    </constructor>
+                    <methods>
+                        <group>
+                            <method name="toString" description="Returns the buffered String" return="The String"/>
+                            <method name="append" description="Appends a value" return="The StringBuffer reference, so nested calls may be done">
+                                <argument name="value" type="Object" description="The value to append"/>
+                            </method>
+                            <method name="clear" description="Clears the buffer"/>
+                            <method name="length" description="Returns the buffered string length" return="The string length"/>
+                        </group>
+                    </methods>
+                </class>
+            </group>
+        </classes>
+    </script>
+    
+    <!-- 
+    ****************************************************************************
+    *
+    *  JavaScripTable
+    *
+    **************************************************************************** 
+    -->
+    <script name="JavaScripTable">
+        <dependencies>
+            <dependency script="JavaScriptUtil"/>
+            <dependency script="Parsers"/>
+            <dependency script="InputMask"/>
+        </dependencies>
+        <description>
+            <![CDATA[
+            The JavaScripTable is a full featured, dynamic table, that can be rendered on any html element.<br/>
+            It has several properties that customizes it's appearance and behaviour, allowing full customization and internationalization.<br/>
+            The table may operate both on client-side mode (where all rows are added at once and the table itself handles all paging, sorting and other stuff) or on server-side mode (where the developer is in charge of adding only the rows belonging to the correct page and managing other state properties).<br/>
+            ]]>
+        </description>
+        <constants>
+            <group name="Data type constants" description="Contants that determine a column data type">
+                <constant name="JST_TYPE_STRING" description="String type"/>
+                <constant name="JST_TYPE_NUMERIC" description="Numeric type"/>
+                <constant name="JST_TYPE_CURRENCY" description="Currency type"/>
+                <constant name="JST_TYPE_DATE" description="Date type"/>
+                <constant name="JST_TYPE_BOOLEAN" description="Boolean type"/>
+            </group>
+            <group name="Selection type constants" description="Contants that determine the table selection type">
+                <constant name="JST_SEL_NONE" description="No selection"/>
+                <constant name="JST_SEL_SINGLE" description="Single selection"/>
+                <constant name="JST_SEL_MULTI" description="Multiple selection"/>
+            </group>
+            <group name="Navigation bar constants" description="Contants that determine the table navigation bar position">
+                <constant name="JST_NAV_NONE" description="No navigation bar"/>
+                <constant name="JST_NAV_TOP" description="Navigation bar on the table top"/>
+                <constant name="JST_NAV_BOTTOM" description="Navigation bar on the table bottom"/>
+                <constant name="JST_NAV_BOTH" description="Navigation bar on both top and bottom"/>
+            </group>
+            <group name="Horizontal alignment constants" description="Contants that determine the table or column horizontal alignment">
+                <constant name="JST_ALIGN_LEFT" description="Left alignmnent"/>
+                <constant name="JST_ALIGN_RIGHT" description="Right alignmnent"/>
+                <constant name="JST_ALIGN_CENTER" description="Center alignmnent"/>
+                <constant name="JST_ALIGN_JUSTIFY" description="Justified alignmnent"/>
+            </group>
+            <group name="Vertical alignment constants" description="Contants that determine the column vertical alignment">
+                <constant name="JST_VALIGN_BASELINE" description="Baseline alignmnent"/>
+                <constant name="JST_VALIGN_SUB" description="Sub alignmnent"/>
+                <constant name="JST_VALIGN_SUPER" description="Super alignmnent"/>
+                <constant name="JST_VALIGN_TOP" description="Top alignmnent"/>
+                <constant name="JST_VALIGN_TEXT_TOP" description="Text-top alignmnent"/>
+                <constant name="JST_VALIGN_MIDDLE" description="Middle alignmnent"/>
+                <constant name="JST_VALIGN_BOTTOM" description="Bottom alignmnent"/>
+                <constant name="JST_VALIGN_TEXT_BOTTOM" description="Text-bottom alignmnent"/>
+            </group>
+            <group name="Edit control type constants" description="Contants that determine an EditControl type">
+                <constant name="JST_CONTROL_TEXT" description="Text input"/>
+                <constant name="JST_CONTROL_PASSWORD" description="Password input"/>
+                <constant name="JST_CONTROL_TEXTAREA" description="Textarea input"/>
+                <constant name="JST_CONTROL_CHECKBOX" description="Checkbox input"/>
+                <constant name="JST_CONTROL_RADIO" description="Radio input"/>
+                <constant name="JST_CONTROL_SELECT" description="Select input"/>
+            </group>
+            <group name="Table operation mode constants" description="Contants that determine the table operation mode">
+                <constant name="JST_CLIENT_SIDE" description="The table operates on client-side"/>
+                <constant name="JST_SERVER_SIDE" description="The table operates on server-side"/>
+            </group>
+            <group name="Highlighting modes" description="Contants that determine how the highlighing mode will be">
+                <constant name="JST_HIGHLIGHTING_NONE" description="No highlighting"/>
+                <constant name="JST_HIGHLIGHTING_TEXT" description="Text highlighting"/>
+                <constant name="JST_HIGHLIGHTING_CELL" description="Cell highlighting"/>
+                <constant name="JST_HIGHLIGHTING_TEXT_CELL" description="Text and cell highlighting"/>
+                <constant name="JST_HIGHLIGHTING_ROW" description="Row highlighting"/>
+                <constant name="JST_HIGHLIGHTING_ROW_TEXT" description="Row and text highlighting"/>
+                <constant name="JST_HIGHLIGHTING_ROW_CELL" description="Row and cell highlighting"/>
+                <constant name="JST_HIGHLIGHTING_ROW_TEXT_CELL" description="Row, text and cell highlighting"/>
+            </group>
+            <group name="Default table property constants" description="Contants that determine the default value for many properties">
+                <constant name="JST_DEFAULT_OPERATION_MODE" description="The default value for property: operationMode"/>
+                <constant name="JST_DEFAULT_USE_PAGING" description="The default value for property: usePaging"/>
+                <constant name="JST_DEFAULT_PAGE_SIZE" description="The default value for property: pageSize"/>
+                <constant name="JST_DEFAULT_MAX_ROWS" description="The default value for property: maxRows"/>
+                <constant name="JST_DEFAULT_WIDTH" description="The default value for property: width"/>
+                <constant name="JST_DEFAULT_ALIGN" description="The default value for property: align"/>
+                <constant name="JST_DEFAULT_BORDER" description="The default value for property: border"/>
+                <constant name="JST_DEFAULT_PADDING" description="The default value for property: padding"/>
+                <constant name="JST_DEFAULT_SPACING" description="The default value for property: spacing"/>
+                <constant name="JST_DEFAULT_ROW_HIGHLIGHTING" description="The default value for property: rowHighlighting"/>
+                <constant name="JST_DEFAULT_COLUMN_HEADER_HIGHLIGHTING" description="The default value for property: columnHeaderHighlighting"/>
+                <constant name="JST_DEFAULT_NAVIGATION" description="The default value for property: navigation"/>
+                <constant name="JST_DEFAULT_SHOW_COLUMN_HEADERS" description="The default value for property: showColumnHeaders"/>
+                <constant name="JST_DEFAULT_ALLOW_TOP_LINK" description="The default value for property: allowTopLink"/>
+                <constant name="JST_DEFAULT_ALLOW_CHANGE_PAGING" description="The default value for property: allowChangePaging"/>
+                <constant name="JST_DEFAULT_ALLOW_CHANGE_PAGE_SIZE" description="The default value for property: allowChangePageSize"/>
+                <constant name="JST_DEFAULT_SELECTION_TYPE" description="The default value for property: selectionType"/>
+                <constant name="JST_DEFAULT_SELECTION_NAME" description="The default value for property: selectionName"/>
+                <constant name="JST_DEFAULT_SELECTION_VALIGN" description="The default value for property: selectionValign"/>
+                <constant name="JST_DEFAULT_SHOW_SELECT_ALL" description="The default value for property: showSelectAll"/>
+                <constant name="JST_DEFAULT_VALUE_SEPARATOR" description="The default value for property: valueSeparator"/>
+                <constant name="JST_DEFAULT_COLUMN_SEPARATOR" description="The default value for property: columnSeparator"/>
+                <constant name="JST_DEFAULT_ROW_SEPARATOR" description="The default value for property: rowSeparator"/>
+                <constant name="JST_DEFAULT_PAGE_ONLY_SELECT_ALL" description="The default value for property: pageOnlySelectAll"/>
+                <constant name="JST_DEFAULT_CROP_REPEATED" description="The default value for property: cropRepeated"/>
+                <constant name="JST_DEFAULT_CROP_REPEATED_TREE" description="The default value for property: cropRepeatedTree"/>
+
+                <constant name="JST_DEFAULT_TABLE_CLASS" description="The default value for property: tableClass"/>
+                <constant name="JST_DEFAULT_HEADER_CLASS" description="The default value for property: headerClass"/>
+                <constant name="JST_DEFAULT_FOOTER_CLASS" description="The default value for property: footerClass"/>
+                <constant name="JST_DEFAULT_ADDITIONAL_HEADER_CLASS" description="The default value for property: additionalHeaderClass"/>
+                <constant name="JST_DEFAULT_ADDITIONAL_FOOTER_CLASS" description="The default value for property: additionalFooterClass"/>
+                
+                <constant name="JST_DEFAULT_SELECTION_CONTROL_CLASS" description="The default value for property: selectionControlClass"/>
+                <constant name="JST_DEFAULT_EDIT_CONTROL_CLASS" description="The default value for property: editControlClass"/>
+                <constant name="JST_DEFAULT_INVALID_EDIT_CONTROL_CLASS" description="The default value for property: invalidEditControlClass"/>
+                <constant name="JST_DEFAULT_EDIT_CONTROL_RADIO_CHECKBOX_CLASS" description="The default value for property: editControlRadioCheckboxClass"/>
+
+                <constant name="JST_DEFAULT_NAVIGATION_CLASS" description="The default value for property: navigationClass"/>
+                <constant name="JST_DEFAULT_NAVIGATION_LINK_CLASS" description="The default value for property: navigationLinkClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_NAVIGATION_LINK_CLASS" description="The default value for property: highlightedNavigationLinkClass"/>
+
+                <constant name="JST_DEFAULT_COLUMN_HEADER_CLASS" description="The default value for property: columnHeaderClass"/>
+                <constant name="JST_DEFAULT_COLUMN_HEADER_TEXT_CLASS" description="The default value for property: columnHeaderTextClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_COLUMN_HEADER_CLASS" description="The default value for property: highlightedColumnHeaderClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_COLUMN_HEADER_TEXT_CLASS" description="The default value for property: highlightedColumnHeaderTextClass"/>
+
+                <constant name="JST_DEFAULT_ODD_ROW_CLASS" description="The default value for property: oddRowClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_ODD_ROW_CLASS" description="The default value for property: highlightedOddRowClass"/>
+                <constant name="JST_DEFAULT_ODD_ROW_CELL_CLASS" description="The default value for property: oddRowCellClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_ODD_ROW_CELL_CLASS" description="The default value for property: highlightedOddRowCellClass"/>
+                <constant name="JST_DEFAULT_ODD_ROW_TEXT_CLASS" description="The default value for property: oddRowTextClass"/>
+                <constant name="JST_DEFAULT_ODD_ROW_TEXT_WITH_FUNCTION_CLASS" description="The default value for property: oddRowTextWithFunctionClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_ODD_ROW_TEXT_CLASS" description="The default value for property: highlightedOddRowTextClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_ODD_ROW_TEXT_WITH_FUNCTION_CLASS" description="The default value for property: highlightedOddRowTextWithFunctionClass"/>
+
+                <constant name="JST_DEFAULT_EVEN_ROW_CLASS" description="The default value for property: oddRowClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_EVEN_ROW_CLASS" description="The default value for property: highlightedOddRowClass"/>
+                <constant name="JST_DEFAULT_EVEN_ROW_CELL_CLASS" description="The default value for property: evenRowCellClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_EVEN_ROW_CELL_CLASS" description="The default value for property: highlightedEvenRowCellClass"/>
+                <constant name="JST_DEFAULT_EVEN_ROW_TEXT_CLASS" description="The default value for property: oddRowTextClass"/>
+                <constant name="JST_DEFAULT_EVEN_ROW_TEXT_WITH_FUNCTION_CLASS" description="The default value for property: oddRowTextWithFunctionClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_EVEN_ROW_TEXT_CLASS" description="The default value for property: highlightedOddRowTextClass"/>
+                <constant name="JST_DEFAULT_HIGHLIGHTED_EVEN_ROW_TEXT_WITH_FUNCTION_CLASS" description="The default value for property: highlightedOddRowTextWithFunctionClass"/>
+
+                <constant name="JST_DEFAULT_MESSAGES_ON_STATUS_BAR" description="The default value for property: messagesOnStatusBar"/>
+                <constant name="JST_DEFAULT_HEADER_TEXT" description="The default value for property: headerText"/>
+                <constant name="JST_DEFAULT_FOOTER_TEXT" description="The default value for property: footerText"/>
+                <constant name="JST_DEFAULT_EMPTY_TABLE_TEXT" description="The default value for property: emptyTableText"/>
+                <constant name="JST_DEFAULT_ASC_LABEL" description="The default value for property: ascLabel"/>
+                <constant name="JST_DEFAULT_DESC_LABEL" description="The default value for property: descLabel"/>
+                <constant name="JST_DEFAULT_TRUE_LABEL" description="The default value for property: trueLabel"/>
+                <constant name="JST_DEFAULT_FALSE_LABEL" description="The default value for property: falseLabel"/>
+                <constant name="JST_DEFAULT_SORT_MESSAGE" description="The default value for property: sortMessage"/>
+                <constant name="JST_DEFAULT_SINGLE_ROW_TEXT" description="The default value for property: singleRowText"/>
+                <constant name="JST_DEFAULT_MULTIPLE_ROW_TEXT" description="The default value for property: multipleRowText"/>
+                <constant name="JST_DEFAULT_PAGE_TEXT" description="The default value for property: pageText"/>
+                <constant name="JST_DEFAULT_FIRST_PAGE_DESCRIPTION" description="The default value for property: firstPageDescription"/>
+                <constant name="JST_DEFAULT_FIRST_PAGE_TEXT" description="The default value for property: firstPageText"/>
+                <constant name="JST_DEFAULT_PREVIOUS_PAGE_DESCRIPTION" description="The default value for property: previousPageDescription"/>
+                <constant name="JST_DEFAULT_PREVIOUS_PAGE_TEXT" description="The default value for property: previousPageText"/>
+                <constant name="JST_DEFAULT_NEXT_PAGE_DESCRIPTION" description="The default value for property: nextPageDescription"/>
+                <constant name="JST_DEFAULT_NEXT_PAGE_TEXT" description="The default value for property: nextPageText"/>
+                <constant name="JST_DEFAULT_LAST_PAGE_DESCRIPTION" description="The default value for property: lastPageDescription"/>
+                <constant name="JST_DEFAULT_LAST_PAGE_TEXT" description="The default value for property: lastPageText"/>
+                <constant name="JST_DEFAULT_SHOW_ALL_DESCRIPTION" description="The default value for property: showAllDescription"/>
+                <constant name="JST_DEFAULT_SHOW_ALL_TEXT" description="The default value for property: showAllText"/>
+                <constant name="JST_DEFAULT_USE_PAGING_DESCRIPTION" description="The default value for property: usePagingDescription"/>
+                <constant name="JST_DEFAULT_USE_PAGING_TEXT" description="The default value for property: usePagingText"/>
+                <constant name="JST_DEFAULT_TOP_DESCRIPTION" description="The default value for property: topDescription"/>
+                <constant name="JST_DEFAULT_TOP_TEXT" description="The default value for property: topText"/>
+                <constant name="JST_DEFAULT_CHANGE_PAGE_DESCRIPTION" description="The default value for property: changePageDescription"/>
+                <constant name="JST_DEFAULT_CHANGE_PAGE_PROMPT" description="The default value for property: changePagePrompt"/>
+                <constant name="JST_DEFAULT_CHANGE_PAGE_SIZE_DESCRIPTION" description="The default value for property: changePageSizeDescription"/>
+                <constant name="JST_DEFAULT_CHANGE_PAGE_SIZE_PROMPT" description="The default value for property: changePageSizePrompt"/>
+                <constant name="JST_DEFAULT_STRING_PARSER" description="The default value for property: stringParser"/>
+                <constant name="JST_DEFAULT_NUMBER_PARSER" description="The default value for property: numberParser"/>
+                <constant name="JST_DEFAULT_CURRENCY_PARSER" description="The default value for property: currencyParser"/>
+                <constant name="JST_DEFAULT_DATE_PARSER" description="The default value for property: dateParser"/>
+                <constant name="JST_DEFAULT_BOOLEAN_PARSER" description="The default value for property: booleanParser"/>
+                <constant name="JST_DEFAULT_STRING_ENCODING_PARSER" description="The default value for property: stringEncodingParser"/>
+                <constant name="JST_DEFAULT_NUMBER_ENCODING_PARSER" description="The default value for property: numberEncodingParser"/>
+                <constant name="JST_DEFAULT_CURRENCY_ENCODING_PARSER" description="The default value for property: currencyEncodingParser"/>
+                <constant name="JST_DEFAULT_DATE_ENCODING_PARSER" description="The default value for property: dateEncodingParser"/>
+                <constant name="JST_DEFAULT_BOOLEAN_ENCODING_PARSER" description="The default value for property: booleanEncodingParser"/>
+            </group>
+        </constants>
+        <classes>
+            <group>
+                <class name="JavaScripTable">
+                    <description>
+                        <![CDATA[
+                        This is the JavaScripTable main class.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Instantiate the table, passing as arguments an arbitrary identifier and the container
+var table = new JavaScripTable("jst", "tableContainer");
+
+//Add the columns to the table
+table.addColumn(new Column("Name", JST_TYPE_STRING));
+table.addColumn(new Column("Age", JST_TYPE_NUMERIC));
+table.addColumn(new Column("Sex", JST_TYPE_STRING));
+
+//Add the rows
+table.addRow(new Row(1, ["John Smith", 35, "male"]));
+table.addRow(new Row(2, ["Mary Anne", 29, "female"]));
+
+//Render the table
+table.render();
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="id" type="String" propertyGroup="Basic properties" description="This is a unique id for the table"/>
+                        <argument name="container" type="Object" propertyGroup="Basic properties" description="A reference to the HTML element, or element name or id, that will contain the table"/>
+                        <argument name="width" type="String" propertyGroup="Appearance and Comportamental properties" description="The width property" default="The value of JST_DEFAULT_WIDTH constant"/>
+                        <argument name="align" type="String" propertyGroup="Appearance and Comportamental properties" description="The align property" default="The value of JST_DEFAULT_ALIGN constant"/>
+                        <argument name="border" type="String" propertyGroup="Appearance and Comportamental properties" description="The border property" default="The value of JST_DEFAULT_BORDER constant"/>
+                        <argument name="padding" type="String" propertyGroup="Appearance and Comportamental properties" description="The padding property" default="The value of JST_DEFAULT_PADDING constant"/>
+                        <argument name="spacing" type="String" propertyGroup="Appearance and Comportamental properties" description="The spacing property" default="The value of JST_DEFAULT_SPACING constant"/>
+                    </constructor>
+                    <properties>
+                        <group name="Basic properties" description="Basic table properties">
+                        </group>
+                        <group name="Appearance and Comportamental properties" description="properties that defines the table appearance or behavior">
+                            <property name="operationMode" type="enum" description="Defines whether the paging will be done in the client-side or in the server side">
+                                <enum const="JST_CLIENT_SIDE" description="Paging and sorting will be done by the table itself. All rows must be added at once"/>
+                                <enum const="JST_SERVER_SIDE" description="The table itself will not process any actions of paging and sorting. For more details, see the documentation"/>
+                            </property>
+                            <property name="onSelectionChange" type="Function" description="A callback function triggered when the user changes the row selection. The passed parameters are: the row identifier, a flag indicating the new value and the table reference"/>
+                            <property name="onRender" type="Function" description="A callback function triggered every time the table is rendered. The table instance itself passed as parameter"/>
+                            <property name="printing" type="Boolean" description="Indicates whether the table is on printing mode, where many features are disabled, like highlighting and the navigation bar" default="false"/>
+                            <property name="updateTableFunction" type="Function" description="The callback for table update events when in server mode. The table itself will be passed by parameter. Then the table's properties like currentPage, sortColumn and ascSort may be readed for doing the correct actions"/>
+                            <property name="rowCount" type="Number" description="The callback for table update events"/>
+                            <property name="selectionType" type="enum" description="Defines the row selection type">
+                                <enum const="JST_SEL_NONE" description="No row selection"/>
+                                <enum const="JST_SEL_SINGLE" description="A single row may be selected"/>
+                                <enum const="JST_SEL_MULTI" description="Multiple rows may be selected"/>
+                            </property>
+                            <property name="showSelectAll" type="Boolean" description="Indicates whether the table will display a 'master' checkbox for selecting / deselecting all rows when the selection type is JST_SEL_MULTI" default="The value of JST_DEFAULT_SHOW_SELECT_ALL constant"/>
+                            <property name="navigation" type="enum" description="Defines the table's navigation bar options">
+                                <enum const="JST_NAV_NONE" description="No navigation bar"/>
+                                <enum const="JST_NAV_TOP" description="A navigation bar on top"/>
+                                <enum const="JST_NAV_BOTTOM" description="A navigation bar on bottom"/>
+                                <enum const="JST_NAV_BOTH" description="A navigation bar on both top and bottom"/>
+                            </property>
+                            <property name="usePaging" type="boolean" description="Defines the whether the table will display paged results (true) or all results (false)"/>
+                            <property name="pageSize" type="Number" description="When using paging, it's the row number on each page"/>
+                            <property name="sortColumn" type="Number" description="The column index that is used for sort. -1 means no sort"/>
+                            <property name="ascSort" type="boolean" description="Boolean value indicating whether the sort is in ascending (true) or descending (false) order"/>
+                            <property name="rowFunction" type="String" description="The name of the function called when the user clicks a row. The row id is passed as argument"/>
+                            <property name="maxRows" type="Number" description="If set to a non-negative number, will limit the number of rows in the table"/>
+                            <property name="showColumnHeaders" type="Boolean" description="A flag indicating whether the column headers will be shown"/>
+                            <property name="rowHighlighting" type="enum" description="The highlighting mode for rows">
+                                <enum const="JST_HIGHLIGHTING_NONE" description="No highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_TEXT" description="Text highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_CELL" description="Cell highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_TEXT_CELL" description="Text and cell highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_ROW" description="Row highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_ROW_TEXT" description="Row and text highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_ROW_CELL" description="Row and cell highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_ROW_TEXT_CELL" description="Row, text and cell highlighting"/>
+                            </property>
+                            <property name="columnHeaderHighlighting" type="enum" description="The highlighting mode for column headers">
+                                <enum const="JST_HIGHLIGHTING_NONE" description="No highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_TEXT" description="Text highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_CELL" description="Cell highlighting"/>
+                                <enum const="JST_HIGHLIGHTING_TEXT_CELL" description="Text and cell highlighting"/>
+                            </property>
+                            <property name="pageOnlySelectAll" type="Boolean" description="This flag indicates if the selectAll() method (that is called when the selection type=multiple and the user clicks the header checkbox) will select all rows on current page only (true) or on every page (false). This only makes sense when the operation mode is client-side, the results are paged and the selection type is multiple."/>
+                            <property name="identifierName" type="String" description="Used to build an ObjectRowMapper, where, in that case, will map the object identifier name"/>
+                            <property name="mapperClassName" type="String" description="Used to build an ObjectRowMapper, where, in that case, will use this class to instantiate objects"/>
+                            <property name="mapperConstructorArguments" type="Array" description="Used to build an ObjectRowMapper, where, in that case, will use this array as the constructor arguments"/>
+                            <property name="cropRepeated" type="Boolean" description="If set to true, don't display repeated values on contiguous rows"/>
+                            <property name="cropRepeatedTree" type="Boolean" description="If set to true, don't display repeated values on contiguous rows and columns, tracking dependent data. Only makes sense when cropRepeated is true or column.cropRepeated is true"/>
+                        </group>
+                        <group name="Style classes properties" description="CSS classes for table elements">
+                            <property name="tableClass" type="String" description="The name of the &amp;lt;TABLE&amp;gt; element's style class"/>
+                            <property name="headerClass" type="String" description="The name of the table header's style class"/>
+                            <property name="footerClass" type="String" description="The name of the table footer's style class"/>
+                            <property name="additionalHeaderClass" type="String" description="The name of the table additional header's style class"/>
+                            <property name="additionalFooterClass" type="String" description="The name of the table additional footer's style class"/>
+                            <property name="selectionControlClass" type="String" description="The name of the table's selection controls style class"/>
+                            <property name="editControlClass" type="String" description="The name of the table cells' edition controls style class"/>
+                            <property name="editControlRadioCheckboxClass" type="String" description="The name of the table cells' edition controls style class when edit control is a radio or checkbox"/>
+                            <property name="invalidEditControlClass" type="String" description="The name of the table cells' edition controls style class when the user types an invalid data"/>
+                            <property name="navigationClass" type="String" description="The name of the table's navigation bar style class"/>
+                            <property name="navigationLinkClass" type="String" description="The name of the table's navigation bar link style class"/>
+                            <property name="highlightedNavigationLinkClass" type="String" description="The name of the table's navigation bar link style class when the mouse is over it"/>
+
+                            <property name="columnHeaderClass" type="String" description="The name of the column header style class"/>
+                            <property name="columnHeaderTextClass" type="String" description="The name of the column header text style class"/>
+                            <property name="highlightedColumnHeaderClass" type="String" description="The name of the column header style class when the mouse is over it"/>
+                            <property name="highlightedColumnHeaderTextClass" type="String" description="The name of the column header text style class when the mouse is over it"/>
+
+                            <property name="oddRowClass" type="String" description="The name of odd rows style class"/>
+                            <property name="highlightedOddRowClass" type="String" description="The name of odd rows style class when the mouse is over it"/>
+                            <property name="oddRowCellClass" type="String" description="The name of odd row cells style class"/>
+                            <property name="highlightedOddRowCellClass" type="String" description="The name of odd row cells style class when the mouse is over it"/>
+                            <property name="oddRowTextClass" type="String" description="The name of odd row text style class"/>
+                            <property name="oddRowTextWithFunctionClass" type="String" description="The name of odd row texts style class when it has a cellFunction"/>
+                            <property name="highlightedOddRowTextClass" type="String" description="The name of odd row text style class when the mouse is over it"/>
+                            <property name="highlightedOddRowTextWithFunctionClass" type="String" description="The name of odd row text style class when it has a cellFunction and the mouse is over it"/>
+
+                            <property name="evenRowClass" type="String" description="The name of even rows style class"/>
+                            <property name="highlightedEvenRowClass" type="String" description="The name of even rows style class when the mouse is over it"/>
+                            <property name="evenRowCellClass" type="String" description="The name of even row cells style class"/>
+                            <property name="highlightedEvenRowCellClass" type="String" description="The name of even row cells style class when the mouse is over it"/>
+                            <property name="evenRowTextClass" type="String" description="The name of even row text style class"/>
+                            <property name="evenRowTextWithFunctionClass" type="String" description="The name of even row texts style class when it has a cellFunction"/>
+                            <property name="highlightedEvenRowTextClass" type="String" description="The name of even row text style class when the mouse is over it"/>
+                            <property name="highlightedEvenRowTextWithFunctionClass" type="String" description="The name of even row text style class when it has a cellFunction and the mouse is over it"/>
+                        </group>
+                        <group name="Text properties" description="Table text properties">
+                            <property name="headerText" type="String" description="The text for the table's header. An empty value makes the table to have no header"/>
+                            <property name="footerText" type="String" description="The text for the table's footer. An empty value makes the table to have no footer"/>
+                            <property name="emptyTableText" type="String" description="If set, is the text displayed when the table is empty. Otherwise an empty table will be drawed"/>
+                            <property name="waitText" type="String" description="If set, is the text displayed when the table is being rendered"/>
+                        </group>
+                        <group name="Label properties" description="The labels may be strings or an Image instance. If the label is intented to be an image, an Image instance will preload the images. An string with an &amp;lt;img&amp;gt; tag would make the table download the image every time">
+                            <property name="ascLabel" type="String" description="Appears besides the sorting column's header when it's sorting in ascending order"/>
+                            <property name="descLabel" type="String" description="Appears besides the sorting column's header when it's sorting in descending order"/>
+                            <property name="trueLabel" type="String" description="Displayed on a boolean true value"/>
+                            <property name="falseLabel" type="String" description="Displayed on a boolean false value"/>
+                        </group>
+                        <group name="Data separators properties" description="Separator characters used on data encode">
+                            <property name="valueSeparator" type="String" description="The separator to be used when a cell has multiple values (it's value is an Array)"/>
+                            <property name="columnSeparator" type="String" description="The separator to be used when between columns"/>
+                            <property name="rowSeparator" type="String" description="The separator to be used when between rows"/>
+                        </group>
+                        <group name="Data parsers properties" description="Default parsers used on data entry">
+                            <property name="stringParser" type="Parser" description="The default string parser"/>
+                            <property name="numberParser" type="Parser" description="The default number parser"/>
+                            <property name="currencyParser" type="Parser" description="The default currency parser"/>
+                            <property name="dateParser" type="Parser" description="The default date parser"/>
+                            <property name="booleanParser" type="Parser" description="The default boolean parser"/>
+                        </group>
+                        <group name="Encoding parsers properties" description="Default parsers used on data encoding">
+                            <property name="stringEncodingParser" type="Parser" description="The default string encoding parser"/>
+                            <property name="numberEncodingParser" type="Parser" description="The default number encoding parser"/>
+                            <property name="currencyEncodingParser" type="Parser" description="The default currency encoding parser"/>
+                            <property name="dateEncodingParser" type="Parser" description="The default date encoding parser"/>
+                            <property name="booleanEncodingParser" type="Parser" description="The default boolean encoding parser"/>
+                        </group>
+                        <group name="Custom messages properties" description="The table messages. Used for customization and internationalization">
+                            <property name="messagesOnStatusBar" type="Boolean" description="When set to true, show messages on the status bar instead of in tooltips"/>
+                            <property name="invalidTableIdMessage" type="String" description="Message when the table was created using an invalid identifier"/>
+                            <property name="invalidTableContainerMessage" type="String" description="Message when the table was created using an invalid container"/>
+                            <property name="tableNotInitializedMessage" type="String" description="Message when the the table's render() method is called, and the table's mandatory properties were not correctly set"/>
+                            <property name="invalidColumnMessage" type="String" description="Message when an invalid column is being added to the table"/>
+                            <property name="invalidRowMessage" type="String" description="Message when an an invalid row is being added to the table"/>
+                            <property name="invalidRowIdMessage" type="String" description="Message when an row with an invalid identifier is being added to the table"/>
+                            <property name="rowIdAlreadyInUseMessage" type="String" description="Message when the identifier of the row being added is already in use by another row"/>
+                            <property name="sortMessage" type="String" description="Message displayed in the browser's status bar when the cursor is above a sortable columnMessage displayed in the browser's status bar when the cursor is above a sortable column"/>
+                            <property name="singleRowText" type="String" description="Navigation bar's text when there is a single row in the table"/>
+                            <property name="multipleRowText" type="String" description="Navigation bar's text when there are multiple rows in the table"/>
+                            <property name="pageText" type="String" description="Navigation bar's text when using paging. 2 variables can be used within the text: ${current} and ${total}"/>
+                            <property name="firstPageText" type="String" description="Text on the navigation bar to the first page's link"/>
+                            <property name="previousPageText" type="String" description="Text on the navigation bar to the previous page's link"/>
+                            <property name="nextPageText" type="String" description="Text on the navigation bar to the next page's link"/>
+                            <property name="lastPageText" type="String" description="Text on the navigation bar to the last page's link"/>
+                            <property name="showAllText" type="String" description="Text on the navigation bar to the show all's link"/>
+                            <property name="usePagingText" type="String" description="Text on the navigation bar to the use paging's link"/>
+                            <property name="topText" type="String" description="Text on the navigation bar to the anchor to the table's top link"/>
+                            <property name="firstPageDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to the first page"/>
+                            <property name="previousPageDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to the previous page"/>
+                            <property name="nextPageDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to the next page"/>
+                            <property name="lastPageDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to the last page"/>
+                            <property name="showAllDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to show all rows"/>
+                            <property name="usePagingDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to show paged rows"/>
+                            <property name="topDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to the table's top anchor"/>
+                            <property name="changePageDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to change the current page"/>
+                            <property name="changePageSizeDescription" type="String" description="Message displayed in the browser's status bar when the user hovers on the navigation's link to change the page size"/>
+                            <property name="changePagePrompt" type="String" description="Message propted to the user when changing the current page"/>
+                            <property name="changePageSizePrompt" type="String" description="Message propted to the user when changing the page size"/>
+                        </group>
+                    </properties>
+                    <methods>
+                        <group name="Rendering Methods" description="Methods for rendering/updating the table">
+                            <method name="render" description="Renders the table. Should be called only once, after all columns/rows are added to the table. After that, modifications should be displayed via the update() method"/>
+                            <method name="update" description="Updates the table after any modifications"/>
+                        </group>
+                        <group name="Column Manipulation Methods" description="Methods for adding/removing/retrieving columns">
+                            <method name="addColumn" description="Adds the column to the table" return="The column reference">
+                                <argument name="column" type="Column" description="The Column instance to add"/>
+                            </method>
+                            <method name="removeColumn" description="Removes a table column" return="The column reference">
+                                <argument name="index" type="Number" description="The column index"/>
+                            </method>
+                            <method name="removeAllColumns" description="Removes all table columns" return="The column reference array"/>
+                            <method name="getColumnCount" description="Returns the number of columns on the table" return="The column count"/>
+                            <method name="getColumnByIndex" description="Return the column with the specified index" return="The column reference">
+                                <argument name="index" type="Number" description="The column index"/>
+                            </method>
+                            <method name="getAllColumns" description="Returns all table columns" return="The column reference array"/>
+                            <method name="getVisibleColumns" description="Returns all table visible columns" return="The column reference array"/>
+                            <method name="getSortColumn" description="Returns the current sort column. If none, return null" return="The column reference"/>
+                        </group>
+                        <group name="Row Manipulation Methods" description="Methods for adding/removing/retrieving rows">
+                            <method name="addRow" description="Adds the row to the table. The row id must be unique" return="The row reference">
+                                <argument name="row" type="Row or Object" description="The Row instance to add, or, when the table has the identifierName  and the columns the propertyName correctly set, may be an object that will be mapped to a row"/>
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                            <method name="updateRow" description="Update the row on the table. If the row id does not exist on the table, nothing happens" return="The row reference">
+                                <argument name="row" type="Row or Object" description="The Row instance to add, or, when the table has the identifierName  and the columns the propertyName correctly set, may be an object that will be mapped to a row"/>
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                            <method name="removeRowById" description="Removes the row with the specified id" return="The removed row reference">
+                                <argument name="id" type="Object" description="The Row id"/>
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                            <method name="removeSelectedRows" description="Removes all selected rows" return="The removed rows reference array">
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                            <method name="removeAllRows" description="Removes all rows" return="The removed rows reference array">
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                            <method name="getRowById" description="Returns the specified row" return="The row reference, or null if not found">
+                                <argument name="id" type="Object" description="The row id"/>
+                            </method>
+                            <method name="getAllRows" description="Returns all rows" return="The rows reference array"/>
+                            <method name="getAllRowIds" description="Returns all row identifiers" return="The row identifiers array"/>
+                            <method name="getSelectedRows" description="Returns the selected rows" return="The rows reference array"/>
+                            <method name="getSelectedRowIds" description="Returns the selected row identifiers" return="The row identifiers array"/>
+                            <method name="getRowCount" description="Returns the row count" return="The row count"/>
+                            <method name="getSelectedRowCount" description="Returns the selected row count" return="The selected row count"/>
+                        </group>
+                        <group name="Header and Footer Methods" description="Methods for creating headers and footers">
+                            <method name="addHeader" description="Adds a header row, returning it. Any arguments will be passed on to the JavaScripTableCellContainer class" return="The JavaScripTableCellContainer instance"/>
+                            <method name="getHeader" description="Returns the header associated with the given index" return="The JavaScripTableCellContainer instance"/>
+                            <method name="getHeaderCount" description="Returns the number of additional header rows" return="The number"/>
+                            <method name="clearHeaders" description="Removes all header rows"/>
+                            <method name="addFooter" description="Adds a footer row, returning it. Any arguments will be passed on to the JavaScripTableCellContainer class" return="The JavaScripTableCellContainer instance"/>
+                            <method name="getFooter" description="Returns the footer associated with the given index" return="The JavaScripTableCellContainer instance"/>
+                            <method name="getFooterCount" description="Returns the number of additional footer rows" return="The number"/>
+                            <method name="clearFooters" description="Removes all footer rows"/>
+                        </group>
+                        <group name="Data Manipulation Methods" description="Methods for setting/getting cell data">
+                            <method name="getAllRowsAsObjects" description="The rows converted into objects using the table's ObjectRowMapper. When the table has no mapper, the array will contain Row instances" return="The object array"/>
+                            <method name="getSelectedRowsAsObjects" description="Returns the selected rows converted into objects using the table's ObjectRowMapper. When the table has no mapper, the array will contain Row instances" return="The object array"/>
+                            <method name="getRowByIdAsObject" description="Returns the specified row, converted into object using the table's ObjectRowMapper. When the table has no mapper, the return will be the Row itself" return="The object reference, or null if not found">
+                                <argument name="id" type="Object" description="The row id"/>
+                            </method>
+                            <method name="getObjectRowMapper" description="Returns an ObjectRowMapper for the table. If the table identifierName is not set, return null" return="the ObjectRowMapper instance"/>
+                            <method name="encode" description="Encodes the data on a single String. If the data is an Array, join the values with the table's rowSeparator. If the array items are Row instances, their encode() method is called. The columns to be encoded may also be specified, as well as if the row id will be encoded or not" return="String">
+                                <argument name="data" type="Object" description="The data to be encoded"/>
+                                <argument name="columns" type="Number[]" default="All columns" description="The columns to be encoded when the data is a Row or a Row Array"/>
+                                <argument name="encodeRowId" type="boolean" default="true" description="Will the row identifier be encoded toghether?"/>
+                            </method>
+                            <method name="getCellValue" description="Returns the value of the specified cell" return="The value. The type depends on the column type, ie Date, Number, boolean ...">
+                                <argument name="rowId" type="Object" description="The row identifier"/>
+                                <argument name="columnIndex" type="Number" description="The column index"/>
+                            </method>
+                            <method name="setCellValue" description="Sets the value of the specified cell">
+                                <argument name="rowId" type="Object" description="The row identifier"/>
+                                <argument name="columnIndex" type="Number" description="The column index"/>
+                                <argument name="value" type="Object" description="The cell value. The type must be an instance of the column type"/>
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                            <method name="getFormattedCellValue" description="Returns the formatted value of the specified cell. The column parser is used to format the value" return="The formatted value">
+                                <argument name="rowId" type="Object" description="The row identifier"/>
+                                <argument name="columnIndex" type="Number" description="The column index"/>
+                            </method>
+                            <method name="setFormattedCellValue" description="Sets the formatted value of the specified cell. The column parser is used to parse the String">
+                                <argument name="rowId" type="Object" description="The row identifier"/>
+                                <argument name="columnIndex" type="Number" description="The column index"/>
+                                <argument name="value" type="String" description="The formatted value"/>
+                                <argument name="refresh" type="boolean" description="Should the table be refreshed to display the changes?" default="false"/>
+                            </method>
+                        </group>
+                        <group name="Navigation Methods" description="Methods to navigate on the table">
+                            <method name="setPage" description="Sets the table current page, updating the table. Only for client-side operation">
+                                <argument name="page" type="Number" description="The page number to navigate"/>
+                            </method>
+                            <method name="setUsePaging" description="Sets if rows will be paged (true) or displayed all at once (false), updating the table. Only for client-side operation">
+                                <argument name="flag" type="boolean" description="The paging flag"/>
+                            </method>
+                            <method name="setSort" description="Sets the column to sort data, updating the table. Only for client-side operation">
+                                <argument name="columnIndex" type="Number" description="The column index to sort"/>
+                                <argument name="asc" type="boolean" default="Will invert the sort if the column is the current sort column. Otherwise, true" description="Will the sort be in ascending order?"/>
+                            </method>
+                            <method name="changePage" description="Sets the current page. If the page is not specified, prompts the user for the page">
+                                <argument name="page" type="Number" default="Prompts the user" description="The page number"/>
+                            </method>
+                            <method name="changePageSize" description="Sets the current page size. If the size is not specified, prompts the user for the size">
+                                <argument name="size" type="Number" default="Prompts the user" description="The page size number"/>
+                            </method>
+                        </group>
+                        <group name="Misc Methods" description="Other methods">
+                            <method name="getMaxPage" description="Returns the last visible page" return="The page count"/>
+                            <method name="getRowCount" description="Returns number of rows on the table" return="The row count"/>
+                            <method name="setSelection" description="Makes the row with the specified id to be selected or not, according to the specified flag">
+                                <argument name="rowId" type="Object" description="The row id"/>
+                                <argument name="flag" type="boolean" description="Will the row be selected or not?"/>
+                            </method>
+                            <method name="selectAll" description="Makes all rows to be selected or not, according to the specified flag">
+                                <argument name="flag" type="boolean" description="Will the rows be selected or not?"/>
+                            </method>
+                        </group>
+                        <group name="Highlighting helper methods" description="Methods to make easier to retrieve / set highlighting parts">
+                            <method name="buildHighlightingConstant" description="Return the constant for the given parts" return="The constant">
+                                <argument name="row" type="boolean" description="Has row highlighting?"/>
+                                <argument name="cell" type="boolean" description="Has cell highlighting?"/>
+                                <argument name="text" type="boolean" description="Has text highlighting?"/>
+                            </method>
+                            <method name="buildHighlightingParts" description="Return the parts for the given constant" return="An array of 3 positions: row / cell and text flags">
+                                <argument name="constant" type="string" description="The highlighting constant"/>
+                            </method>
+                            <method name="setColumnHeaderHighlightingParts" description="Sets the column header highlighting with individual parts">
+                                <argument name="cell" type="boolean" description="Has cell highlighting?"/>
+                                <argument name="text" type="boolean" description="Has text highlighting?"/>
+                                <argument name="update" type="boolean" description="Will the table be updated?"/>
+                            </method>
+                            <method name="setRowHighlightingParts" description="Sets the row highlighting with individual parts">
+                                <argument name="row" type="boolean" description="Has row highlighting?"/>
+                                <argument name="cell" type="boolean" description="Has cell highlighting?"/>
+                                <argument name="text" type="boolean" description="Has text highlighting?"/>
+                                <argument name="update" type="boolean" description="Will the table be updated?"/>
+                            </method>
+                            <method name="getColumnHeaderHighlightingParts" description="Returns the column header highlighting parts" return="An array of 3 positions: row / cell and text flags"/>
+                            <method name="getRowHighlightingParts" description="Returns the row highlighting parts" return="An array of 3 positions: row / cell and text flags"/>
+                        </group>
+                    </methods>
+                </class>
+                <class name="Column">
+                    <description>
+                        <![CDATA[
+                        Represents a table column.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume the table is a valid instance
+var table;
+
+//Add a column
+var col = table.addColumn(new Column("Sex", JST_TYPE_STRING));
+col.possibleValues = new Map([new Pair("m", "Male"), new Pair("f", "Female")]);
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="header" type="String" propertyGroup="Appearance properties" description="The header property" default="An empty String"/>
+                        <argument name="type" type="enum" propertyGroup="Behaviour and data entry properties" description="The type property" default="JST_TYPE_STRING">
+                            <enum const="JST_TYPE_STRING" description="String type"/>
+                            <enum const="JST_TYPE_NUMERIC" description="Numeric type"/>
+                            <enum const="JST_TYPE_CURRENCY" description="Currency type"/>
+                            <enum const="JST_TYPE_DATE" description="Date type"/>
+                            <enum const="JST_TYPE_BOOLEAN" description="Boolean type"/>
+                        </argument>
+                        <argument name="width" type="String" propertyGroup="Appearance properties" description="The width property" default="Not specified"/>
+                        <argument name="align" type="String" propertyGroup="Appearance properties" description="The align property. Any String may be used, but there are some constants named JST_ALIGN_* to help" default="JST_ALIGN_LEFT"/>
+                        <argument name="valign" type="String" propertyGroup="Appearance properties" description="The valign property. Any String may be used, but there are some constants named JST_VALIGN_* to help" default="JST_VALIGN_MIDDLE"/>
+                        <argument name="possibleValues" type="Map" propertyGroup="Behaviour and data entry properties" description="The possibleValues property" default="null"/>
+                    </constructor>
+                    <properties>
+                        <group name="Basic properties" description="Basic column properties">
+                            <property name="index" type="Number" description="Column's index on the table. Should never be changed"/>
+                            <property name="table" type="JavaScripTable" description="The column table reference. Should never be changed"/>
+                        </group>
+                        <group name="Appearance properties" description="properties that defines the column appearance">
+                            <property name="visible" type="boolean" description="A flag indicating if the column is visible" default="true"/>
+                            <property name="cellTextClass" type="String" description="If indicated, this class will be used for this column's cell text"/>
+                            <property name="cellTextStyle" type="String" description="If indicated, this style definition will be used for this column's cell text"/>
+                            <property name="headerTextClass" type="String" description="If indicated, this class will be used for this column's header text"/>
+                            <property name="headerTextStyle" type="String" description="If indicated, this style definition will be used for this column's header text"/>
+                            <property name="cropRepeated" type="Boolean" description="If set to true, don't display repeated values on contiguous rows"/>
+                            <property name="oddRowCellWithFunctionClass" type="String" description="If indicated, this class will be used for odd row cells with functions"/>
+                            <property name="evenRowCellWithFunctionClass" type="String" description="If indicated, this class will be used for even row cells with functions"/>
+                            <property name="highlightedOddRowCellWithFunctionClass" type="String" description="If indicated, this class will be used for highlighted odd row cells with functions"/>
+                            <property name="highlightedEvenRowCellWithFunctionClass" type="String" description="If indicated, this class will be used for highlighted even row cells with functions"/>
+                        </group>
+                        <group name="Behaviour and data entry properties" description="properties that defines the column behaviour">
+                            <property name="sortable" type="boolean" description="A flag indicating if the column can be sorted" default="true"/>
+                            <property name="editable" type="boolean" description="A flag indicating if the column can be edited" default="false"/>
+                            <property name="editControl" type="EditControl" description="An EditControl instance, the column editor" default="false"/>
+                            <property name="parser" type="Parser" description="A parser instance for data editing" default="The table's default parser for the column type"/>
+                            <property name="encodingParser" type="Parser" description="A parser instance for data encoding" default="The table's default encoding parser for the column type"/>
+                            <property name="allowEmptyValue" type="boolean" description="A flag indicating if the column, when being edited, allows empty values. If an empty value is typed, the validateFunction callback, if defined, is not invoked" default="false"/>
+                        </group>
+                        <group name="Callback function properties" description="Reference to functions or function names to be called on some particular events">
+                            <property name="validateFunction" type="Function" description="A function reference to be called after data entry, to validate the input. The parameters are the parsedValue, the column instance and the row instance" default="null"/>
+                            <property name="cellFunction" type="String" description="A function name to be called when the user clicks on the cell text. The rowId, columnIndex and table references are passed as arguments" default="null"/>
+                            <property name="getMaskFunction" type="Function" description="A function reference to be called to retrieve the mask for the edit control. The parameters are: The control reference, the column reference and the row reference" default="null"/>
+                        </group>
+                    </properties>
+                    <methods>
+                        <group name="Parser obtention methods" description="Methods used to return the column parsers">
+                            <method name="getParser" description="Returns the column edit parser. If no specific parser is used, return the table default parser for the column data type" return="The parser"/>
+                            <method name="getEncodingParser" description="Returns the column encoding parser. If no specific parser is used, return the table default encoding parser for the column data type" return="The parser"/>
+                        </group>
+                    </methods>
+                </class>
+                <class name="Row">
+                    <description>
+                        <![CDATA[
+                        Represents a table row.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume the table is a valid instance, with 2 columns
+var table;
+
+//Add a row
+var row = table.addRow(new Row(1, ["John Smith", 35]));
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="id" type="String" description="The row identifier. Must be unique within the table"/>
+                        <argument name="values" type="Object[]" description="The row values array. The values are assigned to the table columns in a positional form" default="null"/>
+                        <argument name="possibleValues" type="Map[]" description="The row possibleValues array" default="null"/>
+                        <argument name="titles" type="String[]" description="The row title (tooltips) array" default="null"/>
+                    </constructor>
+                    <properties>
+                        <group name="Basic properties" description="Basic row properties">
+                            <property name="table" type="JavaScripTable" description="The row table reference. Should never be changed"/>
+                        </group>
+                        <group name="Appearance and behaviour properties" description="properties that defines the column appearance or behaviour">
+                            <property name="selectable" type="boolean" description="A boolean flag to determine if this row can be selected" default="true"/>
+                            <property name="editable" type="boolean" description="A boolean flag to determine if this row can be edited" default="true"/>
+                            <property name="useCellFunction" type="boolean" description="A boolean flag to determine if this row will use the column's cellFunction" default="true"/>
+                        </group>
+                    </properties>
+                    <methods>
+                        <group name="Data retrieval methods" description="Methods used to retrieve the row data">
+                            <method name="encode" description="Encodes all values to a single String, encoding each value with a parser acquired via each column getEncodingParser() method. If the row id is encoded, it is the first value. Each value is separated by the table.columnSeparator property" return="The encoded String">
+                                <argument name="columns" type="Number[]" description="An array containing the column indexes to be encoded"/>
+                                <argument name="encodeRowId" type="boolean" default="true" description="Will the row identifier be encoded together with the column values?"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+                <class name="JavaScripTableCellContainer">
+                    <description>
+                        <![CDATA[
+                        Contains zero or more cells, and is used by the JavaScripTable to render additional header and footer.
+                        Arbitrary cell attributes may be passed on the cell with the options object. 
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume the table is a valid instance
+var table;
+
+//Add a header row
+var header = table.addHeader();
+header.add("HeaderText1", {colspan: 3, class: "MyClass"})
+header.add("HeaderText2")
+
+//Add a footer with inline parameters
+table.addFooter({text: "Footer1", colspan: 3}, {text: "Footer2", class: "MyFooterClass"});
+
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="Objects" type="Object..." description="Arbitrary number of arguments, containing objects that should have a property called 'text' and other arbitrary properties that will be rendered as cell attributes"/>
+                    </constructor>
+                    <methods>
+                        <group name="Cell manipulation methods" description="Methods used to manipulate cells">
+                            <method name="add" description="Adds a cell">
+                                <argument name="text" type="String" description="The text that will be rendered on the cell"/>
+                                <argument name="options" type="Object" default="null" description="An object containing arbitrary properties that will be rendered as cell attributes"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+                <class name="EditControl">
+                    <description>
+                        <![CDATA[
+                        Represents a column editor.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume a valid column
+var col;
+
+col.editControl = new EditControl(JST_CONTROL_SELECT);
+col.attributes = "multiple rows='5'";
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="type" type="enum" description="The type property" default="JST_CONTROL_TEXT">
+                            <enum const="JST_CONTROL_TEXT" description="Text input"/>
+                            <enum const="JST_CONTROL_PASSWORD" description="Password input"/>
+                            <enum const="JST_CONTROL_TEXTAREA" description="Textarea input"/>
+                            <enum const="JST_CONTROL_CHECKBOX" description="Checkbox input"/>
+                            <enum const="JST_CONTROL_RADIO" description="Radio button input"/>
+                            <enum const="JST_CONTROL_SELECT" description="Select input"/>
+                        </argument>
+                        <argument name="attributes" type="String" description="The attributes property" default="An empty String"/>
+                        <argument name="multiLine" type="boolean" description="The multiLine property" default="false"/>
+                        <argument name="name" type="String" description="The name property" default="Not used"/>
+                    </constructor>
+                </class>
+                <class name="ObjectRowMapper">
+                    <description>
+                        <![CDATA[
+                        The ObjectRowMapper maps between an Object or Map to a Row and vice-versa.
+                        The Table will implicitly build an ObjectRowMapper if it's identifierName is set,
+                        and the columns' propertyName is set
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var person = {id:1, name:"John Smith", email:"john.smith@mail.com"};
+var mapper = new ObjectRowMapper();
+mapper.mapIdentifier("id");
+mapper.mapProperty(0, "name"); //Column 0 is the name
+mapper.mapProperty(1, "email"); //Column 1 is the e-mail
+var row = mapper.toRow(person);
+table.addRow(row);
+                        ]]>
+                    </example>
+<methods>
+                        <group>
+                            <method name="mapIdentifier" description="Sets what object property will generate the row identifier">
+                                <argument name="name" type="String" description="The row identifier property name"/>
+                            </method>
+                            <method name="mapProperty" description="Sets what object property will generate the row data for the specified column">
+                                <argument name="columnIndex" type="Numeric" description="The column index"/>
+                                <argument name="name" type="String" description="The object property name that will generate the column value"/>
+                            </method>
+                            <method name="toObject" description="Build an object that represents the row">
+                                <argument name="row" type="Row" description="The row"/>
+                            </method>
+                            <method name="toMap" description="Build a Map that represents the row">
+                                <argument name="row" type="Row" description="The row"/>
+                            </method>
+                            <method name="toRow" description="Build a Rowthat represents the object or Map">
+                                <argument name="object" type="Object or Map" description="The object or Map"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+            </group>
+        </classes>
+    </script>
+    
+    <!-- 
+    ****************************************************************************
+    *
+    *  Parsers
+    *
+    **************************************************************************** 
+    -->
+    <script name="Parsers">
+        <dependencies>
+            <dependency script="JavaScriptUtil"/>
+        </dependencies>
+        <description>
+            <![CDATA[
+            Parsers is a set of parsers used both to parse and format different data types.
+            ]]>
+        </description>
+        <constants>
+            <group name="Default NumberParser constants" description="Contants that determine default values for the NumberParser">
+                <constant name="JST_DEFAULT_DECIMAL_DIGITS" description="Default value for property: decimalDigits"/>
+                <constant name="JST_DEFAULT_DECIMAL_SEPARATOR" description="Default value for property: decimalSeparator"/>
+                <constant name="JST_DEFAULT_GROUP_SEPARATOR" description="Default value for property: groupSeparator"/>
+                <constant name="JST_DEFAULT_USE_GROUPING" description="Default value for property: useGrouping"/>
+                <constant name="JST_DEFAULT_CURRENCY_SYMBOL" description="Default value for property: currencySymbol"/>
+                <constant name="JST_DEFAULT_USE_CURRENCY" description="Default value for property: useCurrency"/>
+                <constant name="JST_DEFAULT_NEGATIVE_PARENTHESIS" description="Default value for property: negativeParenthesis"/>
+                <constant name="JST_DEFAULT_GROUP_SIZE" description="Default value for property: groupSize"/>
+                <constant name="JST_DEFAULT_SPACE_AFTER_CURRENCY" description="Default value for property: spaceAfterCurrency"/>
+                <constant name="JST_DEFAULT_CURRENCY_INSIDE" description="Default value for property: currencyInside"/>
+            </group>
+            <group name="Default DateParser constants" description="Contants that determine default values for the DateParser">
+                <constant name="JST_DEFAULT_DATE_MASK" description="Default value for property: mask"/>
+                <constant name="JST_DEFAULT_ENFORCE_LENGTH" description="Default value for property: enforceLength"/>
+            </group>
+            <group name="Default BooleanParser constants" description="Contants that determine default values for the BooleanParser">
+                <constant name="JST_DEFAULT_TRUE_VALUE" description="Default value for property: trueValue"/>
+                <constant name="JST_DEFAULT_FALSE_VALUE" description="Default value for property: falseValue"/>
+            </group>
+        </constants>
+        <classes>
+            <group>
+                <class name="Parser">
+                    <description>
+                        <![CDATA[
+                        This is a common parser, intented to be subclassed by other parsers.
+                        ]]>
+                    </description>
+                    <methods>
+                        <group>
+                            <method name="parse" description="Parses a String, returning the correct data type. When the parsing fails, null is returned instead" return="The resulting value">
+                                <argument name="text" type="String" description="The String to be parsed"/>
+                            </method>
+                            <method name="format" description="Formats an Object, returning it as String" return="The String">
+                                <argument name="value" type="Object" description="The Object to be formatted"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+                <class name="NumberParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser for numeric values.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var parser = new NumberParser(2, ",", ".", true, "US$", true);
+alert(parser.format(3234.2)); //Result is "US$ 3.234,20"
+alert(parser.parse("US$ 3.234,20")); //Result is 3234.2
+alert(parser.parse("ABC")); //Result is null
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="decimalDigits" type="Number" description="The number of decimal digits. -1 Means no limit" default="The JST_DEFAULT_DECIMAL_DIGITS value"/>
+                        <argument name="decimalSeparator" type="String" description="The decimal separator" default="The JST_DEFAULT_DECIMAL_SEPARATOR value"/>
+                        <argument name="groupSeparator" type="String" description="The group (thousands) separator" default="The JST_DEFAULT_GROUP_SEPARATOR value"/>
+                        <argument name="useGrouping" type="boolean" description="Will grouping separator be used?" default="The JST_DEFAULT_USE_GROUPING value"/>
+                        <argument name="currencySymbol" type="String" description="The currency symbol" default="The JST_DEFAULT_CURRENCY_SYMBOL value"/>
+                        <argument name="useCurrency" type="boolean" description="Will the currencySymbol be used?" default="The JST_DEFAULT_USE_CURRENCY value"/>
+                        <argument name="negativeParenthesis" type="boolean" description="Use parenthesis (true) or '-' (false) for negative values?" default="The JST_DEFAULT_NEGATIVE_PARENTHESIS value"/>
+                        <argument name="groupSize" type="Number" description="The number of digits to be grouped together" default="The JST_DEFAULT_GROUP_SIZE value"/>
+                        <argument name="spaceAfterCurrency" type="boolean" description="Indicates if a space will be inserted after the currency symbol" default="The JST_DEFAULT_SPACE_AFTER_CURRENCY value"/>
+                        <argument name="currencyInside" type="boolean" description="Indicates if, on negative numbers, the currency symbol will be placed between the minus sign and the number, or inside the parenthesis" default="The JST_DEFAULT_CURRENCY_INSIDE value"/>
+                    </constructor>
+                    <methods>
+                        <group>
+                            <method name="round" description="Rounds the number to the precision" return="The rounded number">
+                                <argument name="number" type="Number" description="The Number to be rounded"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+                <class name="DateParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser for Date values.<br/>
+                        The mask property accepts the following characters:
+                        <table>
+                            <tr>
+                                <td width="33%">d: Day</td>
+                                <td width="33%">M: month</td>
+                                <td width="34%">y: year</td>
+                            </tr>
+                            <tr>
+                                <td>h: 12 hour</td>
+                                <td>H: 24 hour</td>
+                                <td>m: minute</td>
+                            </tr>
+                            <tr>
+                                <td>s: second</td>
+                                <td colspan="2" width="37%">S: millisecond</td>
+                            </tr>
+                            <tr>
+                                <td>a: am / pm</td>
+                                <td colspan="2" width="37%">A: AM / PM</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" width="100%">/. -: Separators</td>
+                            </tr>
+                        </table>
+                        
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var parser = new DateParser("yyyy-MM-dd HH:mm");
+alert(parser.format(new Date())); //Result is "2004-07-10 15:30"
+alert(parser.parse("2004-07-10 15:30")); //Result is a Date
+alert(parser.parse("ABC")); //Result is a null
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="mask" type="String" description="The date mask" default="The JST_DEFAULT_DATE_MASK value"/>
+                        <argument name="enforceLength" type="boolean" description="If set to true, each field on the parsed String must have the same length as that field on the mask, ie: yyyy-MM-dd with '99-10-8' would result on a parse error" default="The JST_DEFAULT_ENFORCE_LENGTH value"/>
+                        <argument name="completeFieldsWith" type="Date" description="When set, complete missing field values with the ones of it. Only makes sense when enforceLength is false" default="null"/>
+                    </constructor>
+                </class>
+                <class name="BooleanParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser for Boolean values. Actually, maps a true and a false value.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var parser = new BooleanParser("yes", "no");
+alert(parser.format(false)); //Result is "no"
+alert(parser.parse("yes")); //Result is true
+alert(parser.parse("true")); //Result is true
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="trueValue" type="Object" description="The value for boolean TRUE" default="The JST_DEFAULT_TRUE_VALUE value"/>
+                        <argument name="falseValue" type="Object" description="The value for boolean FALSE" default="The JST_DEFAULT_FALSE_VALUE value"/>
+                    </constructor>
+                </class>
+                <class name="StringParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A convenience parser for String values.
+                        ]]>
+                    </description>
+                </class>
+                <class name="MapParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser that uses a Map instance to parse / format values. The format() is a map.get(), while
+                        the parse() will search for the first occurrence of that value on the map, returning it's associated
+                        key.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var map = new Map([new Pair("name", "John Smith"), new Pair("age", 35)]);
+var parser = new MapParser(map);
+alert(parser.format("age")); //Result is 35
+alert(parser.parse("John Smith")); //Result is "name"
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="map" type="Map" description="The Map used to get the values"/>
+                        <argument name="directParse" type="boolean" description="If true, will not search the value to parse, but return the &quot;formatted&quot; value itself" default="false"/>
+                    </constructor>
+                </class>
+                <class name="EscapeParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser used to escape / unescape characters from a String, usind the escapeCharacters() / unescapeCharacters() functions.
+                        ]]>
+                    </description>
+                    <constructor>
+                        <argument name="extraChars" type="String" description="The extraChars parameter, passed to the escapeCharacters() / unescapeCharacters() functions" default="Empty String"/>
+                        <argument name="onlyExtra" type="boolean" description="The onlyExtra parameter, passed to the escapeCharacters() / unescapeCharacters() functions" default="false"/>
+                    </constructor>
+                </class>
+                <class name="CustomParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser that uses custom functions to parse / format data.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+function doFormat(value) {
+    switch (value) {
+        case 0: return "low";
+        case 1: return "high";
+        default: return "unknown";
+    }
+}
+function doParse(value) {
+    switch (value) {
+        case "low": return 0;
+        case "high": return 1;
+        default: return -1;
+    }
+}
+var parser = new CustomParser(doFormat, doParse);
+alert(parser.format(0)); //Result is "low"
+alert(parser.parse("ABC")); //Result is -1
+alert(parser.parse("high")); //Result is 1
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="formatFunction" type="Function" description="The function called to format data. The data is passed as function argument"/>
+                        <argument name="parseFunction" type="Function" description="The function called to parse data. The data is passed as function argument"/>
+                    </constructor>
+                </class>
+                <class name="WrapperParser" extends="Parser">
+                    <description>
+                        <![CDATA[
+                        A parser that wraps another parser, adding functionality through uses custom functions.
+                        When formatting, first the wrapped parser formats the data, then the formatFunction is invoked to post-process it, receiving the already formatted value and the original value as arguments.  
+                        When parsing, first the parseFunction is invoked to pre-process the value, then the wrapped parser parses it.  
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+var addTag = function(value, originalValue) {
+    var color;
+    if (originalValue != null && originalValue < 0) {
+        color = "red";
+    } else {
+        color = "blue";
+    }
+    return "<span style='color:" + color + "'>" + value + "</span>";
+}
+var removeTag = function(value) {
+    var array = /<\w[^>]+>([\w\,\.]+)<\/\w[^>]+>/i.exec(value);
+    if (!array) {
+        return null;
+    }
+    return array[1];
+}
+var numberParser = new NumberParser(2);
+var parser = new WrapperParser(numberParser, addTag, removeTag);
+alert(parser.format(-1.67)); //Result is <span style="color:red">-1,67</span>
+alert(parser.format(123.237)); //Result is <span style="color:blue">123,24</span>
+alert(parser.parse("<div>1.234.567,89</div>")); //Result is 1234567.89
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="wrappedParser" type="Parser" description="The internal parser"/>
+                        <argument name="formatFunction" type="Function" description="The function called to post-process data the wrapped parser will format. The received arguments are the already formatted data by the wrapped parser and the original data"/>
+                        <argument name="parseFunction" type="Function" description="The function called to pre-process data the wrapped parser will parse. The data is passed as function argument"/>
+                    </constructor>
+                </class>
+            </group>
+        </classes>
+    </script>
+
+    <!-- 
+    ****************************************************************************
+    *
+    *  InputMask
+    *
+    **************************************************************************** 
+    -->
+    <script name="InputMask">
+        <dependencies>
+            <dependency script="JavaScriptUtil"/>
+            <dependency script="Parsers"/>
+        </dependencies>
+        <description>
+            <![CDATA[
+            This script contains three masks for input controls.
+            They are:
+            <ul>
+                <li>InputMask: Generic mask based on custom fields</li>
+                <li>NumberMask: Mask for numbers based on a NumberParser</li>
+                <li>DateMask: Mask for dates based on a DateParser</li>
+            </ul>
+            On Internet Explorer for Windows and Gecko-based browsers (FireFox, Mozilla, etc), the masks uses the 
+            JavaScriptUtil caret operations, so that the user may type in the middle of the text.<br/>
+            <b>Warning for Opera users</b>: On Opera, masks that changes the input value (ie: NumberMask adding a group separator 
+            or DateMask adding a '/') don't work as expected, because Opera leaves the caret on the exact position it was, and don't 
+            offer any API to fix it. So, if the number was, let's say, 1234 (and the caret is on the 4th digit), after formatting,
+            it will be 1,234, and the 4th char is 3, so the caret will be BEFORE the 4. If the user type 5, the number 
+            will become 12,354, not 12,345 as expected. If anybody has suggestions about this, please, 
+            <a href="mailto:lfpg.dev@gmail.com">email</a> me.<br/>
+            Also, the new NumberMask and DateMask classes are prefered over the InputMask for number and dates.<br/>
+            <br/>
+            <b>Callback functions:</b><br/>
+            In order to use the events, the mask uses the input onkeypress, onkeydown, onkeyup and onblur events. So,
+            if you need to use those events, the "normal" form will not work: &amp;lt;input onblur="alert(1)"&amp;gt;. So, you may
+            pass functions on the mask properties, like blurFunction. See the examples for more details.
+            ]]>
+        </description>
+        <constants>
+            <group name="Default value constants" description="Contants that determine default values">
+                <constant name="JST_NUMBER_MASK_APPLY_ON_BACKSPACE" description="Will InputMask apply the mask when the user strokes a backspace?"/>
+                <constant name="JST_MASK_VALIDATE_ON_BLUR" description="Will InputMask validate the text on the onblur event?"/>
+                <constant name="JST_DEFAULT_ALLOW_NEGATIVE" description="Will NumberMask allow negative values by default?"/>
+                <constant name="JST_DEFAULT_LEFT_TO_RIGHT" description="Will NumberMask input be from left to right by default?"/>
+                <constant name="JST_DEFAULT_DATE_MASK_VALIDATE" description="Will the DateMask validate the typed date?"/>
+                <constant name="JST_DEFAULT_DATE_MASK_VALIDATION_MESSAGE" description="The default message for DateMask validation errors"/>
+                <constant name="JST_DEFAULT_DATE_MASK_YEAR_PAD_FUNCTION" description="The default padFunction for year fields"/>
+            </group>
+            <group name="Prebuilt field arrays" description="Fields to be used on the InputMask">
+                <constant name="JST_MASK_NUMBERS" description="Allow numbers only"/>
+                <constant name="JST_MASK_DECIMAL" description="Allow numbers and a decimal separator only"/>
+                <constant name="JST_MASK_UPPER" description="Allow uppercase letters only"/>
+                <constant name="JST_MASK_LOWER" description="Allow lowercase letters only"/>
+                <constant name="JST_MASK_CAPITALIZE" description="Allow capitalized letters only"/>
+                <constant name="JST_MASK_ALPHA" description="Allow letters and numbers only"/>
+                <constant name="JST_MASK_ALPHA_UPPER" description="Allow uppercase letters and numbers only"/>
+                <constant name="JST_MASK_ALPHA_LOWER" description="Allow lowercase letters and numbers only"/>
+                <constant name="JST_MASK_DATE" description="Allow ##/##/#### only"/>
+                <constant name="JST_MASK_DATE_TIME" description="Allow ##/##/#### ##:## only"/>
+                <constant name="JST_MASK_DATE_TIME_SEC" description="Allow ##/##/#### ##:##:## only"/>
+            </group>
+        </constants>
+        <classes>
+            <group name="Main mask classes" description="classes instantiated directly for an input mask">
+                <class name="InputMask">
+                    <description>
+                        <![CDATA[
+                        A generic mask for input controls, allowing custom formats.<br/>
+                        If you want to mask numbers or dates, the specialized NumberMask 
+                        and DateMask are prefered, because they have the semantics for these
+                        types, allowing additional features.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume there are 3 inputs on the document
+new InputMask(JST_MASK_NUMBERS, "numbers");
+new InputMask(JST_MASK_LOWER, "lower");
+var mask = new InputMask("##-####", "custom");
+mask.blurFunction = function () {
+    alert(this.value); //The callback is set to the input control, so 'this' is the control, not the mask
+}
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="fields" type="Field[], Field or String" description="The fields that compose the mask. If it's a single field, only it is used. Otherwise, if it's a String, the MaskBuilder.parse() method will be called"/>
+                        <argument name="control" type="HTML Input" description="The input to mask"/>
+                        <argument name="keyPressFunction" type="Function" description="Callback function for the keypress event" default="null"/>
+                        <argument name="keyDownFunction" type="Function" description="Callback function for the keydown event" default="null"/>
+                        <argument name="keyUpFunction" type="Function" description="Callback function for the keyup event" default="null"/>
+                        <argument name="blurFunction" type="Function" description="Callback function for the blur event" default="null"/>
+                        <argument name="updateFunction" type="Function" description="Callback function called whenever the mask is applied. The mask reference is passed on the call" default="null"/>
+                    </constructor>
+                    <methods>
+                        <group>
+                            <method name="update" description="Forces the mask to be applied on the control" />
+                        </group>
+                    </methods>
+                </class>
+                <class name="NumberMask">
+                    <description>
+                        <![CDATA[
+                        A mask for numbers.<br/>
+                        Is uses a NumberParser to format the data. A single parser may (and should!) be used for multiple
+                        mask instances.<br/>
+                        The parser supports input both from right to left or from left to right. On left to right,
+                        the integer part is filled first, and the user must type a decimal separator to enter on decimal
+                        part. On right to left, the decimal part is filled first, and, when it's complete, the integer part
+                        is filled. On this mode, the parser MUST have the decimalDigits property greater or equals than zero 
+                        - unlimited decimal size is not supported on right to left filling.<br/>
+                        The NumberParser handles numbers using a parser to read the format parameters from it, but does not
+                        parses the number. On prior versions, the text was parsed, so the JavaScript precision limited the
+                        number length. But, the method getAsNumber() may return a rounded number if the control text represents 
+                        a number larger than the JavaScript maximum precision allows.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume there is a input on the document
+var parser = new NumberParser(2, ",", ".", true);
+var mask = new NumberMask(parser, "number");
+mask.keyUpFunction = function (event) {
+    alert(debug(event));
+}
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="parser" type="NumberParser" description="The NumberParser used to parse/format/validate data"/>
+                        <argument name="control" type="HTML Input" description="The input to mask"/>
+                        <argument name="maxIntegerDigits" type="Number" description="The maximum integer digits allowed. -1 Means no limit. It only counts real digits (separators, currency symbol, etc, not counted)" default="-1"/>
+                        <argument name="allowNegative" type="boolean" description="Allow negative numbers?" default="The value of the JST_DEFAULT_ALLOW_NEGATIVE constant"/>
+                        <argument name="keyPressFunction" type="Function" description="Callback function for the keypress event" default="null"/>
+                        <argument name="keyDownFunction" type="Function" description="Callback function for the keydown event" default="null"/>
+                        <argument name="keyUpFunction" type="Function" description="Callback function for the keyup event" default="null"/>
+                        <argument name="blurFunction" type="Function" description="Callback function for the blur event" default="null"/>
+                        <argument name="updateFunction" type="Function" description="Callback function called whenever the mask is applied. The mask reference is passed on the call" default="null"/>
+                        <argument name="leftToRight" type="boolean" description="Will the input be from left to right (true) or right to left (false)?" default="The value of the JST_DEFAULT_LEFT_TO_RIGHT constant"/>
+                    </constructor>
+                    <methods>
+                        <group>
+                            <method name="getAsNumber" description="Returns the control value as a Number" return="The value as a Number"/>
+                            <method name="setAsNumber" description="Sets the control value as a Number">
+                                <argument name="number" type="Number" description="The value as a Number"/>
+                            </method>
+                            <method name="update" description="Forces the mask to be applied on the control" />
+                        </group>
+                    </methods>
+                </class>
+                <class name="DateMask" extends="InputMask">
+                    <description>
+                        <![CDATA[
+                        A mask for dates.</br>
+                        Is uses a DateParser to format the data. A single parser may (and should!) be used for multiple
+                        mask instances.<br/>
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume there is a input on the document
+var parser = new DateParser("dd/MM/yyyy");
+new DateMask(parser, "date");
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="parser" type="DateParser" description="The DateParser used to parse/format/validate data"/>
+                        <argument name="control" type="HTML Input" description="The input to mask"/>
+                        <argument name="validate" type="boolean" description="Will this mask validate the typed text?" default="The value of the JST_DEFAULT_DATE_MASK_VALIDATE constant"/>
+                        <argument name="validationMessage" type="String" description="The message to be shown when a validation error occours. If empty, will not alert the user. The ${value} placeholder may be used as a substituition for the field value, and ${mask} for the parser mask" default="The value of the JST_DEFAULT_DATE_MASK_VALIDATION_MESSAGE constant"/>
+                        <argument name="keyPressFunction" type="Function" description="Callback function for the keypress event" default="null"/>
+                        <argument name="keyDownFunction" type="Function" description="Callback function for the keydown event" default="null"/>
+                        <argument name="keyUpFunction" type="Function" description="Callback function for the keyup event" default="null"/>
+                        <argument name="blurFunction" type="Function" description="Callback function for the blur event" default="null"/>
+                        <argument name="updateFunction" type="Function" description="Callback function called whenever the mask is applied. The mask reference is passed on the call" default="null"/>
+                    </constructor>
+                    <methods>
+                        <group>
+                            <method name="getAsDate" description="Returns the control value as a Date" return="The value as a Date"/>
+                            <method name="setAsDate" description="Sets the control value as a Date">
+                                <argument name="number" type="Date" description="The value as a Date"/>
+                            </method>
+                            <method name="update" description="Forces the mask to be applied on the control" />
+                        </group>
+                    </methods>
+                </class>
+                <class name="SizeLimit">
+                    <description>
+                        <![CDATA[
+                        The SizeLimit is not a mask for limiting wich chars are typed, but to limit the size
+                        of a TextArea, that does not have a default way to do this.<br />
+                        It can use another element as the output for the current status, like how many characters
+                        were typed, how much are left, the maximum number of chars, or a custom text containing
+                        any combination of them, along with a free text.<br />
+                        Additionally, as well as the other masks, the SizeLimit also uses the KeyUp and Blur 
+                        events, allowing additional callbacks for these events.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+//Assume there is a input and a div on the document
+new SizeLimit("input", 50, "div", "${size} / ${max}");
+                        ]]>
+                    </example>
+                    <constructor>
+                        <argument name="control" type="HTML Input" description="The input, normally a TextArea"/>
+                        <argument name="maxLength" type="Numeric" description="The allowed text length"/>
+                        <argument name="output" type="HTML Element" description="The element that will display the status text" default="Not used"/>
+                        <argument name="outputText" type="String" description="The text that will be outputted. A free String can be used, allowing the following placeholders: &amp;{left} (size left), &amp;{size} (current size) and &amp;{max} (max size)" default="&amp;{left}"/>
+                        <argument name="updateFunction" type="Function" description="Callback function used when the status is updated (text is changed). The arguments passed to the function are: The control, the text size, the maximum size and the number of characters left" default="null"/>
+                        <argument name="keyUpFunction" type="Function" description="Callback function for the keyup event" default="null"/>
+                        <argument name="blurFunction" type="Function" description="Callback function for the blur event" default="null"/>
+                        <argument name="keyDownFunction" type="Function" description="Callback function for the keydown event" default="null"/>
+                        <argument name="keyPressFunction" type="Function" description="Callback function for the keypress event" default="null"/>
+                    </constructor>
+                    <methods>
+                        <group>
+                            <method name="update" description="Updates the SizeLimit status, refreshing the output element and calling the UpdateFunction. This method should be called if the input value is modified programatically, or if the updateFunction is set after the constructor"/>
+                        </group>
+                    </methods>
+                </class>
+            </group>
+            <group name="Utility classes" description="Classes used to help using the InputMask">
+                <class name="MaskBuilder">
+                    <description>
+                        <![CDATA[
+                        The MaskBuilder helps creating the field array to use in the InputMask.<br/>
+                        There is a default instance called maskBuilder. There is no need to create
+                        other instances of this class.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+new InputMask(maskBuilder.parse("AA-####"), "input");
+new InputMask(maskBuilder.accept(JST_CHARS_NUMBERS + "-./", 10), "input");
+new InputMask(maskBuilder.letters(2), "input");
+                        ]]>
+                    </example>
+                    <methods>
+                        <group>
+                            <method name="parse" description="Parses a String, returning the field array. The following characters are accepted: #, 0 or 9 - A number, a or A - A letter, ? or _ - Any character, l or L - A lowercase letter, u or U - An uppercase letter, c or C - A capitalized letter, \\ - A backslash, \#, \0, ... - Those literal characters" return="The field array">
+                                <argument name="text" type="String" description="The String to be parsed"/>
+                            </method>
+                            <method name="accept" description="Returns a mask that accepts the specified characters" return="The field array">
+                                <argument name="chars" type="String" description="The String containing the accepted characters"/>
+                                <argument name="max" type="Numeric" description="The maximum size" default="unlimited"/>
+                            </method>
+                            <method name="any" description="A mask that only limits the size" return="The field array">
+                                <argument name="max" type="Numeric" description="The maximum size" default="unlimited"/>
+                            </method>
+                            <method name="decimal" description="A mask that allows decimal numbers" return="The field array">
+                            </method>
+                            <method name="letters" description="A mask that allows only letters" return="The field array">
+                                <argument name="max" type="Numeric" description="The maximum size" default="unlimited"/>
+                            </method>
+                            <method name="upperLetters" description="A mask that allows only uppercase letters" return="The field array">
+                                <argument name="max" type="Numeric" description="The maximum size" default="unlimited"/>
+                            </method>
+                            <method name="lowerLetters" description="A mask that allows only lowercase letters" return="The field array">
+                                <argument name="max" type="Numeric" description="The maximum size" default="unlimited"/>
+                            </method>
+                            <method name="capitalizeLetters" description="A mask that allows only capitalized letters" return="The field array">
+                                <argument name="max" type="Numeric" description="The maximum size" default="unlimited"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+                <class name="FieldBuilder">
+                    <description>
+                        <![CDATA[
+                        The FieldBuilder helps creating individual fields to use in the InputMask.<br/>
+                        There is a default instance called fieldBuilder. There is no need to create
+                        other instances of this class.
+                        ]]>
+                    </description>
+                    <example>
+                        <![CDATA[
+new InputMask([fieldBuilder.inputNumbers(2), fieldBuilder.literal("-"), fieldBuilder.inputLetters(4)], "input");
+                        ]]>
+                    </example>
+                    <methods>
+                        <group>
+                            <method name="literal" description="Creates a literal field" return="The field">
+                                <argument name="text" type="String" description="The literal text"/>
+                            </method>
+                            <method name="input" description="Creates a generic field" return="The field">
+                                <argument name="accepted" type="String" description="The String containing the accepted characters"/>
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="upper" description="Creates a field that transforms the characters to uppercase" return="The field">
+                                <argument name="accepted" type="String" description="The String containing the accepted characters"/>
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="lower" description="Creates a field that transforms the characters to lowercase" return="The field">
+                                <argument name="accepted" type="String" description="The String containing the accepted characters"/>
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="capitalize" description="Creates a field that capitalizes the characters" return="The field">
+                                <argument name="accepted" type="String" description="The String containing the accepted characters"/>
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="inputAll" description="Creates a field that accepts any characters" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="upperAll" description="Creates a field that accepts any characters and transforms them to uppercase" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="lowerAll" description="Creates a field that accepts any characters and transforms them to lowercase" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="capitalizeAll" description="Creates a field that accepts any characters and capitalizes them" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="inputNumbers" description="Creates a field that accepts only numbers" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="inputLetters" description="Creates a field that accepts only letters" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="upperLetters" description="Creates a field that accepts only uppercase letters" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="lowerLetters" description="Creates a field that accepts only lowercase letters" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                            <method name="capitalizeLetters" description="Creates a field that accepts only letters, capitalizing them" return="The field">
+                                <argument name="min" type="Numeric" description="The minimum number of characters" default="0"/>
+                                <argument name="max" type="Numeric" description="The maximum number of characters. -1 means no limit" default="min if it's set, otherwise, -1"/>
+                                <argument name="padFunction" type="Function" description="A function used to complete the field size" default="A function that calls lpad()"/>
+                                <argument name="optional" type="Boolean" description="Indicates if the field is optional" default="false"/>
+                            </method>
+                        </group>
+                    </methods>
+                </class>
+            </group>
+            <group name="Input field classes" description="Classes used to provide the mask for the InputMask class">
+                <class name="MaskField">
+                    <description>
+                        <![CDATA[
+                        A common superclass for all input field types.
+                        ]]>
+                    </description>
+                    <properties>
+                        <group>
+                            <property name="literal" type="boolean" description="Is this field a literal String?"/>
+                            <property name="input" type="boolean" description="Is this field an input placeholder?"/>
+                        </group>
+                    </properties>
+                </class>
+                <class name="Literal" extends="MaskField">
+                    <description>
+                        <![CDATA[
+                        Represents a fixed part of the mask.<br/>
+                        A date mask, for example, has the date separators as literals.
+                        ]]>
+                    </description>
+                    <constructor>
+                        <argument name="text" type="String" description="The literal text"/>
+                    </constructor>
+                </class>
+                <class name="Input" extends="MaskField">
+                    <description>
+                        <![CDATA[
+                        A common superclass for all fields where there user input.
+                        ]]>
+                    </description>
+                    <constructor>
+                        <argument name="accepted" type="String" description="An String containing all accepted characters"/>
+                        <argument name="min" type="Number" description="The minimum field length. If the min is passed on the constructor and the max not, max is assumed equals to min" default="1"/>
+                        <argument name="max" type="Number" description="The maximum field length. -1 Means no limit" default="-1 when min not specified, else min"/>
+                        <argument name="padFunction" type="Function" description="A function used to pad (complete) the field value" default="The lpad() function will be used. Heuristics will determine the pad char"/>
+                        <argument name="optional" type="boolean" description="Is this field optional on the mask?"/>
+                    </constructor>
+                </class>
+                <class name="Lower" extends="Input">
+                    <description>
+                        <![CDATA[
+                        An input field that lowercases all typed characters.
+                        ]]>
+                    </description>
+                    <constructor>
+                        <argument name="accepted" type="String" description="An String containing all accepted characters"/>
+                        <argument name="min" type="Number" description="The minimum field length. If the min is passed on the constructor and the max not, max is assumed equals to min" default="1"/>
+                        <argument name="max" type="Number" description="The maximum field length. -1 Means no limit" default="-1 when min not specified, else min"/>
+                        <argument name="padFunction" type="Function" description="A function used to pad (complete) the field value" default="The lpad() function will be used. Heuristics will determine the pad char"/>
+                        <argument name="optional" type="boolean" description="Is this field optional on the mask?"/>
+                    </constructor>
+                </class>
+                <class name="Upper" extends="Input">
+                    <description>
+                        <![CDATA[
+                        An input field that uppercases all typed characters.
+                        ]]>
+                    </description>
+                    <constructor>
+                        <argument name="accepted" type="String" description="An String containing all accepted characters"/>
+                        <argument name="min" type="Number" description="The minimum field length. If the min is passed on the constructor and the max not, max is assumed equals to min" default="1"/>
+                        <argument name="max" type="Number" description="The maximum field length. -1 Means no limit" default="-1 when min not specified, else min"/>
+                        <argument name="padFunction" type="Function" description="A function used to pad (complete) the field value" default="The lpad() function will be used. Heuristics will determine the pad char"/>
+                        <argument name="optional" type="boolean" description="Is this field optional on the mask?"/>
+                    </constructor>
+                </class>
+                <class name="Capitalize" extends="Input">
+                    <description>
+                        <![CDATA[
+                        An input field that capitalizes all typed characters.
+                        ]]>
+                    </description>
+                    <constructor>
+                        <argument name="accepted" type="String" description="An String containing all accepted characters"/>
+                        <argument name="min" type="Number" description="The minimum field length. If the min is passed on the constructor and the max not, max is assumed equals to min" default="1"/>
+                        <argument name="max" type="Number" description="The maximum field length. -1 Means no limit" default="-1 when min not specified, else min"/>
+                        <argument name="padFunction" type="Function" description="A function used to pad (complete) the field value" default="The lpad() function will be used. Heuristics will determine the pad char"/>
+                        <argument name="optional" type="boolean" description="Is this field optional on the mask?"/>
+                    </constructor>
+                </class>
+            </group>
+        </classes>
+    </script>
+</javascriptdoc>

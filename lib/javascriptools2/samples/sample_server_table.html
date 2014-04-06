@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTable Server-Side Sample</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="themes/winxp.css">
+</head>
+
+<!-- Include the JavaScripTools files -->
+<script src="../js/JavaScriptUtil.js"></script>
+<script src="../js/Parsers.js"></script>
+<script src="../js/InputMask.js"></script>
+<script src="../js/JavaScripTable.js"></script>
+
+<!-- Include the customer database -->
+<script src="database.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+    //Set up the table
+    function setUpTable() {
+        //Instantiate the table
+        var table = new JavaScripTable("jst", getObject("jstContainer"));
+        var col;
+        
+        //Set the table properties
+        table.operationMode = JST_SERVER_SIDE;
+        table.updateTableFunction = updateTable;
+        table.width = "640px";
+        table.usePaging = true;
+        table.allowChangePaging = false;
+        table.allowTopLink = false;
+        table.pageSize = 7;
+        
+        //Set the ObjectRowMapping identifier name (id on Customer object)
+        table.identifierName = "id";
+        
+        //Add the columns
+        col = table.addColumn(new Column("Name", JST_TYPE_STRING, 150, JST_ALIGN_LEFT));
+        with (col) {
+            propertyName = "name";
+        }
+        col = table.addColumn(new Column("Gender", JST_TYPE_STRING, 80, JST_ALIGN_LEFT));
+        with (col) {
+            possibleValues = new Map([new Pair('m', 'Male'), new Pair('f', 'Female')]);
+            propertyName = "gender";
+        }
+        col = table.addColumn(new Column("Income", JST_TYPE_CURRENCY, 100, JST_ALIGN_RIGHT));
+        with (col) {
+            propertyName = "income";
+        }
+        col = table.addColumn(new Column("BirthDate", JST_TYPE_DATE, 100, JST_ALIGN_CENTER));
+        with (col) {
+            propertyName = "birthDate";
+        }
+        col = table.addColumn(new Column("Customer Type", JST_TYPE_STRING, 130, JST_ALIGN_CENTER));
+        with (col) {
+            possibleValues = customerTypes; //customerTypes is defined in the database.js file
+            propertyName = "type";
+        }
+        col = table.addColumn(new Column("Married", JST_TYPE_BOOLEAN, 80, JST_ALIGN_CENTER));
+        with (col) {
+            propertyName = "married";
+        }
+        
+        //This is the "server" processing - sort and paging
+        processRows(table)        
+        
+        //Render the table
+        table.render();
+    }
+    
+    //This function is the "server" processing - filtering and sorting
+    function processRows(table) {
+        var params = new QueryStringMap();
+        var pageSize = parseInt(params.get("pageSize"), 10);
+        var currentPage = parseInt(params.get("currentPage"), 10);
+        var sortProperty = params.get("sortProperty");
+        var ascSort = params.get("sortOrder") == "asc";
+        
+        if (isNaN(pageSize)) {
+            pageSize = table.pageSize;
+        }
+        if (isNaN(currentPage)) {
+            currentPage = 1;
+        }
+
+        //Check if the data has to be sorted
+        if (!isEmpty(sortProperty)) {
+            var sort = function (cust1, cust2) {
+                var val1 = cust1[sortProperty];
+                var val2 = cust2[sortProperty];
+                if (sortProperty == "married") {
+                    val1 = val1 ? 1 : 0;
+                    val2 = val2 ? 1 : 0;
+                }
+                //Compare the values
+                var ret = 0;
+                if (val1 != val2) {
+                    ret = (val1 > val2) ? 1 : -1;
+                    if (!ascSort) {
+                        ret = -ret;
+                    }
+                }
+                return ret;
+            }
+            customers.sort(sort);
+        }
+        
+        //Get the current page. The customers array is defined in the database.js file
+        var start = (currentPage - 1) * pageSize;
+        var end = start + pageSize;
+        if (end > customers.length) end = customers.length;
+        var page = customers.slice(start, end);
+        
+        //Add the rows
+        for (var i = 0; i < page.length; i++) {
+            var customer = page[i];
+            table.addRow(customer);
+        }
+        
+        //Set the additional table properties
+        table.rowCount = customers.length;
+        table.currentPage = currentPage;
+        table.pageSize = pageSize;
+        if (!isEmpty(sortProperty)) {
+            for (i = 0; i < PROPERTIES.length; i++) {
+                if (PROPERTIES[i] == sortProperty) {
+                    table.sortColumn = i;
+                    table.ascSort = ascSort;
+                    break;
+                }
+            }
+        }
+    }
+    
+    //This is the callback invoked when the table shall be updated
+    function updateTable(table) {
+        var sortColumn = table.sortColumn;
+        var sortProperty = sortColumn < 0 ? "" : PROPERTIES[sortColumn];
+        setValue("pageSize", table.pageSize);
+        setValue("currentPage", table.currentPage);
+        setValue("sortProperty", sortProperty);
+        setValue("sortOrder", table.ascSort ? "asc" : "desc");
+        getObject("form").submit();
+    }
+//-->
+</script>
+
+<body onload="setUpTable()">
+
+    <br>
+    <h1>JavaScripTable Server-Side Sample</h1>
+    <br>
+    <form name="form" method="GET" action="sample_server_table.html">
+        
+        <input type="hidden" name="pageSize">
+        <input type="hidden" name="currentPage">
+        <input type="hidden" name="sortProperty">
+        <input type="hidden" name="sortOrder">
+        
+        <!-- This is the DIV where the table will be written -->
+        <div id="jstContainer"></div>
+    </form>
+</body>
+</html>

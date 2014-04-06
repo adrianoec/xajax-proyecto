@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>Working with objects</h3>
+<p>There are several functions to perform operations on objects.</p>
+<p>The best place to look at the 
+<a href="../api/script_JavaScriptUtil.html">JavaScriptUtil API documentation</a>,
+that have a complete list of functions. Here, the idea is not to replicate that
+information, but to give a basic understanding.</p>
+<br>
+<p>The
+<a href="../api/JavaScriptUtil_functions.html#getObject">getObject</a>
+function returns a reference to a given named object. It searches for elements by name or
+identifier. When more than one is found, the result is an array. When none, null.</p>
+Examples:
+<pre>&lt;div id="myDiv"&gt;&lt;/div&gt;
+&lt;input name="text"&gt;
+&lt;input type="checkbox" name="check" value="0"&gt;
+&lt;input type="checkbox" name="check" value="1"&gt;
+&lt;input type="checkbox" name="check" value="2"&gt;
+getObject("myDiv") -> The div element reference
+getObject("text") -> The text field reference
+getObject("checkbox") -> The array containing the checkbox references
+</pre><br>
+
+<p>The
+<a href="../api/JavaScriptUtil_functions.html#isEmpty">isEmpty</a> and
+<a href="../api/JavaScriptUtil_functions.html#isUndefined">isUndefined</a>
+functions test if a given object is valid. Empty means an empty string (""), null or
+NaN (not a number), while undefined means an object does not exist.</p>
+Examples:
+<pre>isEmpty("") -> true
+isEmpty(null) -> true
+isEmpty(1 / 0) -> true (NaN)
+isEmpty("abc") -> false
+isEmpty(1) -> false
+isUndefined(anUndefinedVariable) -> true</pre><br>
+
+<p>The
+<a href="../api/JavaScriptUtil_functions.html#decode">decode</a>,
+<a href="../api/JavaScriptUtil_functions.html#select">select</a>,
+<a href="../api/JavaScriptUtil_functions.html#ifEmpty">ifEmpty</a> and
+<a href="../api/JavaScriptUtil_functions.html#ifNull">ifNull</a>
+functions receive several parameters and return one of them, according to certain conditions.</p>
+Examples:
+<pre>var index = 3; var emptyString = "";
+decode(index, 1, "One", 2, "Two", 3, "Three", "Unknown") -> "Three"
+decode(index, "a", "A", "b", "B", "?") -> "?" (the default)
+select(index == 10, "Ten", index > 10, "More", "Less") -> "Less" (the default)
+ifEmpty(emptyString, "EMPTY") -> "EMPTY"
+ifEmpty(index, "EMPTY") -> 3
+ifNull(emptyString, "NULL") -> ""
+ifNull(null, "NULL") -> null
+</pre><br>
+
+<p>The
+<a href="../api/JavaScriptUtil_functions.html#booleanValue">booleanValue</a>
+function test if an object could be interpreted as a boolean true or false.</p>
+Examples:
+<pre>booleanValue("true") -> true
+booleanValue("") -> false
+booleanValue("1") -> true
+booleanValue("F") -> false
+</pre><br>
+
+<p>The
+<a href="../api/JavaScriptUtil_functions.html#debug">debug</a>
+function convert an object into a string, showing each property. Perhaps the best name for this
+function would be describe.</p>
+Examples:
+<pre>var person = {name:"John", age:35};
+debug(person) -> "[object Object]
+                  --------------------
+                  age = 35
+                  name = John"
+</pre><br>
+
+<p>The
+<a href="../api/JavaScriptUtil_functions.html#functionName">functionName</a> and 
+<a href="../api/JavaScriptUtil_functions.html#invoke">invoke</a>
+functions allows working with function references.</p>
+Examples:
+<pre>functionName(Number) -> "Number"
+var map = new Map();
+functionName(map) -> "Map"
+invoke("trim", " hello ") -> "hello"
+invoke("left", ["abcde", 2]) -> "ab"
+</pre><br>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_strings.html">Working with strings</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScriptUtil_arrays.html">Working with arrays</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

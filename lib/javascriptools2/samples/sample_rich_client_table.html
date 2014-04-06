@@ -1,0 +1,631 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!-- Include the JavaScripTools scripts -->
+<script src="../js/JavaScriptUtil.js"></script>
+<script src="../js/Parsers.js"></script>
+<script src="../js/InputMask.js"></script>
+<script src="../js/JavaScripTable.js"></script>
+
+<!-- Include the Theme script -->
+<script src="themes.js"></script>
+
+<head>
+    <title>JavaScripTable Rich Client-Side Sample</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script>
+        //Write the theme
+        createThemeLink();
+    </script>
+</head>
+
+<!-- Include the customer database -->
+<script src="database.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+    var table, nameColumn, genderColumn, incomeColumn, birthDateColumn, marriedColumn, typeColumn;
+    var headerText = "This is the header text";
+    var footerText = "This is the footer text";
+    var waitText = "Please, wait...";
+    
+    //Initializes the page
+    function setUp() {
+        setUpTable();
+        setUpControls();
+    }
+    
+    //Build the table
+    function setUpTable() {
+        //Instantiate the table
+        table = new JavaScripTable("jst", getObject("jstContainer"));
+
+        //Set the table properties
+        table.selectionType = JST_SEL_MULTI;
+        table.selectionName = "customerId";
+        table.headerText = headerText;
+        table.footerText = footerText;
+        table.usePaging = true;
+        table.pageSize = 7;
+        table.rowFunction = rowClick;
+        table.columnHeaderHighlighting = JST_HIGHLIGHTING_TEXT_CELL;
+        table.rowHighlighting = JST_HIGHLIGHTING_ROW_TEXT;
+        table.waitText = waitText;
+        table.identifierName = "id";
+        table.mapperClassName = "Customer";
+        
+        //Add the columns
+        nameColumn = table.addColumn(new Column("Name", JST_TYPE_STRING, 150, JST_ALIGN_LEFT));
+        with (nameColumn) {
+            propertyName = "name";
+            editControl = new EditControl(JST_CONTROL_TEXT);
+            editControl.attributes = "maxlength='50' style='text-align:" + align + "; width:" + width + "px'";
+            editControl.name = "name";
+            cellFunction = nameClick;
+        }
+        genderColumn = table.addColumn(new Column("Gender", JST_TYPE_STRING, 80, JST_ALIGN_LEFT));
+        with (genderColumn) {
+            propertyName = "gender";
+            possibleValues = new Map([new Pair('m', 'Male'), new Pair('f', 'Female')]);
+            editControl = new EditControl(JST_CONTROL_RADIO);
+        }
+        birthDateColumn = table.addColumn(new Column("BirthDate", JST_TYPE_DATE, 100, JST_ALIGN_CENTER));
+        with (birthDateColumn) {
+            propertyName = "birthDate";
+            editControl = new EditControl(JST_CONTROL_TEXT);
+            editControl.attributes = "maxlength='10' style='text-align:" + align + "; width:" + width + "px'";
+            editControl.name = "birthDate";
+            allowEmptyValue = true;
+            validateFunction = function(date) {
+                if (date == null) {
+                    return true;
+                }
+                var year = date.getFullYear();
+                if (year >= 1900 && year <= new Date().getFullYear()) return true; 
+                else return "The birth year must be between 1900 and the current year"; 
+            };
+            getMaskFunction = function(control, column, row) {
+                return new DateMask(column.getParser(), control, false);
+            }
+        }
+        marriedColumn = table.addColumn(new Column("Married?", JST_TYPE_BOOLEAN, 90, JST_ALIGN_CENTER));
+        with (marriedColumn) {
+            propertyName = "married";
+            editControl = new EditControl(JST_CONTROL_CHECKBOX);
+            editControl.name = "married";
+        }
+        typeColumn = table.addColumn(new Column("Customer Type", JST_TYPE_STRING, 130, JST_ALIGN_CENTER));
+        with (typeColumn) {
+            propertyName = "type";
+            cellTextStyle = "font-weight: bold";
+            possibleValues = customerTypes; //customerTypes is defined in the database.js file
+            editControl = new EditControl(JST_CONTROL_SELECT);
+            editControl.multiLine = true;
+            editControl.name = "type";
+        }
+        incomeColumn = table.addColumn(new Column("Income", JST_TYPE_CURRENCY, 100, JST_ALIGN_RIGHT));
+        with (incomeColumn) {
+            propertyName = "income";
+            editControl = new EditControl(JST_CONTROL_TEXT);
+            editControl.attributes = "maxlength='20' style='text-align:" + align + "; width:" + width + "px'";
+            editControl.name = "income";
+            validateFunction = function(val) {
+                if (val > 100) return true; 
+                else return "The value must be greater than 100"; 
+            };
+            getMaskFunction = function(control, column, row) {
+                return new NumberMask(column.getParser(), control, 6);
+            };
+        }
+        
+        //Additional headers
+        var header = table.addHeader();
+        header.add("Personal data", {colspan: 4, align: "center"});
+        header.add("Financial data", {colspan: 2, align: "center"});
+        
+        //Add the rows. The customers array is defined in the database.js file
+        for (var i = 0; i < customers.length; i++) {
+            var customer = customers[i];
+            var row = new Row(i, [customer.name, customer.gender, customer.birthDate, 
+                                  customer.married, customer.type, customer.income]);
+            table.addRow(row);
+        }
+        
+        //Render the table
+        table.render();
+    }
+    
+    //Sets the control initial values
+    function setUpControls() {
+        setValue("radEditable", table.columns[0].editable);
+        setValue("radSortable", table.columns[0].sortable);
+        setValue("radRowBreaks", "0");
+        setValue("radChangePaging", table.allowChangePaging);
+        setValue("radChangePageSize", table.allowChangePageSize);
+        setValue("radTopLink", table.allowTopLink);
+        setValue("radPrinting", table.printing);
+        setValue("radHeader", !isEmpty(table.headerText));
+        setValue("radFooter", !isEmpty(table.footerText));
+        setValue("radCropRepeated", table.cropRepeated);
+        setValue("radWait", !isEmpty(table.waitText));
+        setValue("radColumnHeaders", table.showColumnHeaders);
+        var nav;
+        switch (table.navigation) {
+            case JST_NAV_TOP: nav = "top"; break;
+            case JST_NAV_BOTTOM: nav = "bottom"; break;
+            case JST_NAV_BOTH: nav = "both"; break;
+            default: nav = "none"; break;
+        }
+        setValue("radNavigation", nav);
+        var sel;
+        switch (table.selectionType) {
+            case JST_SEL_SINGLE: nav = "single"; break;
+            case JST_SEL_MULTI: nav = "multi"; break;
+            default: nav = "none"; break;
+        }
+        setValue("radSelection", nav);
+        var hi = table.getColumnHeaderHighlightingParts();
+        setValue("chkHighlightColumnHeaderCell", hi[1]);
+        setValue("chkHighlightColumnHeaderText", hi[2]);
+        hi = table.getRowHighlightingParts();
+        setValue("chkHighlightRow",     hi[0]);
+        setValue("chkHighlightRowCell", hi[1]);
+        setValue("chkHighlightRowText", hi[2]);
+        
+        //Set the edition masks
+        new NumberMask(incomeColumn.getParser(), "txtIncome");
+        new DateMask(birthDateColumn.getParser(), "txtBirthDate");
+    }
+
+    //Called when the user clicks a row
+    function rowClick(rowId) {
+        alert("You clicked on the row with id = " + rowId + ".\nClick on the name to edit the row's data.");
+    }
+
+    //Called when the user clicks a name
+    function nameClick(rowId, colIndex) {
+        var customer = table.getRowByIdAsObject(rowId);
+        readCustomer(customer);
+        setEdit(true)
+    }
+
+    //Encodes the table data to a single String
+    function encodeAll() {
+        setValue("output", replaceAll(unescapeCharacters(table.encode()), "\n", "<br>"));
+    }
+
+    //Encodes the selected data to a single String
+    function encodeSelected() {
+        setValue("output", replaceAll(unescapeCharacters(table.encode(table.getSelectedRows())), "\n", "<br>"));
+    }
+
+    //Converts all rows into objects
+    function toObjectAll() {
+        setValue("output", table.getAllRowsAsObjects().join("<br>"));
+    }
+
+    //Converts selected rows into objects
+    function toObjectSelected() {
+        setValue("output", table.getSelectedRowsAsObjects().join("<br>"));
+    }
+
+    //Switch columns' editable property
+    function setEditable(flag) {
+        var cols = table.getAllColumns();
+        for (var i = 0; i < cols.length; i++) {
+            cols[i].editable = flag;
+        }
+        table.update();
+    }
+
+    //Switch columns' sortable property
+    function setSortable(flag) {
+        var cols = table.getAllColumns();
+        for (var i = 0; i < cols.length; i++) {
+            cols[i].sortable = flag;
+        }
+        table.update();
+    }
+    
+    //Switch table's allowChangePaging property
+    function setAllowChangePaging(flag) {
+        table.allowChangePaging = flag;
+        table.update();
+    }
+
+    //Switch table's allowChangePageSize property
+    function setAllowChangePageSize(flag) {
+        table.allowChangePageSize = flag;
+        table.update();
+    }
+    
+    //Switch table's allowTopLink property
+    function setDisplayTopLink(flag) {
+        table.allowTopLink = flag;
+        table.update();
+    }
+    
+    //Switch table's printing mode
+    function setPrinting(flag) {
+        table.printing = flag;
+        table.update();
+    }
+    
+    //Switch table's showHeader
+    function setShowHeader(flag) {
+        table.headerText = flag ? headerText : "";
+        table.update();
+    }
+
+    //Switch table's showFooter
+    function setShowFooter(flag) {
+        table.footerText = flag ? footerText : "";
+        table.update();
+    }
+
+    //Switch table's wait message
+    function setShowWait(flag) {
+        table.waitText = flag ? waitText : "";
+        table.update();
+    }
+
+    //Switch column headers
+    function setColumnHeaders(flag) {
+        table.showColumnHeaders = flag;
+        table.update();
+    }
+    
+    //Switch crop repeated values
+    function setCropRepeated(flag) {
+        table.cropRepeated = flag;
+        table.update();
+    }
+    
+    //Change the navigation style
+    function setNavigation(value) {
+        table.navigation = value;
+        table.update();
+    }
+    
+    //Change the selection type
+    function setSelection(value) {
+        table.selectionType = value;
+        table.update();
+    }
+    
+    //Change the row breaks
+    function setRowBreaks(value) {
+        table.rowBreaks = new Array();
+        switch (value) {
+            case 1:
+                table.setRowBreak(incomeColumn.index);
+                break;
+            case 2:
+                table.setRowBreak(genderColumn.index);
+                table.setRowBreak(birthDateColumn.index);
+                break;
+        }
+        table.update();
+    }
+    
+    //Change the column headers highlighting
+    function setColumnHeadersHighlighting() {
+        var cell = booleanValue(getValue("chkHighlightColumnHeaderCell"));
+        var text = booleanValue(getValue("chkHighlightColumnHeaderText"));
+        table.setColumnHeaderHighlightingParts(cell, text, true);
+    }
+
+    //Change the row highlighting
+    function setRowHighlighting() {
+        var row = booleanValue(getValue("chkHighlightRow"));
+        var cell = booleanValue(getValue("chkHighlightRowCell"));
+        var text = booleanValue(getValue("chkHighlightRowText"));
+        table.setRowHighlightingParts(row, cell, text, true);
+    }
+    
+    //Create a customer instance from the page controls
+    function createCustomer() {
+        var customer = new Customer();
+        try {
+            customer.id = parseInt(getValue("hdnId"), 10);
+        } catch (exception) {
+            customer.id = null;
+        }
+        customer.name = getValue("txtName");
+        customer.gender = getValue("radGender");
+        customer.type = getValue("selType");
+        customer.income = incomeColumn.getParser().parse(getValue("txtIncome"));
+        customer.married = booleanValue(getValue("chkMarried"));
+        customer.birthDate = birthDateColumn.getParser().parse(getValue("txtBirthDate"));
+        
+        //Validate the data
+        if (isEmpty(customer.name)) {
+            alert("The name must be informed");
+            return null;
+        }
+        if (isEmpty(customer.income)) {
+            alert("The income must be informed");
+            return null;
+        }
+        if (isEmpty(customer.birthDate)) {
+            alert("The birth date must be informed");
+            return null;
+        }
+        
+        return customer;
+    }
+    
+    //Populate the page controls with the customer instance
+    function readCustomer(customer) {
+        if (customer == null) customer = new Customer();
+        setValue("hdnId", customer.id);
+        setValue("txtName", customer.name);
+        setValue("radGender", customer.gender);
+        setValue("selType", customer.type);
+        setValue("txtIncome", isEmpty(customer.income) ? "" : incomeColumn.getParser().format(customer.income));
+        setValue("chkMarried", customer.married);
+        setValue("txtBirthDate", isEmpty(customer.birthDate) ? "" : birthDateColumn.getParser().format(customer.birthDate));
+    }
+    
+    //Add a new customer
+    function addNewRow() {
+        readCustomer(null);
+        setEdit(true);
+    }
+    
+    //Reads the selected row as a customer
+    function readSelected(){
+        var customers = table.getSelectedRowsAsObjects();
+        if (customers.length == 0) {
+            alert("Nothing selected");
+            return false;
+        }
+        readCustomer(customers[0]);
+        setEdit(true);
+    }
+    
+    //Remove the selected customers
+    function removeSelected() {
+        var removed = table.removeSelectedRows();
+        if (removed.length == 0) {
+            alert("Nothing selected");
+        } else {
+            table.update();
+        }
+    }
+    
+    function setEdit(flag) {
+        getObject("divActions").style.display = flag ? "none" : "block";
+        getObject("divEdit").style.display = flag ? "block" : "none";
+        if (flag) {
+            var txtName = getObject("txtName");
+            txtName.select();
+            txtName.focus();
+        }
+    }
+    
+    //Save the customer
+    function save() {
+        var customer = createCustomer();
+        if (customer == null) return;
+        var isInsert = isEmpty(customer.id);
+        if (isInsert) {
+            customer.id = customers.length; //Remember: the customers array is in the database.js script
+            table.addRow(customer);
+            table.setPage(table.getMaxPage());
+        } else {
+            table.updateRow(customer);
+            table.update();
+        }
+        setEdit(false);
+    }
+    
+    //Cancel editing
+    function cancel() {
+        setEdit(false);
+    }
+
+//-->
+</script>
+
+<body onload="setUp()">
+
+    <br>
+    <h1>JavaScripTable Rich Client-Side Sample</h1>
+    <br>
+    
+    <div>
+        Change Theme: 
+        <script>
+            //This function is defined on the themes.js file
+            createThemeSelect();
+        </script>
+    </div>
+    <br>
+    <!-- This is the DIV where the table will be written -->
+    <div id="jstContainer"></div>
+    <br><br>
+    <div class="subTitle">Table Properties:</div>
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="300">Can be edited?</td>
+            <td><input type="radio" name="radEditable" onclick="setEditable(true)" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radEditable" onclick="setEditable(false)" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Can be sorted?</td>
+            <td><input type="radio" name="radSortable" onclick="setSortable(true)" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radSortable" onclick="setSortable(false)" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Row breaks:</td>
+            <td><input type="radio" name="radRowBreaks" onclick="setRowBreaks(parseInt(this.value))" value="0"></td>
+            <td>None</td>
+            <td><input type="radio" name="radRowBreaks" onclick="setRowBreaks(parseInt(this.value))" value="1"></td>
+            <td>One</td>
+            <td><input type="radio" name="radRowBreaks" onclick="setRowBreaks(parseInt(this.value))" value="2"></td>
+            <td>Two</td>
+        </tr>
+        <tr>
+            <td>Show table header?</td>
+            <td><input type="radio" name="radHeader" onclick="setShowHeader(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radHeader" onclick="setShowHeader(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Show table footer?</td>
+            <td><input type="radio" name="radFooter" onclick="setShowFooter(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radFooter" onclick="setShowFooter(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Show the wait message?</td>
+            <td><input type="radio" name="radWait" onclick="setShowWait(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radWait" onclick="setShowWait(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Show column headers?</td>
+            <td><input type="radio" name="radColumnHeaders" onclick="setColumnHeaders(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radColumnHeaders" onclick="setColumnHeaders(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Crop repeated values?</td>
+            <td><input type="radio" name="radCropRepeated" onclick="setCropRepeated(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radCropRepeated" onclick="setCropRepeated(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Selection type</td>
+            <td><input type="radio" name="radSelection" onclick="setSelection(JST_SEL_NONE)" value="none"></td>
+            <td>None</td>
+            <td><input type="radio" name="radSelection" onclick="setSelection(JST_SEL_SINGLE)" value="single"></td>
+            <td>Single</td>
+            <td><input type="radio" name="radSelection" onclick="setSelection(JST_SEL_MULTI)" value="multi"></td>
+            <td>Multiple</td>
+        </tr>
+        <tr>
+            <td>Navigation bar position</td>
+            <td><input type="radio" name="radNavigation" onclick="setNavigation(JST_NAV_NONE)" value="none"></td>
+            <td>None</td>
+            <td><input type="radio" name="radNavigation" onclick="setNavigation(JST_NAV_TOP)" value="top"></td>
+            <td>Top</td>
+            <td><input type="radio" name="radNavigation" onclick="setNavigation(JST_NAV_BOTTOM)" value="bottom"></td>
+            <td>Bottom</td>
+            <td><input type="radio" name="radNavigation" onclick="setNavigation(JST_NAV_BOTH)" value="both"></td>
+            <td>Both</td>
+        </tr>
+        <tr>
+            <td>Allow Change Paging Style?</td>
+            <td><input type="radio" name="radChangePaging" onclick="setAllowChangePaging(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radChangePaging" onclick="setAllowChangePaging(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Allow Change Page Size?</td>
+            <td><input type="radio" name="radChangePageSize" onclick="setAllowChangePageSize(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radChangePageSize" onclick="setAllowChangePageSize(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Display the Top Link?</td>
+            <td><input type="radio" name="radTopLink" onclick="setDisplayTopLink(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radTopLink" onclick="setDisplayTopLink(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Printing mode?</td>
+            <td><input type="radio" name="radPrinting" onclick="setPrinting(booleanValue(this.value))" value="true"></td>
+            <td>yes</td>
+            <td><input type="radio" name="radPrinting" onclick="setPrinting(booleanValue(this.value))" value="false"></td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>Column headers highlighting:</td>
+            <td><input type="checkbox" name="chkHighlightColumnHeaderCell" onclick="setColumnHeadersHighlighting()" value="true"></td>
+            <td>Cell</td>
+            <td><input type="checkbox" name="chkHighlightColumnHeaderText" onclick="setColumnHeadersHighlighting()" value="true"></td>
+            <td>Text</td>
+        </tr>
+        <tr>
+            <td>Row highlighting:</td>
+            <td><input type="checkbox" name="chkHighlightRow" onclick="setRowHighlighting()" value="true"></td>
+            <td>Row</td>
+            <td><input type="checkbox" name="chkHighlightRowCell" onclick="setRowHighlighting()" value="true"></td>
+            <td>Cell</td>
+            <td><input type="checkbox" name="chkHighlightRowText" onclick="setRowHighlighting()" value="true"></td>
+            <td>Text</td>
+        </tr>
+    </table>
+    <br>
+    <div class="subTitle">Data manipulation:</div>
+    <div id="divActions">
+        <input type="button" onclick="addNewRow()" value="Add new">
+        <input type="button" onclick="readSelected()" value="Edit selected">
+        <input type="button" onclick="removeSelected()" value="Remove Selected">
+    </div>
+    <div id="divEdit" style="display:none">
+        <input type="button" onclick="save()" value="Save">
+        <input type="button" onclick="cancel()" value="Cancel">
+
+        <input type="hidden" name="hdnId">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>Name:</td>
+                <td><input name="txtName" size="25"></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <label><input type="radio" name="radGender" value="m" checked> Male</label> 
+                    <label><input type="radio" name="radGender" value="f"> Female</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Income:</td>
+                <td><input name="txtIncome" size="12"></td>
+            </tr>
+            <tr>
+                <td>Birth date:</td>
+                <td><input name="txtBirthDate" size="12"></td>
+            </tr>
+            <tr>
+                <td>Type:</td>
+                <td><select name="selType">
+                    <option value="b">Bronze</option>
+                    <option value="s">Silver</option>
+                    <option value="g">Gold</option>
+                    <option value="p">Platinum</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Married?</td>
+                <td><input type="checkbox" name="chkMarried" value="true"></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div class="subTitle">Retrieve multiple rows:</div>
+    <a href="javascript:encodeAll()">Encode all rows on a single string</a><br>
+    <a href="javascript:encodeSelected()">Encode the selected rows to a single string</a><br>
+    <a href="javascript:toObjectAll()">Convert all rows into objects</a><br>
+    <a href="javascript:toObjectSelected()">Convert the selected rows into objects</a><br>
+    <br>
+    <div class="subTitle">Output:</div>
+    <div id="output"></div>
+</body>
+</html>

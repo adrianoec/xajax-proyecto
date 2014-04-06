@@ -1,0 +1,164 @@
+.JSTTable {
+    color: black;
+    font-family: Helvetica;
+    font-size: 10pt;
+    margin: 0px;
+    border: 1px solid black;
+}
+.JSTHeader {
+    text-align: center;
+    background-color: navy;
+    font-weight: bold;
+    color: white;
+    font-size: 11pt;
+    border-bottom: 1px solid white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.JSTFooter {
+    text-align: center;
+    color: white;
+    background-color: navy;
+    font-weight: normal;
+    font-size: 8pt;
+}
+
+.JSTColumnHeader {
+    background-color: navy;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 1px;
+}
+.JSTHighlightedColumnHeader {
+    background-color: navy;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0px;
+    border: 1px solid white;
+}
+.JSTColumnHeaderText {
+    padding: 4px;
+}
+.JSTHighlightedColumnHeaderText {
+    background: navy;
+    color: white;
+    border: 1px solid white;
+    padding: 3px;
+}
+
+.JSTOddRow {
+    background-color: #ffffcc;
+}
+.JSTHighlightedOddRow {
+    background-color: #ccffcc;
+}
+.JSTOddRowCell {
+    border: 0px;
+    padding: 1px;
+}
+.JSTHighlightedOddRowCell {
+    border: 1px solid black;
+    padding: 0px;
+}
+.JSTOddRowText {
+    border: none;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTOddRowTextWithFunction {
+    color: blue;
+    border: none;
+    text-decoration: none;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTHighlightedOddRowText {
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.JSTHighlightedOddRowTextWithFunction {
+    color: blue;
+    border: none;
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.JSTEvenRow {
+    background-color: white;
+}
+.JSTHighlightedEvenRow {
+    background-color: #ccffcc;
+}
+.JSTEvenRowCell {
+    border: 0px;
+    padding: 1px;
+}
+.JSTHighlightedEvenRowCell {
+    border: 1px solid black;
+    padding: 0px;
+}
+.JSTEvenRowText {
+    border: none;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTEvenRowTextWithFunction {
+    color: blue;
+    border: none;
+    text-decoration: none;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTHighlightedEvenRowText {
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.JSTHighlightedEvenRowTextWithFunction {
+    color: blue;
+    border: none;
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.JSTSelectionControl {
+}
+.JSTEditControl {
+    font-family: Helvetica;
+    border: 1px solid black;
+    color: black;
+    background-color: transparent;
+}
+.JSTEditControlRadioCheckbox {
+    border: none;
+}
+.JSTInvalidEditControl {
+    font-family: Helvetica;
+    border: 1px solid black;
+    color: red;
+    background-color: transparent;
+}
+
+.JSTNavigation {
+    text-align: center;
+    color: white;
+    background-color: navy;
+    font-weight: normal;
+    font-size: 9pt;
+}
+.JSTNavigationLink  {
+    color: #ffffcc;
+    text-decoration: none;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.JSTHighlightedNavigationLink {
+    color: gold;
+    text-decoration: none;
+    padding-left: 3px;
+    padding-right: 3px;
+}

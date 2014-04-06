@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScripTable</h2>
+<h3>Manipulating the table</h3>
+<h4>Columns</h4>
+<p>JavaScripTable has many methods for data manipulation.</p>
+<p>For column manipulation, there are the following methods: <code>addColumn</code>, <code>removeColumn</code>,
+<code>removeAllColumn</code>, <code>getColumnCount</code>, <code>getColumnByIndex</code> and <code>getVisibleColumns</code>.
+Note that you cannot add or remove columns if there are rows on the table.</p>
+<p>You add a column passing a <a href="../api/class_Column.html">Column</a> instance or a string - the column header. In both
+cases, the method returns the <code>Column</code> instance that you can customize. For details about column properties, take
+a look <a href="JavaScripTable_column_props.html">here</a>.</p>
+<p>Each column has a data type, and a <a href="Parsers_intro.html">Parser</a> that will be used to both format and parse data.
+If no column specific parser (using the <code>parser</code> property) is used, the table default by data type is used. 
+The following properties may be set (their default value constants are between parenthesis): <code>stringParser</code>
+(JST_DEFAULT_STRING_PARSER), <code>numberParser</code> (JST_DEFAULT_NUMBER_PARSER), <code>currencyParser</code> 
+(JST_DEFAULT_CURRENCY_PARSER), <code>dateParser</code> (JST_DEFAULT_DATE_PARSER) 
+and <code>booleanParser</code> (JST_DEFAULT_BOOLEAN_PARSER). The correct data type is important for the table to compute the correct
+sorting when it's on client side mode, and to allow correct data editing when the table is editable.</p>
+<p>New on version 2.1.6 is that the table will pass as a second argument every time it calls a <code>format</code> or <code>parse</code> 
+method on a <code>parser</code> is that it will pass a another 2 arguments: 
+the <a href="../api/class_Row.html">Row</a> and the <a href="../api/class_Column.html">Column</a> instances where the data is located,
+so, a <a href="../api/class_CustomParser.html">CustomParser</a> or a <a href="../api/class_WrapperParser.html">WrapperParser</a>
+could use that information in order to customize the parsed or formatted data.</p>
+<br><br>
+<h4>Rows</h4>
+<p>For row manipulation, you should use: <code>addRow</code>, <code>updateRow</code>, <code>removeRowById</code>, <code>removeSelectedRows</code>,
+<code>removeAllRows</code>, <code>getAllRows</code>, <code>getAllRowsAsObjects</code>, <code>getRowById</code>,
+<code>getRowByIdAsObject</code>, <code>getSelectedRows</code>, <code>getSelectedRowsAsObjects</code>, <code>getAllRowIds</code> and
+<code>getSelectedRowIds</code>.</p>
+<p>The <code>addRow</code> method can receive a <a href="../api/class_Row.html">Row</a> instance or an object if an 
+<a href="JavaScripTable_data.html#objects">ObjectRowMapper</a> is used. The method return value is the <code>Row</code> instance.
+You can, then, customize the row. Take a look <a href="JavaScripTable_row_props.html">here</a> for row properties.</p>
+<p>The <code>Row</code> constructor receives, as arguments, the row identifier and the array of values. The identifier must be unique
+in the table, and the array has one entry for each column, containing elements of the column type. Example: if there are 3 columns of types
+string, number and date, the array must contain a String, a Number and a Date. If elements are not of the expected type, the column parser will
+be used to parse the element.</p>
+<p>After adding, removing or updating rows, remember to update the table with the <code>update</code> method.</p>
+<br><br>
+<h4>Cells</h4>
+<p>A cell is the identified by a row id and a column index. The following methods manipulate cell data: <code>getCellValue</code>, <code>setCellValue</code>,
+<code>getFormattedCellValue</code> and <code>setFormattedCellValue</code>. The always receive the row id and column index. The set* methods receives a 
+third argument, the new value. The *Formatted* methods return and set data as string.</p>
+<p>As usual, for modifications to become visible, use the table <code>update</code> method.</p>
+<br><br>
+<h4>Row breaks</h4>
+<p>Row breaks split a single row into more than one table row. All "subrows" are locally threated as a single row (same highlighting, row function, etc).
+For that, the method <code>setRowBreak</code> can be used. It optionally receives the column index (defaults to the last one) and a flag indicating if
+the row break must be used or not (default true). When there are different number of columns in each subrow, you should correctly set the <code>colspan</code>
+and <code>rowspan</code> in each column. Here is an example:
+<pre>var table = new JavaScripTable(...);
+with (table.addColumn("Employee")) {
+    colspan = 2;
+}
+table.setRowBreak();
+table.addColumn("Department");
+table.addColumn("Job");
+table.addRow(new Row(1, ["Peter", "IT", "Programmer"]));
+table.addRow(new Row(2, ["John", "IT", "Web Designer"]));
+table.addRow(new Row(3, ["Mary", "Financial", "Manager"]));
+table.render();
+
+//The result will be:
+</pre>
+<table width="300" border="0" cellspacing="0" style="border: 1px solid black">
+    <tr style="background:navy">
+        <th align="left" colspan="2" style="color:white">Employee</th>
+    </tr>
+    <tr style="background:navy">
+        <th align="left" style="color:white">Department</th>
+        <th align="left" style="color:white">Job</th>
+    </tr>
+    <tr>
+        <td colspan="2">Peter</td>
+    </tr>
+    <tr>
+        <td>IT</td>
+        <td>Web Designer</td>
+    </tr>
+    <tr style="background:silver">
+        <td colspan="2">John</td>
+    </tr>
+    <tr style="background:silver">
+        <td>IT</td>
+        <td>Programmer</td>
+    </tr>
+    <tr>
+        <td colspan="2">Mary</td>
+    </tr>
+    <tr>
+        <td>Financial</td>
+        <td>Manager</td>
+    </tr>
+</table>
+</p>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScripTable_table_props.html">Table properties</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScripTable_column_props.html">Column properties</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

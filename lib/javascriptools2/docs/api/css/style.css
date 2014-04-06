@@ -1,0 +1,163 @@
+body {
+    font-family:sans-serif;
+    font-size: 10pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: black;
+}
+
+td, div {
+    font-family:sans-serif;
+    font-size: 10pt;
+}
+
+th {
+    font-family:sans-serif;
+    font-size: 10pt;
+    background-color: silver;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: navy;
+    text-decoration: underline;
+}
+
+.menu {
+	font-family: courier;
+}
+
+.menuTitle {
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+table.element {
+    border: 1px solid black;
+    width: 100%;
+}
+
+table.element td {
+    border: 1px solid black;
+}
+
+.scriptTitle {
+	font-weight: bold;
+	font-size: 16pt;
+	background-color: #C0C0C0;
+	border: 1px solid black;
+	padding: 5px 25px;
+}
+
+.scriptDescription {
+	padding-left: 25px;
+}
+
+.elementTitle {
+	font-weight: bold;
+	font-size: 14pt;
+	background-color: #CCCCCC;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	padding: 2px 15px;
+}
+
+.groupTitle {
+	font-weight: bold;
+	font-size: 12pt;
+	background-color: silver;
+	padding: 2px 15px;
+}
+
+.itemTitle {
+	font-family: courier;
+	background-color: #F0F0F0;
+	padding: 2px 5px;
+}
+
+.itemDescription {
+	padding: 2px 30px;
+}
+
+.elementItem {
+	font-weight: bold;
+	background-color: silver;
+}
+
+.detailSeparator {
+	font-weight: bold;
+	font-size: 16pt;
+	background-color: #C0C0C0;
+	border: 1px solid black;
+	padding: 5px 25px;
+	margin-top: 50px;
+}
+
+.elementDetail {
+	font-weight: bold;
+	font-size: 14pt;
+	background-color: #CCCCCC;
+	padding: 2px 15px;
+	border: 1px solid black;
+	margin-top: 50px;
+}
+
+.groupDetail {
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 12pt;
+	background-color: silver;
+	padding: 2px 15px;
+	border: 1px solid black;
+}
+
+.itemDetail {
+	font-family: courier;
+	font-weight: 800;
+	font-size: 12pt;
+	background-color: silver;
+	padding: 2px 15px;
+}
+
+table.detail {
+	margin-top: 10px;
+    border: 1px solid black;
+    width: 100%;
+}
+
+table.detail td {
+    border: 1px solid black;
+}
+
+.argumentTitle {
+	font-weight: bold;
+	font-size: 10pt;
+	background-color: #FCFCFC;
+}
+
+.classExample {
+	font-family: courier;
+}
+
+.navbar {
+	font-size: 10pt;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.navbar:hover {
+	text-decoration: underline;
+}
+
+.elementTitleNav {
+	padding-left: 50px;
+	font-size: 10pt;
+	font-weight: normal;
+}

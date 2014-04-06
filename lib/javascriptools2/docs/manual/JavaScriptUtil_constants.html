@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>The declared constants</h3>
+<p>There are some constants declared on JavaScriptUtil. They relate to different groups. Here they are:</p>
+<h4>Character sets</h4>
+<p>String constants that contains sets of characters, useful for creating
+<a href="InputMask_mask.html">InputMask</a> fields, or using the 
+<a href="../api/JavaScriptUtil_functions.html#onlySpecified">onlySpecified</a> function.</p>
+<p>They are:</p>
+<table width="100%" cellspacing="0" border="1">
+    <tr>
+        <th width="20%" align="left">Constant</th>
+        <th align="left">Meaning</th>
+    </tr>
+    <tr>
+        <td>JST_CHARS_NUMBERS</td>
+        <td>Only numeric digits</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_LOWER</td>
+        <td>Only lowercase letters, including variations, like &ccedil;, &Agrave;, etc</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_UPPER</td>
+        <td>Only uppercase letters, including variations, like &ccedil;, &Agrave;, etc</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_LETTERS</td>
+        <td>The concatenation of JST_CHARS_LOWER and JST_CHARS_UPPER</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_ALPHA</td>
+        <td>The concatenation of JST_CHARS_LETTERS and JST_CHARS_NUMBERS</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_BASIC_LOWER</td>
+        <td>Only the basic, unpunctuated, lowercase letters (a - z)</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_BASIC_UPPER</td>
+        <td>Only the basic, unpunctuated, uppercase letters (A - Z)</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_BASIC_LETTERS</td>
+        <td>The concatenation of JST_CHARS_BASIC_LOWER and JST_CHARS_BASIC_UPPER</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_BASIC_ALPHA</td>
+        <td>The concatenation of JST_CHARS_BASIC_LETTERS and JST_CHARS_NUMBERS</td>
+    </tr>
+    <tr>
+        <td>JST_CHARS_WHITESPACE</td>
+        <td>The whitespaces (space, tab and line breaks)</td>
+    </tr>
+</table>
+<h4>Time constants</h4>
+<p>Number constants that contains the number of milliseconds on different
+time fields. Since the JavaScript Date means the number of elapsed milliseconds since 
+January 1, 1970, 00:00:00 GMT, when performing time comparisions, it might be useful to have a constant
+holding, for example, the number of milliseconds in an hour. Note that it's only possible on the seconds,
+minutes, hours and days, since, monthes have a variable number of days. They are:</p>
+<table width="100%" cellspacing="0" border="1">
+    <tr>
+        <th width="20%" align="left">Constant</th>
+        <th align="left">Meaning</th>
+    </tr>
+    <tr>
+        <td>MILLIS_IN_SECOND</td>
+        <td>The number of milliseconds in a second</td>
+    </tr>
+    <tr>
+        <td>MILLIS_IN_MINUTE</td>
+        <td>The number of milliseconds in a minute</td>
+    </tr>
+    <tr>
+        <td>MILLIS_IN_HOUR</td>
+        <td>The number of milliseconds in an hour</td>
+    </tr>
+    <tr>
+        <td>MILLIS_IN_DAY</td>
+        <td>The number of milliseconds in a day</td>
+    </tr>
+</table>
+<h4>Date field</h4>
+<p>Some functions, like <a href="../api/JavaScriptUtil_functions.html#dateDiff">dateDiff</a>
+and <a href="../api/JavaScriptUtil_functions.html#truncDate">truncDate</a> requires a field to
+operate, for example: The difference between 2 dates in seconds, or in days.</p>
+<p>The possible fields are represented by the following constants:</p>
+<table width="100%" cellspacing="0" border="1">
+    <tr>
+        <th width="20%" align="left">Constant</th>
+        <th align="left">Meaning</th>
+    </tr>
+    <tr>
+        <td>JST_FIELD_SECOND</td>
+        <td>Seconds</td>
+    </tr>
+    <tr>
+        <td>JST_FIELD_MINUTE</td>
+        <td>Minutes</td>
+    </tr>
+    <tr>
+        <td>JST_FIELD_HOUR</td>
+        <td>Hours</td>
+    </tr>
+    <tr>
+        <td>JST_FIELD_DAY</td>
+        <td>Day</td>
+    </tr>
+    <tr>
+        <td>JST_FIELD_MONTH</td>
+        <td>Months</td>
+    </tr>
+    <tr>
+        <td>JST_FIELD_YEAR</td>
+        <td>Years</td>
+    </tr>
+</table>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_intro.html">Introduction to JavaScriptUtil</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScriptUtil_strings.html">Working with strings</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

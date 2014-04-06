@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<a name="top"></a>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScripTable</h2>
+<h3>Table properties</h3>
+<p>JavaScripTable has many properties that allow you to customize the table
+according to your needs.</p>
+<p>The categories are:<ul>
+<li><a href="#lookfeel">Look and feel</a></li>
+<li><a href="#modes">The table working modes</a></li>
+<li><a href="#rows">Row display</a></li>
+<li><a href="#selection">Row selection</a></li>
+<li><a href="#callbacks">Callbacks</a></li>
+<li><a href="#messages">Messages</a></li>
+<li><a href="#headersFooters">Additional headers and footers</a></li>
+</ul></p>
+<br><br>
+<a name="lookfeel"></a>
+<h4>Look and Feel</h4>
+<p>There are many look and feel options, so, there is a 
+<a href="JavaScripTable_style.html">separate chapter</a> for it.</p>
+<br><br>
+<a name="modes"></a>
+<h4>The table working modes: client and server</h4>
+<p>The table may be used on both client side or server side modes.
+This is set using the <code>operationMode</code> property, that can be set
+to JST_CLIENT_SIDE or JST_SERVER_SIDE. The default value is determined by
+the JST_DEFAULT_OPERATION_MODE constant.</p>
+<p>On client side mode, the table assumes that all rows it contains are all existing
+rows, so it can handle paging and sorting automatically.</p>
+<p>The server side mode requires additional information. The table assumes that the
+rows it contains belong to the current page, and other rows exists. The
+<code>rowCount</code> property must be set to the number of total rows. Also, the
+<code>updateTableFunction</code> must be set to a function reference, and will be called
+whenever the table must load another page, or change sorting. The function will receive
+the table reference as argument, and can read from there properties like <code>currentPage</code>,
+<code>pageSize</code>, <code>sortColumn</code> and <code>ascSort</code>.</p>
+<p>There is a specific sample for working with server-side tables
+<a href="../../samples/sample_server_table.html">here</a>. Here are some examples:</p>
+<pre>//We need a function to process the table update
+function updateTable(table) {
+    //Reload with the new page number
+    self.location = "mypage?page=" + table.currentPage;
+}
+var table = new JavaScripTable(...);
+table.operationMode = JST_SERVER_SIDE;
+table.updateFunction = updateTable;
+table.rowCount = 100; //The server script must know how many rows exists
+table.addColumn(...); //Add all columns
+table.addRow(...); //Add all rows
+table.render();
+</pre>
+<p>If you do not want allow the user to change sorting (it would have to be handled at server
+side), you can set each column <code>sortable</code> property to <code>false</code>.</p>
+<br><br>
+<a name="rows"></a>
+<h4>Row display</h4>
+<p>The row count may be limited using the <code>maxRows</code> property. -1 means no limit, and the default
+value is determined by the JST_DEFAULT_MAX_ROWS constant.</p>
+<p>Rows may be displayed by pages or not (showing all rows). This is set by the <code>usePaging</code>
+property to a boolean value (defaults to JST_DEFAULT_USE_PAGING). If set to true, the results are paged.
+When paging is used, the <code>pageSize</code> (defaults to JST_DEFAULT_PAGE_SIZE) is used to determine
+how many rows are displayed per page. The <code>currentPage</code> property reflects the page the user is
+viewing. The <code>getMaxPage()</code> method may be used to return the page count. Paging may be changed
+by the user on the <a href="JavaScripTable_interaction.html#navigation">navigation bar</a></p>
+<br><br>
+<a name="selection"></a>
+<h4>Row selection</h4>
+<p>JavaScripTable offers full control over row selection, offering 3 selection styles:
+<table cellspacing="0" border="1">
+    <tr>
+        <th align="left">Selection type</th>
+        <th align="left">Constant</th>
+        <th align="left">Control type</th>
+    </tr>
+    <tr>
+        <td>No selection</td>
+        <td>JST_SEL_NONE</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>Single row</td>
+        <td>JST_SEL_SINGLE</td>
+        <td>Radio Button</td>
+    </tr>
+    <tr>
+        <td>Miltiple row</td>
+        <td>JST_SEL_MULTIPLE or JST_SEL_MULTI</td>
+        <td>Checkbox</td>
+    </tr>
+</table>
+The selection type is defined using the <code>selectionType</code> property, that has the default value by the JST_DEFAULT_SELECTION_TYPE
+constant.</p>
+<p>It is possible to determine the control name, so, if the table is inside a form, and the form is submitted, it is possible to retrieve
+the selected rows on the request. this is done with the <code>selectionName</code> property (JST_DEFAULT_SELECTION_NAME is the default 
+value constant). If selectionName is null, a name will be generated. The value for each radio or checkbox is the row identifier.</p>
+<p>One last possible customization on selection is the property <code>selectionValign</code>, that determine the vertical align for selection
+cells, and have the default value determined by JST_DEFAULT_SELECTION_VALIGN.</p>
+The table can have no selection, single row selection (using radioboxes) or multiple row selection (using checkboxes).
+This is done by the <code>selectionType</code> property, that can be one of these constants:
+JST_SEL_NONE, JST_SEL_SINGLE or JST_SEL_MULTIPLE (JST_SEL_MULTI is a possible alias). When selection is used, it is possible
+to determine the control names using the <code>selectionName</code> property. So, if the table is in a form, when it is
+submitted, the selection will be sent together.</p>
+<br><br>
+<a name="callbacks"></a>
+<h4>Callbacks</h4>
+<p>There are several callbacks that may be used to respond to table events:</p>
+<ul>
+    <li><b>Row functions</b>: A function called when the user clicks on a row. Set the table's <code>rowFunction</code> 
+    to the function reference. The arguments passed to the function are the row identifier and the table reference.</li>
+    <li><b>Cell functions</b>: A function called when the user clicks on a cell of a given column. Set the column's 
+    <code>cellFunction</code> to the function reference. The arguments are the row identifier, the column index and the table reference.</li>
+    <li><b>Table render event</b>: A callback called when the table is rendered (drawn). Set the table's <code>onRender</code>
+    property to the function reference, and, when the table is rendered, the function is called, passing the table reference as argument</li>
+    <li><b>Selection change event</b>: A callback called when the user changes the table selection. Set the table's <code>onSelectionChange</code>
+    property to the function reference, and, when the use clicks on a row selection control, the function is called, passing the row identifier,
+    a flag indicating whether the row is selected or not and the table reference as arguments. If the function returns false, the selection is not changed</li>
+<br><br>
+<a name="messages"></a>
+<h4>Messages</h4>
+<p>Several messages may be displayed to the user (their defalt value is determined
+by the constant between parenthesis):<ul>
+<li>A header and footer text may be displayed by setting the <code>headerText</code> (JST_DEFAULT_HEADER_TEXT) 
+and <code>footerText</code> (JST_DEFAULT_FOOTER_TEXT) properties.</li>
+<li>A text may be displayed instead of an empty table by setting the <code>emptyTableText</code> 
+(JST_DEFAULT_EMPTY_TABLE_TEXT) property.</li>
+<li>A text may be displayed when data is being rendered, by setting the 
+<code>waitText</code> (JST_DEFAULT_WAIT_TEXT) property.</li>
+<li><code>ascLabel</code> (JST_DEFAULT_ASC_LABEL) and <code>descLabel</code> (JST_DEFAULT_DESC_LABEL) are 
+images or text displayed after the sort column header. Their default values are <code>Image</code> objects.
+If you want to change them to a text, simply assign a string to the properties. To change the image location, 
+set the <code>src</code> property to the desired image location.</li>
+<li><code>trueLabel</code> (JST_DEFAULT_TRUE_LABEL) and <code>falseLabel</code> JST_DEFAULT_FALSE_LABEL work
+like the former item, but define images or strings that will be shown to display boolean true and false values.</li>
+</ul>
+<br><br>
+<a name="headersFooters"></a>
+<h4>Additional headers and footers</h4>
+<p>Besides to the <code>headerText</code> and <code>footerText</code> that generates, respectively, a header and a footer
+occupying all visible columns, additional header and footer rows may be added.</p>
+<p>The method <code>addHeader</code> and <code>addFooter</code> may be called to add another header or footer row.
+They return a <a href="../api/class_JavaScriptTableCellContainer.html">cell container</a>, which offer a method called
+<code>add</code> that takes 2 arguments: the text and an optional object containing arbitrary properties that will be generated
+as the &lt;td&gt; element attributes. The addHeader may also receive arbitrary arguments as objects, containing a <code>text</code>
+property that will generate the cell text and the other properties that will generate the cell attributes.</p>
+<p>Note that the content is written without taking in account the number of visible columns, so, it's up to the
+developer to generate the correct number of cells, as well as correct values for colspan / rowspan attributes.</p>
+<p>Here is an example:</p>
+<pre>//Assume table is a valid instance. This may be before or after adding columns / rows
+
+//Adding cells after the addHeader() method
+var header = table.addHeader();
+header.add("Customer data", {colspan: 3, class: "MyCustomClass"});
+header.add("Product data", {colspan: 2});
+
+//Adding cells inline - note the text attribute
+table.addHeader(
+    {text: "Identification", colspan: 2}, 
+    {text: "Last purchase", nowrap: true},
+    {text: "Price"},
+    {text: "Amount", align: "right"});
+
+//Add a footer on a with statement
+with (table.addFooter()) {
+    add("Total", {colspan: 3, align: "right"});
+    add("827.232,12");
+}
+...
+table.render();
+</pre>
+Also, there are other methods related to additional headers and footers: <code>getHeaderCount</code>, <code>clearHeaders</code>, 
+<code>getFooterCount</code> and <code>clearFooters</code>, all self explanatory.
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScripTable_table.html">Working with the JavaScripTable</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScripTable_manipulation.html">Manipulating the table</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

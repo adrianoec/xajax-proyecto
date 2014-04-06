@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScripTable</h2>
+<h3>Working with the JavaScripTable</h3>
+<p>First, some details about the table: <ol>
+<li>Each table needs an unique identifier (a string) and a container (an html element - normally a div - where the table will be rendered)</li>
+<li>The table has a collection of <a href="../api/class_Column.html">Column</a> objects that are added with the
+<a href="../api/class_JavaScripTable.html#addColumn">addColumn</a> method. This method returns the <code>Column</code> instance.
+Columns are identified by their indexes, starting at zero.</li>
+<li>After adding all columns, the <a href="../api/class_Row.html">Row</a> objects must be added to the table using the
+<a href="../api/class_JavaScripTable.html#addRow">addRow</a> method. This method also returns the <code>Row</code> instance. Each row must
+have an unique, assigned identifier.</li>
+<li>After adding all rows, the table is ready to be displayed, what is done using the <a href="../api/class_JavaScripTable.html#render">render</a> method.
+This method should be used only the first time the table is displayed. If you need the table to be updated (after adding more rows, for example), use the
+<a href="../api/class_JavaScripTable.html#update">update</a> method.</li>
+</ol></p>
+<p>Here is the basic usage, assuming that a div with id="container" already exists:</p>
+<pre>//Create the table with id=tab
+var table = new JavaScripTable("tab", "container");
+//Add a column just with a header text
+table.addColumn("Name");
+//Add the column with the header text and type
+table.addColumn(new Column("Income", JST_TYPE_NUMBER));
+//Add a column just with a header text and customize it later
+var birthDateColumn = table.addColumn("Birth Date");
+birthDate.type = JST_TYPE_DATE;
+//Add a column and customize it using the with statement
+with (table.addColumn("Gender")) {
+    width = "75px";
+    align = "center";
+}
+//Add a few rows
+table.addRow(new Row(1, ["John", 4065.51, new Date(1978, 1, 1), "male"]));
+table.addRow(new Row(2, ["Mary", 5016.30, new Date(1963, 8, 12), "female"]));
+table.addRow(new Row(3, ["Peter", 2429.46, new Date(1982, 9, 20), "male"]));
+//Render the table
+table.render();
+</pre>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScripTable_intro.html">Introduction to JavaScripTable</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScripTable_table_props.html">Table properties</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

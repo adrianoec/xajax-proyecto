@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!-- Include the JavaScripTools files -->
+<script src="../js/JavaScriptUtil.js"></script>
+<script src="../js/Parsers.js"></script>
+<script src="../js/JavaScripTable.js"></script>
+
+<head>
+    <title>NumberParser and DateParser Example</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="themes/winxp.css">
+</head>
+
+<script language="JavaScript">
+<!--
+    var numberParser = new NumberParser();
+    var dateParser = new DateParser();
+    var mapParser = new MapParser();
+    var mapTable;
+    var rowId = 0;
+    
+    function formatValue(parser, value) {
+        if (value != null) {
+            alert("The formatted value is:\n" + parser.format(value));
+        }
+    }
+
+    function parseValue(parser, value) {
+        if (!isEmpty(value)) {
+            var parsed = parser.parse(value);
+            if (parsed == null) {
+                alert("Invalid value!!!");
+            } else {
+                alert("The parsed value is:\n" + parsed);
+            }
+        }
+    }
+    
+    function getDateToParse() {
+        var year = parseInt(getValue("year"));
+        var month = parseInt(getValue("month"));
+        var day = parseInt(getValue("day"));
+        var hour = parseInt(getValue("hour"));
+        var minute = parseInt(getValue("minute"));
+        var second = parseInt(getValue("second"));
+        return new Date(year, month - 1, day, hour, minute, second);
+    }
+
+    function setup() {
+        var now = new Date();
+        
+        //Set up the NumberParser properties
+        setValue("decimalDigits", numberParser.decimalDigits);
+        setValue("decimalSeparator", numberParser.decimalSeparator);
+        setValue("groupSeparator", numberParser.groupSeparator);
+        getObject("useGrouping").checked = numberParser.useGrouping;
+        setValue("groupSize", numberParser.groupSize);
+        setValue("currencySymbol", numberParser.currencySymbol);
+        getObject("currencyInside").checked = numberParser.currencyInside;
+        getObject("spaceAfterCurrency").checked = numberParser.spaceAfterCurrency;
+        getObject("negativeParenthesis").checked = numberParser.negativeParenthesis;
+        
+        //Setup the NumberParser text fields
+        setValue("numberToParse", numberParser.format(1000.5));
+        setValue("dateToParse", dateParser.format(now));
+        
+        //Setup the DateParser properties
+        setValue("mask", dateParser.mask);
+        getObject("enforceLength").checked = dateParser.enforceLength;
+        
+        //Setup the DateParser text fields
+        setValue("year", now.getFullYear());
+        setValue("month", (now.getMonth() + 1));
+        setValue("day", now.getDate());
+        setValue("hour", now.getHours());
+        setValue("minute", now.getMinutes());
+        setValue("second", now.getSeconds());
+
+        //Setup the MapParser table
+        var col;        
+        var map = mapParser.map;
+        map.put("r", "Red");
+        map.put("g", "Green");
+        map.put("b", "Blue");
+        mapTable = new JavaScripTable("mapTable", "mapTableContainer");
+        mapTable.usePaging = false;
+        mapTable.selectionType = JST_SEL_MULTI;
+        mapTable.navigation = JST_NAV_NONE;
+        mapTable.border = "1";
+        mapTable.emptyTableText = "<div style='color:red'>Empty Map</div>";
+        col = new Column("Key", JST_TYPE_STRING, 150, JST_ALIGN_LEFT);
+        col.editable = true;
+        mapTable.addColumn(col);
+        col = new Column("Value", JST_TYPE_STRING, 150, JST_ALIGN_LEFT);
+        col.editable = true;
+        mapTable.addColumn(col);
+        var pairs = map.getPairs();
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i];
+            mapTable.addRow(new Row(++rowId, [pair.key, pair.value]));
+        }
+        mapTable.render();
+    }
+
+    function addRow() {
+        mapTable.addRow(new Row(++rowId, ["key" + rowId, "value" + rowId]), true);
+    }
+
+    function removeRows() {
+        var removed = mapTable.removeSelectedRows();
+        if (removed.length == 0) {
+            alert("Select at least one row to remove");
+        } else {
+            mapTable.render();
+        }
+    }
+    
+    function updateMap() {
+        mapParser.map = new Map();
+        var rows = mapTable.getAllRows();
+        for (var i = 0; i < rows.length; i++) {
+            var values = rows[i].values;
+            mapParser.map.put(values[0], values[1]);
+        }
+    }
+//-->
+</script>
+
+<body onload="setup()">
+<form name="theForm">
+    <br>
+    <h1>A NumberParser and DateParser example</h1>
+    <br>
+    <table>
+        <tr>
+            <td colspan="2" class="subtitle">NumberParser</td>
+        </tr>
+        <tr>
+            <td>Number of decimal digits:</td>
+            <td><input type="text" name="decimalDigits" onkeyup="numberParser.decimalDigits = parseInt(this.value)"></td>
+        </tr>
+        <tr>
+            <td>The decimal separator:</td>
+            <td><input type="text" name="decimalSeparator" onkeyup="numberParser.decimalSeparator = this.value"></td>
+        </tr>
+        <tr>
+            <td>Group separator:</td>
+            <td><input type="text" name="groupSeparator" onkeyup="numberParser.groupSeparator = this.value"></td>
+        </tr>
+        <tr>
+            <td>Use grouping?</td>
+            <td><input type="checkbox" name="useGrouping" onclick="numberParser.useGrouping = this.checked"></td>
+        </tr>
+        <tr>
+            <td>Group Size</td>
+            <td><input type="checkbox" name="groupSize" onkeyup="numberParser.groupSize = parseInt(this.value)"></td>
+        </tr>
+        <tr>
+            <td>Currency Symbol</td>
+            <td><input type="text" name="currencySymbol" onkeyup="numberParser.currencySymbol = this.value"></td>
+        </tr>
+        <tr>
+            <td>Use Currency</td>
+            <td><input type="checkbox" name="useCurrency" onclick="numberParser.useCurrency = this.checked"></td>
+        </tr>
+        <tr>
+            <td>Currency Inside?</td>
+            <td><input type="checkbox" name="currencyInside" onclick="numberParser.currencyInside = this.checked"></td>
+        </tr>
+        <tr>
+            <td>Space After Currency?</td>
+            <td><input type="checkbox" name="spaceAfterCurrency" onclick="numberParser.spaceAfterCurrency = this.checked"></td>
+        </tr>
+        <tr>
+            <td>Negative Parenthesis?</td>
+            <td><input type="checkbox" name="negativeParenthesis" onclick="numberParser.negativeParenthesis = this.checked"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input value="1000.5" name="numberToFormat">
+                <input type="button" value="Format" onclick="formatValue(numberParser, parseFloat(getValue('numberToFormat')));">
+                &nbsp;&nbsp;&nbsp;
+                <input name="numberToParse">
+                <input type="button" value="Parse" onclick="parseValue(numberParser, getValue('numberToParse'));">
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td colspan="2" class="subtitle">DateParser</td>
+        </tr>
+        <tr>
+            <td>Format mask:</td>
+            <td><input type="text" name="mask" onkeyup="dateParser.setMask(this.value)"></td>
+        </tr>
+        <tr>
+            <td>Enforce length</td>
+            <td><input type="checkbox" name="enforceLength" onclick="dateParser.enforceLength = this.checked"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table><tr>
+                <td><table>
+                    <tr><td>Year:</td><td><input size="4" name="year"></td></tr>
+                    <tr><td>Month:</td><td><input size="4" name="month"></td></tr>
+                    <tr><td>Day:</td><td><input size="4" name="day"></td></tr>
+                    <tr><td>Hour:</td><td><input size="4" name="hour"></td></tr>
+                    <tr><td>Minute:</td><td><input size="4" name="minute"></td></tr>
+                    <tr><td>Second:</td><td><input size="4" name="second"></td></tr></table>
+                </td>
+                <td>
+                    <input type="button" value="Format" onclick="formatValue(dateParser, getDateToParse());">
+                    &nbsp;&nbsp;&nbsp;
+                    <input name="dateToParse">
+                    <input type="button" value="Parse" onclick="parseValue(dateParser, getValue('dateToParse'));">
+                </td></tr></table>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <div class="subtitle">MapParser</div>
+    <table><tr>
+    <td valign="top">
+        <div id="mapTableContainer"></div>
+        Click "Update Map" for the changes to take effect
+    </td>
+    <td valign="top">
+        <input type="button" value="Add" onclick="addRow()" style="width:100px"><br>
+        <input type="button" value="Remove" onclick="removeRows()" style="width:100px"><br>
+        <input type="button" value="Update Map" onclick="updateMap()" style="width:100px">
+    </td>
+    </tr></table>
+    <br>
+    <input name="mapToFormat">
+    <input type="button" value="Format" onclick="formatValue(mapParser, getValue('mapToFormat'));">
+    &nbsp;&nbsp;&nbsp;
+    <input name="mapToParse">
+    <input type="button" value="Parse" onclick="parseValue(mapParser, getValue('mapToParse'));">
+</form>
+</body>
+
+</html>

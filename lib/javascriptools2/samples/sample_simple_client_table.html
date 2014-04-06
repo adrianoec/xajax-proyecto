@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!-- Include the JavaScripTools scripts -->
+<script src="../js/JavaScriptUtil.js"></script>
+<script src="../js/Parsers.js"></script>
+<script src="../js/InputMask.js"></script>
+<script src="../js/JavaScripTable.js"></script>
+
+<!-- Include the Theme script -->
+<script src="themes.js"></script>
+
+<head>
+    <title>JavaScripTable Simple Client-Side Sample</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script>
+        //Write the theme
+        createThemeLink();
+    </script>
+</head>
+
+<!-- Include the customer database -->
+<script src="database.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+    //Set up the table
+    function setUpTable() {
+        //Instantiate the table
+        var table = new JavaScripTable("jst", getObject("jstContainer"));
+        var col;
+        
+        //Set the table properties
+        table.width = "640px";
+        table.usePaging = true;
+        table.pageSize = 7;
+        //Add the columns
+        table.addColumn(new Column("Name", JST_TYPE_STRING, 150, JST_ALIGN_LEFT));
+        col = table.addColumn(new Column("Gender", JST_TYPE_STRING, 80, JST_ALIGN_LEFT));
+        with (col) {
+            possibleValues = new Map([new Pair('m', 'Male'), new Pair('f', 'Female')]);
+        }
+        table.addColumn(new Column("Income", JST_TYPE_CURRENCY, 100, JST_ALIGN_RIGHT));
+        col = table.addColumn(new Column("BirthDate", JST_TYPE_DATE, 100, JST_ALIGN_CENTER));
+        col = table.addColumn(new Column("Customer Type", JST_TYPE_STRING, 130, JST_ALIGN_CENTER));
+        with (col) {
+            possibleValues = customerTypes; //customerTypes is defined in the database.js file
+        }
+        table.addColumn(new Column("Married", JST_TYPE_BOOLEAN, 80, JST_ALIGN_CENTER));
+
+        //Add the rows. The customers array is defined in the database.js file
+        for (var i = 0; i < customers.length; i++) {
+            var customer = customers[i];
+            var row = new Row(i, [customer.name, customer.gender, customer.income, 
+                                  customer.birthDate, customer.type, customer.married]);
+            table.addRow(row);
+        }
+
+        //Render the table
+        table.render();
+    }
+//-->
+</script>
+
+<body onload="setUpTable()">
+
+    <br>
+    <h1>JavaScripTable Simple Client-Side Sample</h1>
+    <br>
+    <div>
+        Change Theme: 
+        <script>
+            //This function is defined on the themes.js file
+            createThemeSelect();
+        </script>
+    </div>
+    <br>
+    <!-- This is the DIV where the table will be written -->
+    <div id="jstContainer"></div>
+</body>
+</html>

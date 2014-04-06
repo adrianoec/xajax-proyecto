@@ -1,0 +1,163 @@
+.JSTTable {
+    color: black;
+    font-family: Helvetica;
+    font-size: 10pt;
+    margin: 0px;
+    border: 1px solid black;
+}
+.JSTHeader {
+    background: #ebeadb url(simple_columnHeaderBG.jpg) repeat-x bottom;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11pt;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.JSTFooter {
+    background: #ebeadb url(simple_columnHeaderBG.jpg) repeat-x bottom;
+    color: black;
+    text-align: center;
+    font-weight: normal;
+    font-size: 8pt;
+}
+
+.JSTColumnHeader {
+    background: #ebeadb url(simple_columnHeaderBG.jpg) repeat-x bottom;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+.JSTHighlightedColumnHeader {
+    background: #f8f7f2 url(simple_columnHeaderBGHi.jpg) repeat-x bottom;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+.JSTColumnHeaderText {
+    padding: 4px;
+}
+.JSTHighlightedColumnHeaderText {
+    color: black;
+    border-bottom: 1px solid black;
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.JSTOddRow {
+    background-color: #f7f7f7;
+}
+.JSTHighlightedOddRow {
+    background-color: #e9e9e9;
+}
+.JSTOddRowCell {
+    border: 0px;
+    padding: 1px;
+}
+.JSTHighlightedOddRowCell {
+    border: 1px solid black;
+    padding: 0px;
+}
+.JSTOddRowText {
+    border: none;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTOddRowTextWithFunction {
+    color: black;
+    border: none;
+    text-decoration: underline;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTHighlightedOddRowText {
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.JSTHighlightedOddRowTextWithFunction {
+    background: #fcd685;
+    color: black;
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.JSTEvenRow {
+    background-color: white;
+}
+.JSTHighlightedEvenRow {
+    background-color: #e9e9e9;
+}
+.JSTEvenRowCell {
+    border: 0px;
+    padding: 1px;
+}
+.JSTHighlightedEvenRowCell {
+    border: 1px solid black;
+    padding: 0px;
+}
+.JSTEvenRowText {
+    border: none;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTEvenRowTextWithFunction {
+    color: black;
+    border: none;
+    text-decoration: underline;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.JSTHighlightedEvenRowText {
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.JSTHighlightedEvenRowTextWithFunction {
+    background: #fcd685;
+    color: black;
+    border: 1px solid black;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.JSTSelectionControl {
+}
+.JSTEditControl {
+    font-family: Helvetica;
+    border: 1px solid black;
+    color: black;
+    background-color: transparent;
+}
+.JSTEditControlRadioCheckbox {
+    border: none;
+}
+.JSTInvalidEditControl {
+    font-family: Helvetica;
+    border: 1px solid black;
+    color: red;
+    background-color: transparent;
+}
+
+.JSTNavigation {
+    background: #ebeadb url(simple_columnHeaderBG.jpg) repeat-x bottom;
+    color: black;
+    text-align: center;
+    font-weight: normal;
+    font-size: 9pt;
+    height: 17px;
+}
+.JSTNavigationLink  {
+    color: black;
+    text-decoration: underline;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.JSTHighlightedNavigationLink {
+    color: black;
+    background: #fcd685;
+    border: 1px solid black;
+    padding-left: 2px;
+    padding-right: 2px;
+}

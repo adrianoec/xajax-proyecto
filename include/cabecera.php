@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-        <title>facturacion</title>
+        <title>Comprobantes Electronicos</title>
 
         <link rel="stylesheet" href="./lib/jquery/themes/blue/style.css" type="text/css" id="" media="print, projection, screen" />
         <script type="text/javascript" src="./lib/jquery/jquery-latest.js"></script>
@@ -18,6 +18,10 @@
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.positionBy.js"></script>
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.bgiframe.js"></script>
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.jdMenu.js"></script>
+     
+        <script src="./lib/javascriptools2/js/JavaScriptUtil.js"></script>
+        <script language="JavaScript1.2" src="./lib/mask_js04/masks.js"></script>
+
         <link rel="stylesheet" href="./lib/jdMenu-1.4.1/1.4.1/jquery.jdMenu.css" type="text/css" />
         <link rel="stylesheet" href="include/web.css" type="text/css" />
     </head> 

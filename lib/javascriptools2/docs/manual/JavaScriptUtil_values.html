@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>Retrieving and setting values on form fields and html elements</h3>
+
+<p>The 
+<a href="../api/JavaScriptUtil_functions.html#getValue">getValue</a> and
+<a href="../api/JavaScriptUtil_functions.html#setValue">setValue</a>
+functions are used to retrieve and set values on both form fields or html
+elements (using the innerHTML property). The behaviour depends on the object type:<ul>
+<li><b>text, password and textarea</b>: The value is directly returned / set</li>
+<li><b>checkbox</b>: Return the value of the checked controls (if more than one, the
+result will be an array) or set one or more of the controls, according to it's value
+(the setValue second argument may be an array).</li>
+<li><b>radio</b>: Return the value of the checked control or set one of the controls,
+according to it's value.</li>
+<li><b>select</b>: Return the value of the selected options (if more than one, the
+result will be an array) or select the option(s), according to the newValue parameter
+of the setValue function.</li>
+</ul></p>
+Examples:
+<pre>//Assume a div named dv, a text named txt and a set of checkboxes named chk, whith values "1", "2" and "3"
+setValue("txt", "ABC") -> Sets the input value
+getValue("txt") -> "ABC"
+setValue("dv", "The new value") -> Sets the div innerHTML property
+setValue("chk", ["1", "2"]) -> checks the checkboxes with value = 1 and 2
+</pre><br>
+
+<p>There is also the
+<a href="../api/JavaScriptUtil_functions.html#checkAll">checkAll</a>
+function, that checks or unchecks all checkboxes with a given name.</p>
+Examples:
+<pre>//Assume a set of checkboxes named chk
+checkAll("chk") -> Check all
+checkAll("chk", false) -> Uncheck all
+</pre><br>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_dates.html">Working with dates</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScriptUtil_select.html">Manipulating options on a select box</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

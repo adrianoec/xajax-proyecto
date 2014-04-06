@@ -1,0 +1,251 @@
+JavaScripTools Changelog
+
+2.2.5
+-- JavaScriptUtil
+* Fixed the caret functions in Internet Explorer 11
+-- InputMask
+* When the first field is literal and the next input field accepts a character present on the first field, typing such a character would do nothing 
+
+2.2.4
+-- JavaScriptUtil
+* Fixed a bug in getValue() under Internet Explorer with select boxes
+* Made the caret operations to ignore exceptions, which allows better integration with FCKEditor
+* The isCaretSupported() function was blacklisting all versions of Opera, when only Opera 8 had a bug. Thanks to Alexey Antipov. 
+-- InputMask
+* Now the number mask allows typing the negative sign before typing the number
+* Improved support for masks ending with a literal field: when the previous field is complete, that last literal is also added to the text element
+
+2.2.3
+* Now the writeCookie() function makes cookies expire when the browser is closed (standard behavior). Before, cookies never expired. To use the old behavior, you may pass false as the 'expires' argument 
+-- InputMask
+* Downgraded cursor handling on input masks on Opera, since Opera9 does not handle cursor position the way the mask expects
+* Fixed a bug where could make it impossible to type the decimal separator in left-to-right NumberMasks
+* Fixed a bug where masks having input fields together without a separator would be only possible to type one character
+--JavaScriptUtil
+* The trim(), ltrim() and rtrim() were returning the string "null" when a null value was passed. Now they return ""
+
+2.2.2
+* Some small documentation fixes, as well as clearer statements about the license
+-- InputMask
+* better handling of AM/PM field
+-- JavaScripTable
+* fixed a small bug with cropped values (thanks to Ivo Baehr)
+
+2.2.1
+-- InputMask
+* the F6 - F12 keys were not being ignored, generating random chars (thanks to Ivo Baehr)
+* when pressing the minus sign, a blur event was needed to display the changes
+
+2.2
+Special thanks to Ivo Baehr for several contributions to this version.
+-- JavaScriptUtil
+* added the ensureArray function
+* added the getDateField and setDateField functions
+-- Parsers
+* added the WrapperParser class
+* added the DateParser.completeFieldsWith property
+* now the DateParser.parse returns the a Date on the first day when the day is not present on the mask, instead of the last day of the previous month 
+-- InputMask
+* the mask algorithm was rewritten from scratch, greatly improving usability
+* fixed a long term memory leak on Microsoft Internet Explorer
+-- JavaScripTable
+* improved performance for some operations by adding a row index - where previously we had to scan all rows, now we just index them
+* added the table's showSelectAll property, as well as the constant for it's default value, JST_DEFAULT_SHOW_SELECT_ALL
+* added the onSelectionChange and onRender callbacks
+* added the cropRepeatedTree and JST_DEFAULT_CROP_REPEATED_TREE (thanks to Ivo Baehr)
+* added the additional headers and footers feature
+* added the additionalHeaderClass and additionalFooterClass for controlling the style classes of headers and footers added with addHeader and addFooter. The default value constants were also added: JST_DEFAULT_ADDITIONAL_HEADER_CLASS and JST_DEFAULT_ADDITIONAL_FOOTER_CLASS
+* added the messagesOnStatusBar property to control whether the messages will be shown on the status bar (true) or as tooltips (false). The default value is false, and is defined on the JST_DEFAULT_MESSAGES_ON_STATUS_BAR constant
+* added the Row.titles to show tooltips on each cell
+* changed a reference on the top window holding all instances of table to a global array on the same document, to avoid conflicts (thanks to Ivo Baehr)
+* fixed a bug that prevented cropRepeated to work with dates (thanks to Ivo Baehr)
+* added the following Column properties: oddRowCellWithFunctionClass, evenRowCellWithFunctionClass, highlightedOddRowCellWithFunctionClass and highlightedEvenRowCellWithFunctionClass (thanks to Ivo Baehr)
+
+2.1.5
+-- JavaScriptUtil
+* fixed a bug where the JST_CHARS_UPPER and JST_CHARS_LOWER had the string "undefined"
+* now, getValue, addOptions and setOptions ensures that on konqueror, if nothing is selected on a single item select, the first option is marked as selected (to emulate other browser's behaviour)
+* now invokeAsMethod uses the standard function.apply method
+-- JavaScripTable
+* fixed a bug where the the getColumnCount was not returning a numeric value (thanks to Ivo Baehr)
+
+2.1.4
+-- JavaScriptUtil
+* now the getObject function returns an Array when multiple objects are selected, instead of a browser-specific class (HTMLCollection in Firefox, NodeList in Opera, etc)
+* now the setOptions function may receive a string on the addEmpty argument, setting the text for the empty option
+* isCaretSupported returns true for Opera 9+
+-- InputMask
+* now the backspace applies masks by default. Change JST_NUMBER_MASK_APPLY_ON_BACKSPACE to false to keep the behaviour like previous versions
+* now masks updated as user types on Opera 9+ (before, only on blur)
+* added the JST_DEFAULT_DATE_MASK_YEAR_PAD_FUNCTION for default padFunction on years
+
+2.1.3
+-- JavaScriptUtil
+* now the isInstance(?, Array) returns true on HTMLCollections in Firefox 1.5 (fixes a bug on checkAll function)
+* now the changeFunction property when passed as a constructor argument is correctly stored on masks (thanks to jgarces)
+* setOptions parameter addEmpty was not working as expected if the first argument was a string
+
+2.1.2
+-- JavaScriptUtil
+* fixed an Internet Explorer related bug on addOption (thanks to jalfaroe)
+* added the selectedProperty argument to addOption, addOptions and setOptions
+-- InputMask
+* fixed a mask issue where a separator was being incorrectly added on some cases, making the value invalid
+
+2.1.1
+-- JavaScriptUtil
+* fixed a minor bug on setValue
+* renamed the addEventListener function to observeEvent. It had replaced the standard addEventListner, and broke the window support for event observing
+-- InputMask
+* fixed a JavaScript error on SizeLimit focus and blur events
+* renamed the Field class to MaskField, to allow a clear integration with the Prototype Framework (http://prototype.conio.net), that has a class named Field
+
+2.1
+-- General
+* wrote the manual (finally!!!) :-)
+* updated to jsxmldoc 1.1, so the documentation is built using ant. The builddoc script was removed
+-- JavaScriptUtil
+* changed the arrayConcat() function to receive dynamic, arbitrary arguments
+* added the removeFromArray() function
+* added the invokeAsMethod() function
+* added the isCaretSupported() and isInputSelectionSupported() functions
+* allowed invoke to receive the function reference instead of the name
+* added the addEventListener(), typedCode(), preventDefault() and stopPropagation() functions
+* fixed a problem with the compressed JavaScriptUtil.js script and selectString() function
+-- Parsers
+* now the NumberParser returns null for parse(""), instead of NaN
+* added the useBooleanValue property on the BooleanParser, together with the JST_DEFAULT_USE_BOOLEAN_VALUE constant
+-- InputMask
+* improved the mask event handlers. Now it is possible to have event handlers on the input tag and the mask will still work.
+* event handler functions are now evaluated as methods of the control, not the mask, so, this refers to the control and no longer the mask
+* improved padding handling: if the first letter of the next literal field is typed, a field is padded, and, on the onblur event, the last field is padded
+* improved mask accepted characters, so, if a character is not present on mask, the user won't even see it on the control
+* improved SizeLimit to not accept keys after the limit is reached
+* improved support for Konqueror and Opera - masks are limited, but works elegantly
+* added event handler function on masks: changeFunction
+* now SizeLimit uses keydown and keypress events. Also added keyPressFunction and keyDownFunction properties
+* fixed an InputMask issue where it was not accepting spaces
+* allows the first parameter of the DateMask constructor to be a string, creating a new parser with it as the format
+* fixed an issue, where, on some cases, the validation message was popped-up more than once
+* added the JST_DEFAULT_LIMIT_OUTPUT_TEXT default value constant for SizeLimit.outputText
+-- JavaScripTable
+* allows the table addColumn method to receive a String, using it as column's title
+* added the table setRowBreak(), isRowBreak() and getVisibleColumnsArray() methods
+* added the column colspan and rowspan properties
+* added a synonym for the JST_SEL_MULTI constant: JST_SEL_MULTIPLE
+* allows the table.rowFunction and column.cellFunction to be function references
+* correctly handles row data when number, dates or booleans were expected and strings were passed
+* no more CSS errors on firefox 1.5
+
+2.0.5
+-- JavaScripTable
+* added the column allowEmptyValue property (thanks to Florent Selva)
+* fixed an issue with hiding columns and sorting (thanks to Florent Selva)
+* added the property cropRepeated to both JavaScripTable and Column classes
+* added the table getAllRowsAsObjects, getSelectedRowsAsObjects and getRowByIdAsObject methods
+* fixed several ObjectRowMapper related bugs
+* added the ObjectRowMapper className and constructorParams properties
+* added the table mapperClassName and mapperConstructorArguments properties
+-- InputMask
+* fixed an issue with decimal digits on NumberMask (thanks to jgarces)
+-- JavaScriptUtil
+* added the arrayEquals function
+* now the isEmpty functions returns true if isNaN(value)
+
+2.0.4
+-- JavaScriptUtil
+* fixed a bug on dateAdd
+* added an optional trueChars parameter on booleanValue function
+* added the ifEmpty and ifNull functions
+-- InputMask
+* fixed a caret related bug on masks (thanks to Francois Dion)
+
+2.0.3
+-- InputMask
+* fixed bug that broke the masks, introduced on version 2.0.2
+
+2.0.2
+-- InputMask
+* fixed an old limitation that restricted pressing different keys fast
+-- JavaScripTable
+* fixed a bug where, on single selection tables, other rows were not deselected, resulting on more than one results on methods like getSelectedRows()
+* added the ObjectRowMapper class, allowing objects to be converted into rows and vice-versa
+* when the table's identifierName and the column's propertyName are correctly set, the table allows passing an object instead of a row to addRow method
+
+2.0.1
+-- JavaScriptUtil
+* now, when the setOptions function supports custom properties like addOptions to add objects rather than Option instances
+-- JavaScripTable
+* added themes for the samples
+* fixed some typos
+
+2.0
+* minor fixes
+* now the scripts on the js directory are compressed using JavaScriptZip (http://javascriptzip.sourceforge.net). The original scripts are on js/original
+
+2.0-rc1
+-- JavaScriptUtil
+* now, when the getObject function gets an object reference instead of a name, returns the reference itself
+* new the setValue() function accepts the value as number or boolean
+* added the setOpacity() and getOpacity() functions
+* added the StringBuffer class
+* added the toObject() method on Map
+* added some other character set constants: JST_CHARS_BASIC_LOWER, JST_CHARS_BASIC_UPPER, JST_CHARS_BASIC_LETTERS and JST_CHARS_BASIC_ALPHA - Like those with the same name without the BASIC_, but without accentuation
+* added onlyBasicLetters() and onlyBasicAlpha() functions
+
+-- JavaScripTable
+* now the table builds the html code using the new StringBuffer class - much faster rendering! :-)
+* fixed the cursor style to correctly display a pointer on all browsers on rows with rowFunction
+* added the showColumnHeaders property and the JST_DEFAULT_SHOW_COLUMN_HEADERS constant
+* added the waitText property and the JST_DEFAULT_WAIT_TEXT constant
+* added the pageOnlySelectAll and the JST_DEFAULT_PAGE_ONLY_SELECT_ALL constant
+* added the Column properties: cellTextClass, cellTextStyle, headerClass and headerStyle
+* now the property JST_DEFAULT_ALLOW_TOP_LINK is setted to false by default
+There were some changes on the table tham may require some minor changes to style declarations:
+* refactored the highlighting mechanism. 
+  The properties useRowHighliting and highlitedRowClass were removed.
+  Now, the highlighting mode can be applied to column headers (columnHeaderHighlighting property), odd rows and even rows (rowHighlighting property), and have the following modes (each one with an associated constant):
+    * No highlighting (JST_HIGHLIGHTING_NONE)
+    * Text highlighting (JST_HIGHLIGHTING_TEXT)
+    * Cell highlighting (JST_HIGHLIGHTING_CELL)
+    * Text and cell highlighting (JST_HIGHLIGHTING_CELL_TEXT)
+    * Row highlighting (JST_HIGHLIGHTING_ROW) - Not applied to column headers
+    * Row and text highlighting (JST_HIGHLIGHTING_ROW_TEXT) - Not applied to column headers
+    * Row and cell highlighting (JST_HIGHLIGHTING_ROW_CELL) - Not applied to column headers
+    * Row, text and cell highlighting (JST_HIGHLIGHTING_ROW_CELL_TEXT) - Not applied to column headers
+  There are also utility methods (buildHighlightingConstant(), buildHighlightingParts(), setColumnHeaderHighlightingParts(), setRowHighlightingParts(), getColumnHeaderHighlightingParts() and getRowHighlightingParts) to work with highlighting parts
+  The associated properties for styles are the following:
+    Column headers
+    * columnHeaderClass - For normal column header cells
+    * columnHeaderTextClass - For column header text portions
+    * highlightedColumnHeaderClass - For highlighted column header cells
+    * highlightedColumnHeaderTextClass - For highlighted column header text portions
+    Odd rows
+    * oddRowClass - For normal odd rows
+    * highlightedOddRowClass - For highlighted odd rows
+    * oddRowCellClass - For normal odd row cells
+    * highlightedOddRowCellClass - For highlighted odd row cells
+    * oddRowTextClass - For highlighted odd row text portions
+    * oddRowTextWithFunctionClass - For highlighted odd row text portions when there is cell function
+    * highlightedOddRowTextClass - For highlighted odd row text portions
+    * highlightedOddRowTextWithFunctionClass - For highlighted odd row text portions when there is cell function
+    Even rows
+    * evenRowClass - For normal even rows
+    * highlightedEvenRowClass - For highlighted even rows
+    * evenRowCellClass - For normal even row cells
+    * highlightedEvenRowCellClass - For highlighted even row cells
+    * evenRowTextClass - For highlighted even row text portions
+    * evenRowTextWithFunctionClass - For highlighted even row text portions when there is cell function
+    * highlightedEvenRowTextClass - For highlighted even row text portions
+    * highlightedEvenRowTextWithFunctionClass - For highlighted even row text portions when there is cell function
+  It seems complex, but, remember, you can customize a single css file for your entire application!
+* now no links (<a> tag) are generated on the table. On cell functions, headers and navigation bar, are generated spans with onclick handler. This allows better control over the styles
+* removed the linkClass property, and added the navigationLinkClass and highlightedNavigationLinkClass properties
+
+-- InputMask
+* now the NumberMask now uses the parser only to get the formatting options from it, no longer parsing the string. This allows the input to be an "infinite" sized number (no more problems with the JavaScript precision, except the getAsNumber() method, that may round the number)
+
+
+
+1.2.X
+* The 2.0 version has started when JavaScripTools was on version 1.2.8. The 1.2.X version changelog is included with it's latest release

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>The Map class</h3>
+<p>The 
+<a href="../api/class_Map.html">Map</a>
+is a class inspired by the 
+<a href="http://java.sun.com/j2se/1.5.0/docs/guide/collections/index.html">Java Collection Framework</a>.
+It contains a collection of key / value pairs.</p>
+<p>In JavaScript any object can be a collection of properties /
+values, so, why a Map?<br>
+Basically, having a class allows the Map to contain other utility methods, like 
+<a href="../api/class_Map.html#size">size</a>,
+<a href="../api/class_Map.html#getPairs">getPairs</a>,
+<a href="../api/class_Map.html#getKeys">getKeys</a> and
+<a href="../api/class_Map.html#getKeys">getValues</a>,
+as well as other implementations. The Map subclasses are:<ul>
+<li><a href="../api/class_QueryStringMap.html">QueryStringMap</a>: Read values from the query string (
+the url parameters) using the Map interface</li>
+<li><a href="../api/class_CookieMap.html">CookieMap</a>: Read and write cookies using the Map interface</li>
+<li><a href="../api/class_ObjectMap.html">ObjectMap</a>: Read and write object properties using the Map interface</li>
+</ul></p>
+<p>Here will be given some examples:</p>
+<pre>//Basic actions on a Map
+var map = new Map();
+map.put("1", "One");
+map.put("2", "Two");
+map.put("3", "Three");
+alert(map.size());
+alert(map.getKeys());
+alert(map.getValues());
+map.remove("2");
+
+//Reading the QueryString
+var map = new QueryStringMap();
+alert(map.getKeys());
+
+//Reading and writing cookies
+var map = new CookieMap();
+map.put("currentMenu", "file");
+alert(map.put("lastLogin"));
+
+//Manipulating object properties
+var customer = {name:"John", age:30};
+var map = new ObjectMap();
+map.put("name", "John Smith");
+alert(customer.name) //The name now is John Smith
+</pre><br>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_events.html">Manipulating events</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScriptUtil_stringbuffer.html">The StringBuffer class</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>Parsers</h2>
+<h3>Using the WrapperParser</h3>
+<p>The 
+<a href="../api/class_WrapperParser.html">WrapperParser</a> wraps another parser,
+allowing post-processing the result for it's format method, and pre-processing the
+value for the parse method. Like the <a href="../api/class_CustomParser.html">CustomParser</a>,
+the <a href="../api/class_WrapperParser.html">WrapperParser</a> also uses a formatFunction 
+and a parseFunction. The formatFunction will be invoked after the wrapped parser's format method,
+and will receive as arguments the formatted value and the original value. The parseFunction will
+be invoked before the parser's parse method and will receive the value.</p>
+<p>Examples:</p>
+<pre>//A parser that writes / reads dates inside an html tag, making the color red when the month is january
+
+//Function to add the tag
+function addTag(dateAsString, date) {
+    var style;
+    if (date != null &amp;&amp; date.getMonth() == 0) {
+        style = " style='color:red'"; 
+    }
+    return "&lt;div" + style + "&gt;" + dateAsString + "&lt;/div&gt;";
+}
+//Function to remove the tag
+function removeTag(value) {
+    if (value == null) {
+        return null;
+    }
+    return value.replace(/&lt;\/?[^&gt;]+&gt;/gi, '');
+}
+var dateParser = new DateParser("yyyy-MM-dd");
+var parser = new WrapperParser(dateParser, addTag, removeTag);
+parser.format(new Date(2000, 0, 10)) -&gt; "&lt;div style='color:red'&gt;2000-01-10&lt;/div&gt;"
+parser.format(new Date(2000, 1, 10)) -&gt; "&lt;div&gt;2000-01-10&lt;/div&gt;"
+parser.parse("&lt;div&gt;2000-01-10&lt;/div&gt;") -&gt; "date with day=10, month=0, year=2000"
+</pre>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="Parsers_custom.html">Using the CustomParser</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="Parsers_other.html">Other parsers</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

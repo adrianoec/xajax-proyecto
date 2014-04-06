@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>Manipulating caret and selection on input fields</h3>
+<p>Before any caret or selection operations, the
+<a href="../api/JavaScriptUtil_functions.html#prepareForCaret">prepareForCaret</a>
+function must be invoked, passing the control name or reference to it.</p>
+<p><b>Important</b>: Caret operations are supported only on Internet Explorer and Gecko based browsers (Mozilla, Firefox, Seamonkey, ...).
+Selection is also supported by Opera. If there is no browser support, caret operations will do nothing. There are two special functions, 
+<a href="../api/JavaScriptUtil_functions.html#isCaretSupported">isCaretSupported</a> and 
+<a href="../api/JavaScriptUtil_functions.html#isInputSelectionSupported">isInputSelectionSupported</a>
+that determine if a given object supports caret and selection operations.</p>
+<p>Then, there are several functions, which will be presented by examples.</p>
+<pre>if (!isCaretSupported('customer')) {
+    alert("Your browser does not support caret operations");
+}
+if (!isInputSelectionSupported('customer')) {
+    alert("Your browser does not support input selection operations");
+}
+prepareForCaret('customer');
+//Set the caret position after the 3rd character
+setCaret('customer', 3);
+//Return the current caret position (3)
+alert(getCaret('customer'));
+//Set the caret before the first character 
+setCaretToStart('customer');
+//Set the selection to start after the 2nd character and end after the 6th
+setInputSelectionRange('customer', 2, 6);
+//Return an array containing 2 and 6
+alert(getInputSelectionRange('customer'));
+//Return the text contained on the selection
+alert(getInputSelection('customer'));
+//Makes the first occurrence of the string John on the input to be selected
+selectText('customer', 'John');
+</pre><br>
+
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_select.html">Manipulating options on a select box</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScriptUtil_events.html">Manipulating events</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

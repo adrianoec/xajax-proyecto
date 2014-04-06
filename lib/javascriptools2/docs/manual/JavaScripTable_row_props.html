@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<a name="top"></a>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScripTable</h2>
+<h3>Row properties</h3>
+<p>The Row constructor receives the identifier (each identifier must be unique in a table) and
+an array of values for each column. The values must be of the type specified by the column type. 
+Example: date columns whould have the value as Date objects.</p>
+<p>After adding a row to the table, the <code>table</code> property is set to the table instance.</p>
+<p>Also, some table or column properties may be customized per row:<ul>
+<li><code>selectable</code>: A row may be specified as not selectable when table selecion is used.</li>
+<li><code>editable</code>: A row may be set as not editable if the cell is editable.</li>
+<li><code>useCellFunction</code>: If a column has a cell function, specific rows may not use it</li>
+<li><code>possibleValues</code>: A Map array containing additional values in relation to the column possible values.</li>
+<li><code>titles</code>: A String array containing the tooltip (title attribute) for each cell.</li>
+</ul></p>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScripTable_column_props.html">Column properties</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScripTable_look_feel.html">Customizing the look and feel</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

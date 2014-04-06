@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>InputMask</h2>
+<h3>Working with the DateMask</h3>
+<p>DateMask is a mask that recognizes and formats dates using a <a href="Parsers_date.html">DateParser</a> to 
+instance. Several mask instances can (and should!) share a single parser.</p>
+<p>The DateParser instance is passed on the constructor, as well as the control name or reference.
+As a shortcut, you can pass, instead of the parser, a string, containing the mask format. This will
+implicitly create a DateParser. But, when there are lots of controls being masked with the same format, 
+it is better for all to share the same parser, so, you might want to create a DateParser previously and pass
+it to all masks. Sure this is a very small optimization, and you will probably notice no difference on fast
+computers...</p>
+<p>Padding is very useful on the InputMask. If the mask is yyyy-MM-dd, for example, the user can type 5-1-9,
+and, when he leaves the field, the value will be 2005-01-09. For more details on padding, click
+<a href="InputMask_mask.html#padding">here</a>.
+<p>Examples (assuming controls called "myDate" and "myMonth"):</p>
+<pre>//Using the parser
+var parser = new DateParser("yyyy-MM-dd");
+new DateMask(parser, "myDate");
+
+//Using a format string and event handlers
+var mask = new DateMask("MM/yyyy", "myMonth");
+mask.keyPressFunction = function(event, mask) {
+    alert(this.value)
+}
+</pre>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="InputMask_number.html">Working with the NumberMask</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="InputMask_size.html">Working with the SizeLimit</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

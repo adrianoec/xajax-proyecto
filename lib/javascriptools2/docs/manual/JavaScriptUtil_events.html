@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScriptUtil</h2>
+<h3>Manipulating events</h3>
+<p>Many browsers (specially Internet Explorer) do not follow the standards for event handling. So, there are some
+functions to perform basic operations on events.</p>
+<p>The <a href="../api/JavaScriptUtil_functions.html#observeEvent">observeEvent</a> function adds an event handler
+to a given element. It receives the object, the event name and a handler function. The name must be in the W3C standard, like
+blur, keypress, etc. The handler function may safely refers to the object as this on Internet Explorer (something that, without a
+workarround, is not possible). On version 2.1, this function had the same name as the standard <code>addEventListener</code> function,
+and replaced the existing one. So, it is now called <code>observeEvent</code>. If you have relied uppon it and don't need to observe
+window events, you can simply do <code>addEventListener = observeEvent</code> (after importing JavaScriptUtil, of course :-)</p>
+<p><a href="../api/JavaScriptUtil_functions.html#typedCode">typedCode</a> is function that returns the keyCode for a given event.
+If you need the typed character, use String.fromCharCode(typedCode(event)).</p>
+<p><a href="../api/JavaScriptUtil_functions.html#preventDefault">preventDefault</a> is used to not allowing the default action to execute.
+Example: inside a keypress event, if you do preventDefault(event), the key won't be appended to the control text.</p>
+<p>Finally, <a href="../api/JavaScriptUtil_functions.html#stopPropagation">stopPropagation</a> stops an event to propagate to other
+objects that could receive the event. Example: nested divs. When you click the outermost, the event propagates to the others, until the last
+one (the document also receives the event).</p>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScriptUtil_caret.html">Manipulating caret and selection on input fields</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScriptUtil_map.html">The Map class</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,89 +1,54 @@
-<table><tr><td onclick='muestra_oculta(dvFormulario)'>Formulario</td></tr></table>
-<div id='dvFormulario' >
-    <form name='form' id='form' action=''>
-        <table border='0' align='center'>
-            <tr> 
-                <td> 
-                    CODIGO 
-                </td> 
-                <td><div id='dvReqCODIGO'><font color='red'>*</font></div></td> 
-                <td> 
-                    <input type='text' name='codigo' id='codigo' value='' onfocus='' size='4'> 
-                </td>
 
-                <td> 
-                    DESCRIPCION 
-                </td> 
-                <td><div id='dvReqDESCRIPCION'><font color='red'>*</font></div></td> 
-                <td> 
-                    <input type='text' name='descripcion' id='descripcion' value='' onfocus='' size='-1'> 
-                </td>
-            </tr>
-            <tr> 
-                <td> 
-                    PAGINA 
-                </td> 
-                <td><div id='dvReqPAGINA'><font color='red'>*</font></div></td> 
-                <td> 
-                    <input type='text' name='pagina' id='pagina' value='' onfocus='' size='-1'> 
-                </td>
+<!-- THREE STEPS TO INSTALL DFILTER:
 
-                <td> 
-                    ACTIVO 
-                </td> 
-                <td><div id='dvReqACTIVO'><font color='red'>*</font></div></td> 
-                <td> 
-                    <select name='activo' id='activo' onchange=''><option value=''>Seleccione...</option></select> 
-                </td>
-            </tr>
-            <tr> 
-            </tr>
-            <tr> 
-                <td colspan='5' align='center'>
+  1.  Download the external JavaScript file
+  2.  Copy the coding into the HEAD of your HTML document
+  3.  Add the last code into the BODY of your HTML document  -->
 
-                    <table align='center'> 
-                        <tr>
+<!-- STEP ONE: Download the external JavaScript file here:  -->
 
-                            <td> 
-                                <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar" onclick="xajax_validarForm(xajax.getFormValues('form'), 0)" > 
-                            </td>
+http://www.javascriptsource.com/forms/dFilter.js
 
-                            <td> 
-                                <input type="button" name="btnActualizar" id="btnActualizar" value="Actualizar" onclick="xajax_validarForm(xajax.getFormValues('form'), 1)" > 
-                            </td>
 
-                            <td> 
-                                <input type="button" name="btnEliminar" id="btnEliminar" value="Eliminar" onclick="xajax_confirmarEliminarForm(xajax.getFormValues('form'))" > 
-                            </td>
+<!-- STEP TWO: Paste this code into the HEAD of your HTML document  -->
 
-                            <td> 
-                                <input type="button" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="xajax_limpiar(xajax.getFormValues('form'))" > 
-                            </td>
+<HEAD>
 
-                        </tr>  
-                    </table> 
-                </td> 
+    <!-- This script and many more are available free online at -->
+    <!-- The JavaScript Source!! http://www.javascriptsource.com -->
 
-            </tr> 
-        </table> 
-    </form>  
-</div> 
-<table><tr><td onclick='muestra_oculta(dvConsulta)' >Consulta</td></tr></table><div id='dvConsulta' >
-    <form id='formQuery'>
+    <script type='text/javascript' src='../lib/dFilter.js'></script>
+</script>
+
+</HEAD>
+
+<!-- STEP TWO: Copy this code into the BODY of your HTML document  -->
+
+<BODY>
+
+    <!-- This script and many more are available free online at -->
+    <!-- The JavaScript Source!! http://www.javascriptsource.com -->
+
+    <form name="fred" action="fred.htm" method="post">
         <table>
             <tr>
-                <td>Consultar:</td>
-                <td>
-                    <input type='text' id='txtConsulta' name='txtConsulta' value='' />
-                </td>
-                <td>
-                    <input type="button" name="btnConsultar" id="btnConsultar" value="Consultar" onclick="xajax_consultar(xajax.getFormValues('formQuery'))" >
-                </td>
+                <td>SSN:</td>
+                <td><input value="" type="text" onKeyDown="javascript:return dFilter(event.keyCode, this, '###-##-[#]{2,4}');" style="font-family:verdana;font-size:10pt;width:110px;"></td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td><input value="" type="text" onKeyDown="javascript:return dFilter(event.keyCode, this, '(###) ###-####');" style="font-family:verdana;font-size:10pt;width:110px;"></td>
+            </tr>
+            <tr>
+                <td>Zip:</td>
+                <td><input value="" type="text" onKeyDown="javascript:return dFilter(event.keyCode, this, '#####-####');" style="font-family:verdana;font-size:10pt;width:110px;"></td>
             </tr>
         </table>
-    </form> 
-    <center> 
-        <div id='dvRespuesta'> </div> 
-        <div id='dvPaginacion'></div> 
-    </center> 
-</div> 
+    </form>
+
+    <p><center>
+    <font face="arial, helvetica" size"-2">Free JavaScripts provided<br>
+    by <a href="http://javascriptsource.com">The JavaScript Source</a></font>
+</center><p>
+
+    <!-- Script Size:  1.63 KB -->

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScripTable</h2>
+<h3>User interaction</h3>
+<p>The user may interact with the table using a row or cell <a href="JavaScripTable_table_props.html#functions">function</a>,
+change column sorting on the header or using the navigation bar.</p>
+<p>The navigation bar may not be rendered or rendered at the bottom, top or both. This is set using the table 
+<code>navigation</code> property to one of the following constants: JST_NAV_NONE, JST_NAV_TOP, JST_NAV_BOTTOM or JST_NAV_BOTH.
+The default value is determined by the JST_DEFAULT_NAVIGATION constant.</p>
+<p>It contains the following data and links (when a property appear, the default value is determined by a constant inside parenthesis):<ul>
+<li>The number of rows. The message is the number of rows concatenated to the <code>singleRowText</code> (JST_DEFAULT_SINGLE_ROW_TEXT)
+or <code>multipleRowText</code> (JST_DEFAULT_MULTIPLE_ROW_TEXT), depending on the row count.</li>
+<li>The next text will depend of the table being paged or not. <ul>
+    <li>When paging is used, the <code>pageText</code> (JST_DEFAULT_PAGE_TEXT) is used to display the current and last pages. That text
+    may contain variables that will be replaced by their respective values: ${current} and ${total}. The current page is a link that allows
+    the user to type the page he want to navigate to. The total pages will be a link if <code>allowChangePageSize</code> 
+    (JST_DEFAULT_ALLOW_CHANGE_PAGE_SIZE) is set to true, to allow the user to change the page size.<br>
+    After, it, a text determined by <code>showAllText</code> (JST_DEFAULT_SHOW_ALL_TEXT), and, when <code>allowChangePaging</code> is true, that 
+    text will be a link that will show all rows.</li>
+    <li>When paging not used, a text determined by the <code>usePagingText</code> (JST_DEFAULT_USE_PAGING_TEXT) property. If
+    <code>allowChangePaging</code> (JST_DEFAULT_ALLOW_CHANGE_PAGING) is true, the text will be a link that will start using paging.</li>
+</li></ul>
+<li>A link to the table top will be displayed if the <code>allowTopLink</code> (JST_DEFAULT_ALLOW_TOP_LINK) is true. This link is only useful
+if page size is large, or paging is not used, where, probably, the whole table wouldn't fit the screen.</li>
+</ul></p>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScripTable_look_feel.html">Customizing the look and feel</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScripTable_data.html">Using objects and exporting data</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

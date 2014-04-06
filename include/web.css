@@ -4,29 +4,29 @@ table {
 
 input.borde {
     border: 1px;
-    opacity:0.1;
-    filter:alpha(opacity=10);
+    /*opacity:0.1;
+     filter:alpha(opacity=10); */
 
 }
 
 input.borde_text {
-    border: 1px;
-    opacity:0.9;
-    filter:alpha(opacity=10);
+    border: 0px;
+    /*opacity:0.9;
+     filter:alpha(opacity=10); */
     text-align: left;
 }
 input.borde_text:hover {
-    border: 1px;
-    opacity:0.9;
-    filter:alpha(opacity=10);
+    border: 0px;
+    /*opacity:0.9;
+    filter:alpha(opacity=10); */
     text-align: left;
     color: #000;
 }
 
 input.borde_num {
-    border: 1px;
-    opacity:0.1;
-    filter:alpha(opacity=10);
+    border: 0px;
+    /*opacity:0.1;
+     filter:alpha(opacity=10); */
     text-align: right;
 
 }
@@ -50,12 +50,12 @@ table.borde_detalle {
 }
 
 td.borde_text {
-    border: 1px solid black;
+    border: 0px solid black;
     text-align: left;
 }
 
 td.borde_num {
-    border: 1px solid black;
+    border: 0px solid black;
     text-align: left;
 }
 table.borde_detalle.odd {
@@ -67,16 +67,17 @@ table.borde_detalle.even {
 }
 
 th.enlace {
-    border: 0px solid black;
+    border: 0px ;
     text-align: center;
     cursor: pointer;
 }
 
 
 td.enlace {
-    border: 0px solid black;
+    border: 0px;
     text-align: center;
     cursor: pointer;
+    background: #FFF;
 }
 
 table.campo {
@@ -102,11 +103,19 @@ td.dato {
     border: 0;
 }
 
+input.input_head {
+    text-align: center;
+    font-weight: normal;
+    background: #CCC;
+    border: 0px;
+}
 
 table.borde_detalle:hover{
     background: #CCC
 }
-
+table.borde_detalle{
+    background: #CCC
+}
 table.borde_detalle:ntr-child(even) {
     background: #CCC
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <title>JavaScripTools Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+</head>
+
+<body>
+<br>
+<h1>JavaScripTools Manual</h1>
+<h2>JavaScripTable</h2>
+<h3>Column properties</h3>
+<p>Each <code>Column</code> instance has 2 read-only properties: <code>table</code> (containing the <code>JavaScripTable</code>
+instance that contains the column) and <code>index</code> (the index inside the table). They are set after adding the 
+column to the table. Also, it is important to note the <code>header</code> property, that reflects the header text. Also,
+sorting may be disabled by setting <code>sortable</code> to <code>false</code>.</p>
+<p>When the table is in <a href="JavaScripTable_table_props.html#modes">client side mode</a>, it is important to set the
+<code>type</code> property to one of these constants: <code>JST_TYPE_STRING</code>, <code>JST_TYPE_NUMERIC</code>, 
+<code>JST_TYPE_CURRENCY</code>, <code>JST_TYPE_DATE</code> or <code>JST_TYPE_BOOLEAN</code>. 
+This is need to compute the right sorting. The default is <code>JST_TYPE_STRING</code>.</p>
+<p>The style may be customized using: <ul>
+<li><code>width</code>, <code>align</code> and <code>valign</code> reflects those TD element attributes.</li>
+<li><code>cellTextClass</code>, <code>cellTextStyle</code>, <code>headerTextClass</code>, <code>headerTextStyle</code> reflects
+the style and class attributes for TDs on header and on data rows.</li>
+<li><code>cropRepeated</code>: If set to true, repeated values (on consecutive rows) won't be displayed.</li>
+<li><code>colspan</code> and <code>rowspan</code>: When row breaks are used on the table, determine each cell rowspan and
+colspan, which must be set when "subrows" have different number of columns.</li>
+<li><code>visible</code>: Columns may be hidden or shown without changing their indexes by setting this property to a boolean value.</li>
+</ul></p>
+<p>Cell functions may be used to allow a custom function to be executed when the user clicks on the cell text. This is 
+done by the <code>cellFunction</code> property. It should be set to a function reference that receives the row identifier, 
+the column index and the table reference.</p>
+<br><br>
+<h4>Editing columns</h4>
+<p>A column may be edited by setting <code>editable</code> to <code>true</code>. In that case, the column must have an
+<a href="../api/class_EditControl.html">EditControl</a> instance set on the <code>editControl</code> property. The control
+has the following properties: <ul>
+<li><code>type</code>: Determines what control type will be used to edit the data. Many be one of the following constants:
+<code>JST_CONTROL_TEXT</code> (the default), <code>JST_CONTROL_PASSWORD</code>, <code>JST_CONTROL_TEXTAREA</code>,
+<code>JST_CONTROL_CHECKBOX</code>, <code>JST_CONTROL_RADIO</code>, <code>JST_CONTROL_SELECT</code> or
+<code>JST_CONTROL_SELECT_MULTIPLE</code>. The last 4 requires the column property <code>possibleValues</code> to be set 
+to a <a href="JavaScriptUtil_map.html">Map</a> instance. The value for each option will be a Map key, and the text, a value.</li>
+<li><code>multiline</code>: A boolean value indicating if, when multiple controls are rendered, a row break will be displayed
+between each one or not.</li>
+<li><code>name</code>: The control name. If the table is inside a form, and the form is submitted, the values may be retrieved
+by that name. Note that this is not that simple on radio or checkboxes, because controls with the same name are considered a
+group by the browser. So, the names for each group os controls (controls on the same cell) have the specified name plus
+"_&lt;RowId&gt;".</li>
+<li><code>attributes</code>: the text on this property will be rendered inside the control tag, so, attributes like 
+<code>maxlength</code>, <code>style</code> and <code>onkeypress</code> may be specified.</li>
+</ul></p>
+<p>Editable cells may be validated after editing by using the <code>validateFunction</code> property, setting it to a
+function that receives the cell value, the column instance and the row instance. Returning a boolean value means valid or not.
+Returning a string means invalid, and the string being a message to show. Also, the <code>allowEmptyValue</code> property
+determines if empty values are accepted or not.</p>
+<p>It is possible to use <a href="InputMask_mask.html">InputMask</a>, <a href="InputMask_number.html">NumberMask</a>,
+<a href="InputMask_date.html">DateMask</a> or <a href="InputMask_size.html">SizeLimit</a> for each control by setting
+the column <code>getMaskFunction</code> to a function instance that receives the control instance, the column instance and
+the row instance. It should return an instance of those masks, for example:</p>
+<pre>var column = table.addColumn(...);
+column.editable = true;
+column.getMaskFunction = function (control) {
+    return new InputMask("####/##", control);
+}
+</pre>
+<br><br>
+<hr>
+<table width="100%">
+    <tr>
+        <td width="33%" align="left"><b>Previous:</b><br><a href="JavaScripTable_manipulation.html">Manipulating the table</a></td>
+        <td width="34%" align="center"><a href="index.html">Table of Contents</a></td>
+        <td width="33%" align="right"><b>Next:</b><br><a href="JavaScripTable_row_props.html">Row properties</a></td>
+    </tr>
+</table>
+
+</body>
+</html>
