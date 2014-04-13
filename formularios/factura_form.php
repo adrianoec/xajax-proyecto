@@ -110,55 +110,55 @@ if ($_SESSION["pe"] == "0") {
                         <tr>
                             <td class="campo">Subtotal 12%:</td>
                             <td>
-                                <input type="text" name="txtSubtotal12" value="" id="txtSubtotal12" />
+                                <input type="text" name="txtSubtotal12" value="" id="txtSubtotal12" onchange="xajax_calcularTotal(xajax.getFormValues('form'))"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">Subtotal 0%:</td>
                             <td>
-                                <input type="text" name="txtSubtotal0" value="" id="txtSubtotal0" />
+                                <input type="text" name="txtSubtotal0" value="" id="txtSubtotal0"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">Subtotal no sujeto de IVA:</td>
                             <td>
-                                <input type="text" name="txtSubtotalnoiva" value="" id="txtSubtotalnoiva" />
+                                <input type="text" name="txtSubtotalnoiva" value="" id="txtSubtotalnoiva"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">Subtotal sin impuestos:</td>
                             <td>
-                                <input type="text" name="txtSubtotalsinimp" value="" id="txtSubtotalsinimp" />
+                                <input type="text" name="txtSubtotalsinimp" value="" id="txtSubtotalsinimp"   onchange="xajax_calcularTotal(xajax.getFormValues('form'))"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">Descuento:</td>
                             <td>
-                                <input type="text" name="txtDescuento" value="" id="txtDescuento" />
+                                <input type="text" name="txtDescuento" value="" id="txtDescuento"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">ICE:</td>
                             <td>
-                                <input type="text" name="txtIce" value="" id="txtIce" />
+                                <input type="text" name="txtIce" value="" id="txtIce"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">IVA 12%:</td>
                             <td>
-                                <input type="text" name="txtIva" value="" id="txtIva" />
+                                <input type="text" name="txtIva" value="" id="txtIva"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">Propina:</td>
                             <td>
-                                <input type="text" name="txtPropina" value="" id="txtPropina" />
+                                <input type="text" name="txtPropina" value="" id="txtPropina"   onchange="xajax_calcularTotal(xajax.getFormValues('form'))"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="campo">Valor Total:</td>
                             <td>
-                                <input type="text" name="txtValorTotal" value="" id="txtValorTotal" />
+                                <input type="text" name="txtValorTotal" value="" id="txtValorTotal"    />
                             </td>
                         </tr>
                     </table>

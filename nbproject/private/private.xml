@@ -3,19 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/htdocs/facturacion/generadorCodigo.php</file>
-            <file>file:/D:/htdocs/facturacion/funciones_xjx/permiso_xajax.php</file>
+            <file>file:/D:/htdocs/facturacion/include/cabecera.php</file>
+            <file>file:/D:/htdocs/facturacion/formularios/tipocomprobante_form.php</file>
             <file>file:/D:/htdocs/facturacion/script_datos.sql</file>
-            <file>file:/D:/htdocs/facturacion/login.php</file>
-            <file>file:/D:/htdocs/facturacion/funciones_xjx/paginaperfil_xajax.php</file>
-            <file>file:/D:/htdocs/facturacion/tipoimpuesto.php</file>
-            <file>file:/D:/htdocs/facturacion/funciones_xjx/pagina_xajax.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/paginaperfil_form.php</file>
-            <file>file:/D:/htdocs/facturacion/formularios/pagina_form.php</file>
-            <file>file:/D:/htdocs/facturacion/lib/tcpdf/tcpdf.php</file>
-            <file>file:/D:/htdocs/facturacion/funciones_xjx/login_xajax.php</file>
-            <file>file:/D:/htdocs/facturacion/funciones_xjx/tipoImpuesto_xajax.php</file>
-            <file>file:/D:/htdocs/facturacion/pagina.php</file>
+            <file>file:/D:/htdocs/facturacion/include/web.css</file>
+            <file>file:/D:/htdocs/facturacion/lib/mask_js04/masks.js</file>
+            <file>file:/D:/htdocs/facturacion/lib/mask_js04/index.htm</file>
+            <file>file:/D:/htdocs/facturacion/funciones_xjx/factura_xajax.php</file>
+            <file>file:/D:/htdocs/facturacion/factura.php</file>
+            <file>file:/D:/htdocs/facturacion/formularios/factura_form.php</file>
         </group>
     </open-files>
 </project-private>

@@ -41,6 +41,28 @@ create table perfil (
    constraint perfil_pkey primary key (codigo)
 );
 
+
+
+
+create table producto(
+codigo serial primary key,
+descripcion character varying(128),
+codigo_principal  character varying(32),
+codigo_auxiliar   character varying(32),
+precio_unitario numeric,
+descripcion_adicional  character varying(128),
+aplica_iva character varying(1), 
+aplica_ice  character varying(1),
+activo  integer
+);
+
+create table producto_impuesto(
+codigo_producto integer,
+codigo_impuesto integer
+)
+
+
+
 insert into perfil(descripcion)values('Administrador');
 
 insert into tipo_comprobante (descripcion,codigo_sri) values ('FACTURA','01');
