@@ -3,7 +3,7 @@
 class Comun {
 
     function __construct() {
-    
+        
     }
 
     public function listaDatoEnlaceParametro($db, $nombre, $sql, $ajax, $seleccione, $todos, $selected, $parametro = '') {
@@ -48,7 +48,7 @@ class Comun {
         }
     }
 
-    public function comboDatoEnlace($db,$nombre, $sql, $ajax, $seleccione, $todos, $selected) {
+    public function comboDatoEnlace($db, $nombre, $sql, $ajax, $seleccione, $todos, $selected) {
         try {
             $rs = $db->query($sql);
             if (strlen($ajax) > 7) {
@@ -61,10 +61,10 @@ class Comun {
 
                 $cmb = "<select name='$nombre' id='$nombre' onChange='$evt'>";
                 if ($rs) {
-                    if ($seleccione == 1) {
+                    if ($seleccione == true) {
                         $cmb.="<option    value='Seleccione'>Seleccione..</option>";
                     }
-                    if ($todos == 1) {
+                    if ($todos == true) {
                         $cmb.="<option value='TODOS'>TODOS..</option>";
                     }
                     while ($ln = $db->fetch_array($rs)) {
@@ -78,7 +78,6 @@ class Comun {
                 $cmb.="</select>";
             } else {
                 $cmb = "<select name='$nombre' id='$nombre' onclick=''>";
-                $cmb.="<option value='TODOS'>TODOS</option>";
                 $cmb.="<option value=''>No existen datos..</option>";
                 $cmb.="</select>";
             }
@@ -91,7 +90,7 @@ class Comun {
 
     /* Combo con enlace y parametros adicionales de validaciçon DHTML */
 
-    public function comboDatoEnlaceParametro($db,$nombre, $sql, $ajax, $seleccione, $todos, $selected, $parametro = '') {
+    public function comboDatoEnlaceParametro($db, $nombre, $sql, $ajax, $seleccione, $todos, $selected, $parametro = '') {
         try {
 
             $rs = $db->query($sql);
@@ -135,7 +134,7 @@ class Comun {
         }
     }
 
-    public function comboDatoEnlaceParametroDisabled($db,$nombre, $sql, $ajax, $seleccione, $todos, $selected, $parametro) {
+    public function comboDatoEnlaceParametroDisabled($db, $nombre, $sql, $ajax, $seleccione, $todos, $selected, $parametro) {
         try {
 
             $rs = $db->query($sql);
@@ -176,7 +175,7 @@ class Comun {
         }
     }
 
-    function listaDatoSql($db,$nombre, $sql, $ajax, $size, $multiple) {
+    function listaDatoSql($db, $nombre, $sql, $ajax, $size, $multiple) {
         try {
             $rs = $db->query($sql);
             if (strlen($ajax) > 7) {
@@ -221,10 +220,10 @@ class Comun {
             $nro = $array;
             if (count($nro) > 0) {
                 $cmb = "<select name='$nombre' id='$nombre' onChange='$evt' $parametro>";
-                if ($seleccione == 1) {
+                if ($seleccione == true) {
                     $cmb.="<option value=''>Seleccine..</option>";
                 }
-                if ($todos == 1) {
+                if ($todos == true) {
                     $cmb.="<option value='TODOS'>Todos..</option>";
                 }
                 foreach ($array as $ln) {
@@ -237,15 +236,39 @@ class Comun {
 
                 $cmb.="</select>";
             } else {
-                $cmb = "<select name='$nombre' id='$nombre' onclick=''>";
-                if ($seleccione == 1) {
-                    $cmb.="<option value=''>Seleccine..</option>";
+                $cmb = "<select name='$nombre' id='$nombre' onChange='$evt' $parametro>";
+                if ($seleccione == true) {
+                    $cmb.="<option value=''></option>";
                 }
-                $cmb.="<option value=''>No existen datos..</option>";
+                $cmb.="<option value=''></option>";
                 $cmb.="</select>";
             }
 
             return $cmb;
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
+
+    public function obtenerArreglo($db, $sql) {
+        $dato = array();
+        try {
+            $rs = $db->query($sql);
+            $nro = $db->getNumRows();
+            if ($nro > 0) {
+                $i = 0;
+                while ($ln = $db->fetch_array($rs)) {
+                    $dato[$i][0] = $ln[0];
+                    $dato[$i][1] = utf8_decode($ln[1]);
+                    $i++;
+                }
+            } else {
+                $dato[0][0] = "";
+                $dato[0][1] = "No existen datos";
+            }
+            
+            //print_r($dato);
+            return $dato;
         } catch (Exception $ex) {
             return -1;
         }

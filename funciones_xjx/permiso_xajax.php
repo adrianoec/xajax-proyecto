@@ -28,7 +28,9 @@ function actualizar($opcion, $codigo, $value) {
     } elseif ($opcion == 5) {
         $sqlUpdate = "update  permiso set  acceso_eliminar = '$value' where  codigo= '$codigo'";
     }
-echo $sqlUpdate;
+
+    //$_SESSION["sql"].=$sqlUpdate."<br/>";
+     //   $objResponse->assign("dvRespuesta2", "innerHTML", $_SESSION["sql"]);
     $rs = $objDB->query($sqlUpdate);
     $opciones = "chk_" . $opcion . "_$codigo";
     $objResponse->assign($opciones, "value", $value);

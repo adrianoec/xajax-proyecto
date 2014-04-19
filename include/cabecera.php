@@ -19,10 +19,9 @@
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.bgiframe.js"></script>
         <script type="text/javascript" src="./lib/jdMenu-1.4.1/1.4.1/jquery.jdMenu.js"></script>
      
-        <script src="./lib/javascriptools2/js/JavaScriptUtil.js"></script>
-        <script language="JavaScript1.2" src="./lib/mask_js04/masks.js"></script>
-
+      
+        <script src="./include/validacionForm.js"></script>
         <link rel="stylesheet" href="./lib/jdMenu-1.4.1/1.4.1/jquery.jdMenu.css" type="text/css" />
         <link rel="stylesheet" href="include/web.css" type="text/css" />
     </head> 
-    <body>   
+   

@@ -14,10 +14,15 @@ if ($_SESSION["pa"] == "0") {
 if ($_SESSION["pe"] == "0") {
     $pe = "disabled=\"true\"";
 }
+
+
+
+
 ?>
 
 <form name="form" id="form" action="" method="get" accept-charset="utf-8">
     <p align="center">
+    <center><div id="dvMensaje"></div></center>
     <table border="0" width="90%">
         <tr align="center">
             <td colspan="2">
@@ -29,10 +34,7 @@ if ($_SESSION["pe"] == "0") {
                         <tr>
                             <td class="campo">Tipo Documento:</td>
                             <td>*</td>
-                            <td>
-                                <select >
-                                    <option value="">Seleccione</option>
-                                </select></td>
+                            <td> <?php echo $cmbTipo ?> </td>
                             <td class="campo">Documento:</td>
                             <td>*</td>
                             <td>
@@ -76,27 +78,30 @@ if ($_SESSION["pe"] == "0") {
                         <input type="text" name="txtProducto" id="txtProducto" />
                         <input type="button" name="btnBuscarPro" id="btnBuscarPro" value="&rarr;" onclick=""/>
                     </label>
-                    <table class="" width="1100px">
+                    <table class="" width="1000px" border="0" id="tb_detalle">
                         <input type="hidden" name="txtIndice" id="txtIndice" value="1" />
-                        <tr id="tr_0" class="">
-                            <th id="td_0_1" width="10%" class=""> <input type='text' class='input_head' name='' id='' size='14' value='Principal'  readonly="true"/></th>
-                            <th id="td_0_2" width="10%" class=""> <input type='text' class='input_head' name='' id='' size='14' value='Cod Auxiliar'  readonly="true"/> </th>
-                            <th id="td_0_3" width="10%" class=""> <input type='text' class='input_head' name='' id='' size='14' value='Cantidad' readonly="true" /> </th>
-                            <th id="td_0_4" width="15%" class=""> <input type='text' class='input_head' name='' id='' size='27' value='Descripcion' readonly="true" /> </th>
-                            <th id="td_0_5" width="15%" class=""> <input type='text' class='input_head' name='' id='' size='27' value='Descripcion Adicional' readonly="true" /> </th>
-                            <th id="td_0_6" width="10%" class=""> <input type='text' class='input_head' name='' id='' size='14' value='P. Unitario' readonly="true" /> </th>
-                            <th id="td_0_7" width="10%" class=""> <input type='text' class='input_head' name='' id='' size='14' value='Descuento' readonly="true" /> </th>
-                            <th id="td_0_8" width="10%" class=""> <input type='text' class='input_head' name='' id='' size='14' value='Precio Total'  readonly="true"/> </th>
-                            <th align='center'  id="td_0_9" width="5%" onclick="xajax_addrow(document.getElementById('txtIndice').value)">
+                        <tr id="tr_1" class="">
+                            <th id="td_0_1" width="120px" class=""> Principal</th>
+                            <th id="td_0_2" width="120px" class=""> Cod Auxiliar </th>
+                            <th id="td_0_3" width="100px" class=""> Cantidad </th>
+                            <th id="td_0_4" width="230px" class=""> Descripcion </th>
+                            <th id="td_0_6" width="120px" class=""> P. Unitario </th>
+                            <th id="td_0_7" width="100px" class=""> Descuento </th>
+                            <th id="td_0_9" width="40px" class=""> IVA </th>
+                            <th id="td_0_10" width="70px" class=""> ICE </th>
+
+                            <th id="td_0_8" width="120px" class=""> Precio Total </th>
+                            <th align='center'  id="td_0_9" width="25px" onclick="xajax_addrow(document.getElementById('txtIndice').value)">
                                 <img src="imagenes/add.png" />
                             </th>
-                            <th align='center'  id="td_0_10"  width="5%" >
+                            <th align='center'  id="td_0_10"  width="25px" >
                                 <img src="imagenes/cross.png" />
                             </th>
                         </tr>
-                    </table>
+                        <tr id="tr_2">
+                        </tr>
 
-                    <div id="dvDet2"> </div>
+                    </table>
                 </fieldset></td>
         </tr>
         <tr align="right">
@@ -117,12 +122,6 @@ if ($_SESSION["pe"] == "0") {
                             <td class="campo">Subtotal 0%:</td>
                             <td>
                                 <input type="text" name="txtSubtotal0" value="" id="txtSubtotal0"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="campo">Subtotal no sujeto de IVA:</td>
-                            <td>
-                                <input type="text" name="txtSubtotalnoiva" value="" id="txtSubtotalnoiva"  onchange="xajax_calcularTotal(xajax.getFormValues('form'))" />
                             </td>
                         </tr>
                         <tr>
@@ -199,7 +198,7 @@ if ($_SESSION["pe"] == "0") {
         oNumberMask = new Mask("######.00", "number");
         oNumberMask.attach(id);
     }
-    
+
     function mask_comprobante(id) {
         oNumberMask = new Mask("###-###-#########", "number");
         oNumberMask.attach(id);
@@ -208,5 +207,5 @@ if ($_SESSION["pe"] == "0") {
         oNumberMask = new Mask("################################################################");
         oNumberMask.attach(id);
     }
-    
+
 </script>

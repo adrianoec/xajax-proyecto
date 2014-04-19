@@ -9,6 +9,7 @@
             header("Location: login.php");
             exit;
         }
+        
         include_once (HOME.'include/funciones.php');
         include_once(HOME.'funciones_xjx/permiso_xajax.php');
         include_once (HOME.'include/xajax_conf_process.php');

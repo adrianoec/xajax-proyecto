@@ -75,3 +75,5 @@ $perfil = perfiles("");
 <div id='dvRespuesta' >
 
 </div>
+
+<div id='dvRespuesta2' ></div>

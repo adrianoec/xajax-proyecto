@@ -1,5 +1,15 @@
 <?php
 
+$objDB = new Database();
+$objDB->setParametrosBD(HOST, BASE, USER, PWD);
+
+$objComun = new Comun();
+$sql = "select codigo_sri, descripcion from tipo_comprador";
+$cmbTipo = $objComun->comboDatoEnlace($objDB, "cmbTipoComprador", $sql, "xajax_verTipoComprador(this.value)", true, false, "");
+
+$sqlIce = "select codigo_sri,codigo_sri||' - '||descripcion from impuesto where codigo_tipo_impuesto=3";
+$arrIce = $objComun->obtenerArreglo($objDB, $sqlIce);
+
 function validarForm($form, $opcion) {
     $codigo_tipo_impuesto = strtoupper(trim($form['codigo_tipo_impuesto']));
 
@@ -54,7 +64,7 @@ function ingresar($form) {
 
     $codigo_sri = strtoupper(trim($form['codigo_sri']));
 
-    global $objPaginacion, $objComun;
+
 
     $objDB = new Database();
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
@@ -71,47 +81,60 @@ function ingresar($form) {
     return $objResponse;
 }
 
-
 function addrow($indice) {
-    global $enlace, $objPaginacion, $objComun;
+
+    global $arrIce;
+    $objComun = new Comun();
+
     $objResponse = new xajaxResponse();
     $idx = $indice + 2;
     $indice = $indice + 1;
-    $row = "<table class='borde_detalle' width='1100px'>
-	    <tr id='tr_$indice' class='borde_item'>
-		<td id='td_$indice" . "_1'  width='10%' class='borde_text'>		
-		<input type='text' class='borde_text' name='txtCP_$indice' id='txtCP_$indice' size='14' value='' maxlength='25' onblur='xajax_verProducto(this.value,1,$indice)' />
+    $cmbIce = $objComun->comboDatoArreglo("cmbIce_$indice", $arrIce, "", true, false, "", "class='combo_dato'");
+
+    $row = "<tr id='tr_$indice' class=''>
+		<td id='td_$indice" . "_1'  width='120px' class='borde'>		
+		<input type='text' class='borde_text' name='txtCP_$indice' id='txtCP_$indice'  value='' maxlength='25' onblur='xajax_verProducto(this.value,1,$indice)' />
 		</td>
-		<td id='td_$indice" . "_2' width='10%'  class='borde_text'>		
-		<input type='text'  class='borde_text'  name='txtCA_$indice' id='txtCA_$indice' size='14' value='' maxlength='25' onblur='xajax_verProducto(this.value,2,$indice)' />
+		<td id='td_$indice" . "_2' width='120px'  class='borde'>		
+		<input type='text'  class='borde_text'  name='txtCA_$indice' id='txtCA_$indice'  value='' maxlength='25'  />
 		</td>
-		<td id='td_$indice" . "_3' width='10%'  class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtC_$indice' id='txtC_$indice' size='14' value='' maxlength='9'  onkeyup=\"mask_decimal4(txtC_$indice)\"   onfocus=\"xajax_calcularPrecioTotal($indice,xajax.getFormValues('form'));\"   />
+		<td id='td_$indice" . "_3' width='100px'  class='borde'>		
+		<input type='text'   class='borde_num_short'  name='txtC_$indice' id='txtC_$indice'  value='' maxlength='9' onkeyup=\"soloNumeros(this)\"   onchange=\"calcularDetalle($indice);\"  onblur=\"calcularDetalle($indice);\" />
 		</td>
-		<td id='td_$indice" . "_4' width='15%' class='borde_text'>		
-		<input type='text'   class='borde_text'  name='txtD_$indice' id='txtD_$indice' size='27' value='' maxlength='64' />
-		</td>
-		<td id='td_$indice" . "_5' width='15%'  class='borde_text'>		
-		<input type='text'   class='borde_text'  name='txtDA_$indice' id='txtDA_$indice' size='27' value='' maxlength='64' />
-		</td>
-		<td id='td_$indice" . "_6' width='10%'  class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtPU_$indice' id='txtPU_$indice' size='14' value='0.0000' maxlength='9' onkeyup=\"mask_decimal4(txtPU_$indice)\"  onblur=\"xajax_calcularPrecioTotal($indice,xajax.getFormValues('form'));\" />
-		</td>
-		<td id='td_$indice" . "_7' width='10%'  class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtDsct_$indice' id='txtDsct_$indice' size='14' value='0.00' maxlength='9'  onkeyup=\"mask_decimal2(txtDsct_$indice)\"  onblur=\"xajax_calcularPrecioTotal($indice,xajax.getFormValues('form'));\" />
-		</td>
-		<td id='td_$indice" . "_8'  width='10%' class='borde_num'>		
-		<input type='text'   class='borde_num'  name='txtPT_$indice' id='txtPT_$indice' size='14' value='0.00' maxlength='14' onchange=\"mask_decimal2(txtDsct_$indice)\" />
+		<td id='td_$indice" . "_4' width='230px' class='borde'>		
+		<input type='text'   class='borde_text_large'  name='txtD_$indice' id='txtD_$indice'  value='' maxlength='64' />
 		</td>
 		
-		<td align='center' class='enlace' id='td_$indice" . "_9'  width='5%' onclick=\"xajax_addrow(document.getElementById('txtIndice').value)\">
+		<td id='td_$indice" . "_6' width='120px'  class='borde'>		
+		<input type='text'   class='borde_num'  name='txtPU_$indice' id='txtPU_$indice'  value='' maxlength='9'  onkeyup=\"soloNumeros(this)\"    onblur=\"calcularDetalle($indice);\" />
+		</td>
+		<td id='td_$indice" . "_7' width='100px'  class='borde'>		
+		<input type='text'   class='borde_num_short'  name='txtDsct_$indice' id='txtDsct_$indice'  value='' maxlength='9'   onkeyup=\"soloNumeros(this)\"   onblur=\"calcularDetalle($indice);\"  />
+		</td>
+                
+                <td id='td_$indice" . "_9'  width='40px' class='borde' align='center'>		
+		<input type='checkbox'  name='chkIva_$indice' id='chkIva_$indice' onchange='xajax_cambiarIva($indice,this.checked)' />
+		</td>
+                
+                <td id='td_$indice" . "_10'  width='70px' class='borde'>		
+                    $cmbIce
+		</td>
+                
+		<td id='td_$indice" . "_8'  width='120px' class='borde'>		
+		<input type='text'   class='borde_num'  name='txtPT_$indice' id='txtPT_$indice'  value='' maxlength='14'  onkeyup=\"soloNumeros(this)\"  onblur=\"calcularDetalle($indice);\"  />
+		</td>
+		
+		<td align='center' class='enlace' id='td_$indice" . "_9'  width='25px' onclick=\"xajax_addrow(document.getElementById('txtIndice').value)\">
 			<img src='imagenes/add.png' />
 		</td>
-		<td align='center'  class='enlace' id='td_$indice" . "_10'  width='5%' onclick='xajax_delrow($indice);'>
+		<td align='center'  class='enlace' id='td_$indice" . "_10'  width='25px' onclick='xajax_delrow($indice);'>
 			<img src='imagenes/cross.png' />
+                        
+                        
                         
                         <input type='hidden'    name='txtIVA_$indice' id='txtIVA_$indice' value='0' />
                         <input type='hidden'    name='txtPIVA_$indice' id='txtPIVA_$indice' value='0' />
+                        <input type='hidden'    name='txtCIVA_$indice' id='txtCIVA_$indice' value='0' />
                         <input type='hidden'    name='txtICE_$indice' id='txtICE_$indice' value='0' />
                         <input type='hidden'    name='txtPICE_$indice' id='txtPICE_$indice' value='0' />
                         <input type='hidden'    name='txtCICE_$indice' id='txtCICE_$indice' value='0' />
@@ -119,21 +142,20 @@ function addrow($indice) {
 		</td>
 		
 		</tr>
-		</table> <div id='dvDet$idx'></div>";
+		 <tr id=\"tr_$idx\"></tr>";
 
-    $dev = "dvDet$indice";
-    $objResponse->append("$dev", "innerHTML", $row);
+
+    $dev = "tr_$indice";
+    $objResponse->assign("$dev", "outerHTML", $row);
     $objResponse->assign("txtIndice", "value", $indice);
 
     return $objResponse;
 }
 
 function delrow($indice) {
-
-    global $enlace, $objPaginacion, $objComun;
-    $dev = "dvDet$indice";
+    $dev = "tr_$indice";
     $objResponse = new xajaxResponse();
-    $objResponse->assign("tr_$indice", "innerHTML", "");
+    $objResponse->assign("tr_$indice", "outerHTML", "");
 // $objResponse->assign("$dev", "innerHTML", "");
     return $objResponse;
 }
@@ -141,8 +163,8 @@ function delrow($indice) {
 function calcularPrecioTotal($idx, $form) {
     $objResponse = new xajaxResponse();
 
-    $objResponse->alert(print_r($form, true));
-    
+    //$objResponse->alert(print_r($form, true));
+
     $codPrincipal = $form["txtCP_$idx"];
     $codAuxiliar = $form["txtCA_$idx"];
     $cantidad = $form["txtC_$idx"];
@@ -202,7 +224,6 @@ function calcularTotal($form) {
 
     $subtotal12 = $form["txtSubtotal12"];
     $subtotal0 = $form["txtSubtotal0"];
-    $subtotalNoIva = $form["txtSubtotalnoiva"];
     $subtotalSinImp["txtSubtotalsinimp"];
     $subtotalDescuento = $form["txtDescuento"];
     $totalIce = $form["txtIce"];
@@ -302,59 +323,109 @@ function verProducto($producto, $tipo, $indice) {
     $objDB->setParametrosBD(HOST, BASE, USER, PWD);
     $objDB->getConexion();
 
-    if ($tipo == "1") {
-        $pro = " and UPPER(a.codigo_principal) =UPPER('$producto')";
-    } else {
-        $pro = " and UPPER(a.codigo_auxiliar) =UPPER('$producto')";
-    }
-    $sql = "select a.codigo_auxiliar, a.descripcion, a.descripcion_adicional, a.precio_unitario, c.porcentaje, c.codigo_sri, 'IVA' as tipo from producto as a inner join producto_impuesto as b
-    on a.codigo = b.codigo_producto inner join impuesto as c
-    on b.codigo_impuesto = c.codigo_impuesto
-    and c.codigo_tipo_impuesto = 1
-    $pro ";
+    //$objResponse->alert($producto."".$tipo."".$indice);
 
-    $sql1 = " select a.codigo_auxiliar, a.descripcion, a.descripcion_adicional, a.precio_unitario, c.porcentaje, c.codigo_sri, 'ICE' as tipo from producto as a inner join producto_impuesto as b
+
+    $pro = " and UPPER(a.codigo_principal) =UPPER('$producto')";
+
+    $sql = "select a.codigo, a.codigo_auxiliar, a.descripcion, a.descripcion_adicional, a.precio_unitario, c.porcentaje, c.codigo_sri, 'IVA' as tipo 
+    from producto as a inner join producto_impuesto as b
     on a.codigo = b.codigo_producto inner join impuesto as c
     on b.codigo_impuesto = c.codigo_impuesto
     and c.codigo_tipo_impuesto = 2
     $pro ";
     $rs = $objDB->query($sql);
     $arr_iva = $objDB->fetch_array($rs);
+    $codProducto = $arr_iva["codigo"];
+    $des = $arr_iva["descripcion"];
+    $desa = $arr_iva["descripcion_adicional"];
+    $codigo_auxiliar = $arr_iva["codigo_auxiliar"];
+    $pu = $arr_iva["precio_unitario"];
 
+    $sql1 = "select c.descripcion, b.codigo_sri, b.porcentaje, c.codigo_sri as codigo_tipo_impuesto from producto_impuesto as a inner join impuesto as b
+    on a.codigo_impuesto = b.codigo_impuesto inner join tipo_impuesto as c
+    on b.codigo_tipo_impuesto = c.codigo
+    and a.codigo_producto = '$codProducto'
+    and c.codigo_sri = '2'";
     $rs1 = $objDB->query($sql1);
     $arr_ice = $objDB->fetch_array($rs1);
 
-
-    $pu = $arr_iva["precio_unitario"];
     $iva = 0;
-    $tarifa12 = $arr_iva["porcentaje"];
+    $tarifa12 = $arr_ice["porcentaje"];
+    $codigoIva = $arr_ice["codigo_sri"];
+
+    $sql1 = "select c.descripcion, b.codigo_sri, b.porcentaje, c.codigo_sri as codigo_tipo_impuesto from producto_impuesto as a inner join impuesto as b
+    on a.codigo_impuesto = b.codigo_impuesto inner join tipo_impuesto as c
+    on b.codigo_tipo_impuesto = c.codigo
+    and a.codigo_producto = '$codProducto'
+    and c.codigo_sri = '3'";
+    $rs1 = $objDB->query($sql1);
+    $arr_ice = $objDB->fetch_array($rs1);
+
     $ice = 0;
     $tarifaIce = $arr_ice["porcentaje"];
     $codigoIce = $arr_ice["codigo_sri"];
-    if ($tipo == "1") {
-        $des = $arr_iva["descripcion"];
-        $desa = $arr_iva["descripcion_adicional"];
-        $codigo_auxiliar = $arr_iva["codigo_auxiliar"];
-    } else {
-        $des = $arr_ice["descripcion"];
-        $desa = $arr_ice["descripcion_adicional"];
-        $codigo_auxiliar = $arr_iva["codigo_auxiliar"];
-    }
-
 
     $objResponse->assign("txtCA_$indice", "value", "$codigo_auxiliar");
-    
+
     $objResponse->assign("txtD_$indice", "value", "$des");
     $objResponse->assign("txtDA_$indice", "value", "$desa");
-
     $objResponse->assign("txtPU_$indice", "value", "$pu");
     $objResponse->assign("txtC_$indice", "value", "1");
+
     $objResponse->assign("txtIVA_$indice", "value", "$iva");
     $objResponse->assign("txtPIVA_$indice", "value", "$tarifa12");
+    $objResponse->assign("txtCIVA_$indice", "value", "$codigoIva");
+
     $objResponse->assign("txtICE_$indice", "value", "$ice");
     $objResponse->assign("txtPICE_$indice", "value", "$tarifaIce");
     $objResponse->assign("txtCICE_$indice", "value", "$codigoIce");
+    $objResponse->assign("cmbIce_$indice", "value", "$codigoIce");
 
+    $objResponse->assign("txtPT_$indice", "value", $pu);
+
+
+    if ($tarifa12 > 0) {
+        $objResponse->assign("chkIva_$indice", "checked", "checked");
+    }
+
+    $objResponse->script("calcularDetalle($indice)");
+    return $objResponse;
+}
+
+function verTipoComprador($tipoComprador) {
+    $objResponse = new xajaxResponse();
+    if ($tipoComprador == "07") {
+        $objResponse->assign("txtDocumento", "value", "9999999999999");
+        $objResponse->assign("txtDocumento", "maxlength", "13");
+        $objResponse->setEvent("txtDocumento", "onkeyup", "xajax_validaConsumidor(this.value)");
+    }
+    return $objResponse;
+}
+
+function validaConsumidor($dato) {
+    $objResponse = new xajaxResponse();
+    if ($dato != "9999999999999") {
+        $objResponse->assign("txtDocumento", "style", "border-color:red;border-style:solid;");
+        //$objResponse->assign("dvMensaje", "innerHTML", "Consumidor final no es valido");
+    } else {
+        $objResponse->assign("dvMensaje", "innerHTML", "");
+        $objResponse->assign("txtDocumento", "style", "border-color:#ccccc");
+    }
+    return $objResponse;
+}
+
+function cambiarIva($indice, $valor) {
+    $objResponse = new xajaxResponse();
+    if ($valor == "1") {
+        $objResponse->assign("txtIVA_$indice", "value", "0");
+        $objResponse->assign("txtPIVA_$indice", "value", "12");
+        $objResponse->assign("txtCIVA_$indice", "value", "2");
+    } else {
+        $objResponse->assign("txtIVA_$indice", "value", "0");
+        $objResponse->assign("txtPIVA_$indice", "value", "0");
+        $objResponse->assign("txtCIVA_$indice", "value", "1");
+    }
     return $objResponse;
 }
 
@@ -367,6 +438,9 @@ $xajax->register(XAJAX_FUNCTION, "calcularTotal");
 $xajax->register(XAJAX_FUNCTION, "verProducto");
 
 
+$xajax->register(XAJAX_FUNCTION, "cambiarIva");
+$xajax->register(XAJAX_FUNCTION, "validaConsumidor");
+$xajax->register(XAJAX_FUNCTION, "verTipoComprador");
 $xajax->register(XAJAX_FUNCTION, "validarForm");
 $xajax->register(XAJAX_FUNCTION, "ingresar");
 $xajax->register(XAJAX_FUNCTION, "actualizar");
