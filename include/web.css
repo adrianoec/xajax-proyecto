@@ -1,0 +1,90 @@
+
+input.borde_text {
+  
+    text-align: left;
+    width: 120px;
+}
+
+input.borde_text_large {
+
+    text-align: left;
+    width: 230px;
+}
+
+input.borde_num {
+ 
+    width: 100px;
+    text-align: right;
+}
+input.borde_num_short {
+
+    width: 80px;
+    text-align: right;
+}
+
+
+
+select.combo_dato{
+    width: 55px;
+    height:auto;
+}
+
+
+
+table.borde_detalle:hover{
+    background: #CCC
+}
+table.borde_detalle{
+    background: #CCC
+}
+table.borde_detalle:ntr-child(even) {
+    background: #CCC
+}
+table.borde_detalle:ntr-child(odd) {
+    background: #FFF
+}
+
+table.acordeon {
+    background-color: #EDF3FF;
+}
+
+table.acordeon:hover {
+    background-color: #e6EEEE;
+}
+
+th.enlace {
+    text-align: center;
+    cursor: pointer;
+}
+
+td.borde {
+    text-align: left;
+}
+
+
+th.borde_head {
+    text-align: center;
+    font-style: normal;
+    background-color: #6E6E6E;
+}
+
+
+
+td.enlace {
+   
+    text-align: center;
+    cursor: pointer;
+    background: #FFF;
+}
+
+td.campo {
+    background: #CCC;
+    border-color: #FFF;
+}
+td.dato {
+
+    border-color: #FFF;
+    border: 0;
+}
+
+
